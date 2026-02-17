@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Introdução à Programação com Python</title>
+    <style>
+        /* --- RESET E BASE --- */
+        :root {
+            --primary: #306998;
+            --secondary: #FFD43B;
+            --bg-light: #f4f7fe;
+            --text-dark: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HEADER SUPERIOR --- */
+        .top-header {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .brand {
+            font-size: 1.5em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-text {
+            background: linear-gradient(to right, var(--primary), #4B8BBE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .search-box {
+            position: relative;
+            width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 20px 10px 40px;
+            border-radius: 50px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(48, 105, 152, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), #4B8BBE);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+            overflow: hidden;
+        }
+
+        /* NAVEGAÇÃO POR ABAS */
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 2px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            font-size: 1em;
+            font-weight: 600;
+            color: #718096;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background: rgba(48, 105, 152, 0.05);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            background: white;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab-btn[data-target="cap1"].active::after {
+            background: var(--secondary);
+        }
+
+        /* CONTEÚDO DAS ABAS */
+        .tab-content {
+            flex: 1;
+            overflow-y: auto;
+            display: none;
+            animation: fadeIn 0.4s ease;
+            padding-bottom: 50px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- DASHBOARD --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .dash-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .dash-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-circular {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 8%, #e2e8f0 0);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .progress-circular::before {
+            content: '8%';
+            position: absolute;
+            background: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* --- CARDS DE AULA --- */
+        .bimestre-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bimestre-badge {
+            font-size: 0.6em;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-cap1 {
+            background: rgba(255, 212, 59, 0.2);
+            color: #b8960e;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .lesson-id {
+            font-weight: 700;
+            color: #a0aec0;
+        }
+
+        .lesson-status {
+            font-size: 1.2em;
+        }
+
+        .lesson-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .lesson-desc {
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .lesson-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .mini-tag {
+            font-size: 0.75em;
+            padding: 3px 8px;
+            background: #edf2f7;
+            color: #718096;
+            border-radius: 6px;
+        }
+
+        .lesson-card.done .lesson-status {
+            color: #38b000;
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .tabs-nav {
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+
+            .tab-btn {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="top-header">
+        <div class="brand">
+            <span class="brand-icons">&#x1F40D;</span>
+            <span class="brand-text">Python Dashboard</span>
+        </div>
+        <div class="search-box">
+            <span class="search-icon">&#x1F50D;</span>
+            <input
+                type="text"
+                id="globalSearch"
+                class="search-input"
+                placeholder="Buscar aula..."
+                onkeyup="performGlobalSearch()"
+            >
+        </div>
+        <div class="user-profile">
+            <div>
+                <div style="font-weight: 600;">Prof. C&eacute;sar Azevedo</div>
+                <div style="font-size: 0.85em; color: #718096;">Administrador</div>
+            </div>
+            <div class="user-avatar">CA</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        <!-- NAVEGAÇÃO POR ABAS -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-target="visao-geral">&#x1F4CA; Vis&atilde;o Geral</button>
+            <button class="tab-btn" data-target="cap1">&#x1F680; Cap 1 &mdash; Motiva&ccedil;&atilde;o</button>
+        </div>
+
+        <!-- VISÃO GERAL -->
+        <div id="visao-geral" class="tab-content active">
+            <div class="dashboard-grid">
+                <div class="dash-card">
+                    <h3>&#x1F4C8; Progresso do Curso</h3>
+                    <div class="progress-circular"></div>
+                    <p style="text-align:center; margin-top:12px; color:#718096; font-size:0.9em;">Cap&iacute;tulo 1 de ~12</p>
+                </div>
+
+                <div class="dash-card">
+                    <h3>&#x1F468;&#x200D;&#x1F3EB; Contato do Professor</h3>
+                    <p><strong>C&eacute;sar Azevedo</strong></p>
+                    <p style="margin-top:8px;">&#x1F4E7; cesar.augusto@escolar.ifrn.edu.br</p>
+                    <p style="margin-top:12px; font-size:0.9em; color:#718096;">
+                        <strong>Livro-texto:</strong><br>
+                        Introdu&ccedil;&atilde;o &agrave; Programa&ccedil;&atilde;o com Python<br>
+                        <em>Nilo Ney Coutinho Menezes</em>
+                    </p>
+                </div>
+
+                <div class="dash-card">
+                    <h3>&#x1F4C5; Status dos Cap&iacute;tulos</h3>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li><strong>Cap 1 &mdash; Motiva&ccedil;&atilde;o</strong><br>&#x2705; Publicado</li>
+                        <li><strong>Cap 2 &mdash; Preparando o Ambiente</strong><br>&#x23F3; Em breve</li>
+                        <li><strong>Cap 3 &mdash; Vari&aacute;veis e Entrada</strong><br>&#x1F512; Futuro</li>
+                        <li><strong>Cap 4 &mdash; Condi&ccedil;&otilde;es</strong><br>&#x1F512; Futuro</li>
+                        <li><strong>Cap 5 &mdash; Repeti&ccedil;&otilde;es</strong><br>&#x1F512; Futuro</li>
+                        <li><strong>Cap 6+ &mdash; Avan&ccedil;ado</strong><br>&#x1F512; Futuro</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO 1 — MOTIVAÇÃO -->
+        <div id="cap1" class="tab-content">
+            <div class="bimestre-title">
+                Motiva&ccedil;&atilde;o <span class="bimestre-badge badge-cap1">Cap&iacute;tulo 1</span>
+            </div>
+
+            <div class="lessons-grid">
+                <a href="cap1-01-por-que-programar.html" class="lesson-card done">
+                    <div class="lesson-header">
+                        <span class="lesson-id">#01&#x1F4A1;</span>
+                        <span class="lesson-status">&#x2705;</span>
+                    </div>
+                    <h4 class="lesson-title">Por que aprender a programar?</h4>
+                    <p class="lesson-desc">Tudo come&ccedil;a com vontade, dedica&ccedil;&atilde;o e um primeiro passo. Descubra por que programar vai mudar sua forma de pensar.</p>
+                    <div class="lesson-tags">
+                        <span class="mini-tag">Motiva&ccedil;&atilde;o</span>
+                        <span class="mini-tag">In&iacute;cio</span>
+                    </div>
+                </a>
+
+                <a href="cap1-02-paciencia.html" class="lesson-card done">
+                    <div class="lesson-header">
+                        <span class="lesson-id">#02&#x23F3;</span>
+                        <span class="lesson-status">&#x2705;</span>
+                    </div>
+                    <h4 class="lesson-title">Paci&ecirc;ncia: a virtude do programador</h4>
+                    <p class="lesson-desc">Come&ccedil;ar simples, prestar aten&ccedil;&atilde;o aos detalhes e entender que errar faz parte do processo.</p>
+                    <div class="lesson-tags">
+                        <span class="mini-tag">Paci&ecirc;ncia</span>
+                        <span class="mini-tag">Erros</span>
+                    </div>
+                </a>
+
+                <a href="cap1-03-tempo-estudo.html" class="lesson-card done">
+                    <div class="lesson-header">
+                        <span class="lesson-id">#03&#x23F0;</span>
+                        <span class="lesson-status">&#x2705;</span>
+                    </div>
+                    <h4 class="lesson-title">Tempo de estudo e ritmo</h4>
+                    <p class="lesson-desc">Sess&otilde;es curtas e frequentes valem mais que marat&oacute;nas. Encontre seu estilo e mantenha a calma.</p>
+                    <div class="lesson-tags">
+                        <span class="mini-tag">Estudo</span>
+                        <span class="mini-tag">Ritmo</span>
+                    </div>
+                </a>
+
+                <a href="cap1-04-programar-para-que.html" class="lesson-card done">
+                    <div class="lesson-header">
+                        <span class="lesson-id">#04&#x1F30D;</span>
+                        <span class="lesson-status">&#x2705;</span>
+                    </div>
+                    <h4 class="lesson-title">Programar para qu&ecirc;?</h4>
+                    <p class="lesson-desc">Da web ao rel&oacute;gio, dos mapas &agrave; cozinha &mdash; programa&ccedil;&atilde;o est&aacute; em tudo. Veja 9 exemplos do dia a dia.</p>
+                    <div class="lesson-tags">
+                        <span class="mini-tag">Aplica&ccedil;&otilde;es</span>
+                        <span class="mini-tag">Dia a dia</span>
+                    </div>
+                </a>
+
+                <a href="cap1-05-por-que-python.html" class="lesson-card done">
+                    <div class="lesson-header">
+                        <span class="lesson-id">#05&#x1F40D;</span>
+                        <span class="lesson-status">&#x2705;</span>
+                    </div>
+                    <h4 class="lesson-title">Por que Python?</h4>
+                    <p class="lesson-desc">Simplicidade, legibilidade e &ldquo;batteries included&rdquo;. Conhe&ccedil;a a linguagem que conquistou o mundo.</p>
+                    <div class="lesson-tags">
+                        <span class="mini-tag">Python</span>
+                        <span class="mini-tag">Linguagem</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ABAS
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    const targetId = button.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+
+        // BUSCA GLOBAL
+        function performGlobalSearch() {
+            const input = document.getElementById('globalSearch');
+            const filter = input.value.toUpperCase();
+            const activeSection = document.querySelector('.tab-content.active');
+            if(activeSection) {
+                const cards = activeSection.querySelectorAll('.lesson-card');
+                cards.forEach(card => {
+                    const title = card.querySelector('.lesson-title').innerText;
+                    const desc = card.querySelector('.lesson-desc').innerText;
+                    const tags = card.querySelector('.lesson-tags').innerText;
+                    if (title.toUpperCase().indexOf(filter) > -1 ||
+                        desc.toUpperCase().indexOf(filter) > -1 ||
+                        tags.toUpperCase().indexOf(filter) > -1) {
+                        card.style.display = "";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

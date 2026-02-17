@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1.1 - Por que aprender a programar?</title>
+    <style>
+        :root {
+            --primary: #306998;
+            --secondary: #FFD43B;
+            --bg-light: #f4f7fe;
+            --text-dark: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+
+        .page-badge {
+            font-size: 0.8em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255,212,59,0.2);
+            color: #b8960e;
+            font-weight: 600;
+        }
+
+        .content-wrapper {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        .lesson-hero {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .lesson-hero h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .lesson-hero .subtitle {
+            font-size: 1.1em;
+            color: #718096;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .content-card h2 {
+            font-size: 1.4em;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-card p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1));
+            border-left: 4px solid var(--secondary);
+            padding: 20px 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        ul, ol { margin: 10px 0 15px 25px; }
+        li { margin-bottom: 8px; }
+
+        @media (max-width: 768px) {
+            .content-wrapper { padding: 0 15px; }
+            .lesson-hero, .content-card { padding: 25px; }
+            .lesson-hero h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 1 &mdash; Motiva&ccedil;&atilde;o</span>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F4A1; Por que aprender a programar?</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 1.1 &mdash; O primeiro passo &eacute; querer come&ccedil;ar</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F3AF; Tudo come&ccedil;a com vontade</h2>
+            <p>Aprender a programar n&atilde;o exige nenhum talento sobrenatural. N&atilde;o &eacute; preciso ser g&ecirc;nio em matem&aacute;tica, ter nascido &ldquo;sabendo&rdquo; ou j&aacute; ter alguma experi&ecirc;ncia com computadores. O primeiro ingrediente &eacute; simples: <strong>vontade</strong>.</p>
+            <p>Quando decidimos aprender algo novo, a parte mais dif&iacute;cil costuma ser dar o primeiro passo. Com programa&ccedil;&atilde;o n&atilde;o &eacute; diferente. Mas a boa not&iacute;cia &eacute; que qualquer pessoa pode aprender &mdash; e o caminho &eacute; mais acess&iacute;vel do que parece.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F4AA; Dedica&ccedil;&atilde;o importa mais que talento</h2>
+            <p>Programa&ccedil;&atilde;o se aprende fazendo. N&atilde;o basta ler ou assistir &mdash; voc&ecirc; precisa colocar a m&atilde;o na massa, digitar c&oacute;digo, errar, corrigir e tentar de novo. Esse ciclo de tentativa e erro &eacute; o verdadeiro motor do aprendizado.</p>
+
+            <div class="highlight-box">
+                <p>&ldquo;Aprender a programar &eacute; como aprender um idioma novo: no come&ccedil;o parece imposs&iacute;vel, mas com pr&aacute;tica tudo come&ccedil;a a fazer sentido.&rdquo;</p>
+            </div>
+
+            <p>O importante &eacute; manter a consist&ecirc;ncia. Um pouco a cada dia &eacute; mais eficiente do que tentar aprender tudo de uma vez. A dedica&ccedil;&atilde;o cont&iacute;nua transforma o dif&iacute;cil em natural.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F9E0; Programar muda sua forma de pensar</h2>
+            <p>Mais do que escrever c&oacute;digo, programar ensina voc&ecirc; a:</p>
+            <ul>
+                <li><strong>Decompor problemas</strong> &mdash; dividir algo grande em partes menores e resolv&eacute;veis</li>
+                <li><strong>Pensar logicamente</strong> &mdash; encadear passos de forma organizada</li>
+                <li><strong>Resolver problemas criativamente</strong> &mdash; encontrar solu&ccedil;&otilde;es que outros n&atilde;o veem</li>
+                <li><strong>Comunicar ideias com precis&atilde;o</strong> &mdash; computadores exigem clareza absoluta</li>
+            </ul>
+            <p>Essas habilidades s&atilde;o &uacute;teis em qualquer &aacute;rea da vida, n&atilde;o apenas na computa&ccedil;&atilde;o. Por isso se diz que <strong>programar &eacute; a nova alfabetiza&ccedil;&atilde;o</strong>.</p>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html" class="nav-link">&#x2B05; Dashboard</a>
+            <a href="cap1-02-paciencia.html" class="nav-link">Pr&oacute;xima: Paci&ecirc;ncia &#x27A1;</a>
+        </div>
+    </div>
+</body>
+</html>

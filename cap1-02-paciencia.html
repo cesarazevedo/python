@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1.2 - Paciência: a virtude do programador</title>
+    <style>
+        :root {
+            --primary: #306998;
+            --secondary: #FFD43B;
+            --bg-light: #f4f7fe;
+            --text-dark: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+
+        .page-badge {
+            font-size: 0.8em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255,212,59,0.2);
+            color: #b8960e;
+            font-weight: 600;
+        }
+
+        .content-wrapper {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        .lesson-hero {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .lesson-hero h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .lesson-hero .subtitle {
+            font-size: 1.1em;
+            color: #718096;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .content-card h2 {
+            font-size: 1.4em;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-card p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1));
+            border-left: 4px solid var(--secondary);
+            padding: 20px 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        ul, ol { margin: 10px 0 15px 25px; }
+        li { margin-bottom: 8px; }
+
+        @media (max-width: 768px) {
+            .content-wrapper { padding: 0 15px; }
+            .lesson-hero, .content-card { padding: 25px; }
+            .lesson-hero h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 1 &mdash; Motiva&ccedil;&atilde;o</span>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x23F3; Paci&ecirc;ncia: a virtude do programador</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 1.2 &mdash; Come&ccedil;ar simples &eacute; come&ccedil;ar certo</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F476; Comece pelo b&aacute;sico</h2>
+            <p>Ao aprender a programar, &eacute; tentador querer criar um aplicativo completo logo de cara. Mas assim como n&atilde;o come&ccedil;amos a ler por um romance de 500 p&aacute;ginas, em programa&ccedil;&atilde;o come&ccedil;amos pelo simples.</p>
+            <p>Os primeiros programas ser&atilde;o pequenos. Talvez pare&ccedil;am at&eacute; &ldquo;bobos&rdquo;. Mas cada programa simples ensina um conceito fundamental que ser&aacute; usado para sempre. <strong>Dominar o b&aacute;sico &eacute; o que separa quem desiste de quem avan&ccedil;a.</strong></p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F50D; Aten&ccedil;&atilde;o aos detalhes</h2>
+            <p>Computadores s&atilde;o extremamente literais. Eles fazem exatamente o que voc&ecirc; manda &mdash; nem mais, nem menos. Um ponto-e-v&iacute;rgula fora do lugar, um par&ecirc;ntese esquecido ou uma letra mai&uacute;scula onde deveria ser min&uacute;scula podem causar erros.</p>
+            <p>Isso pode ser frustrante no in&iacute;cio, mas desenvolve uma habilidade valiosa: <strong>aten&ccedil;&atilde;o aos detalhes</strong>. Com o tempo, seus olhos se treinam a identificar problemas rapidamente.</p>
+
+            <div class="highlight-box">
+                <p>&ldquo;O computador n&atilde;o faz o que voc&ecirc; quer &mdash; ele faz o que voc&ecirc; manda. A diferen&ccedil;a entre os dois &eacute; onde mora o bug.&rdquo;</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F6A8; Errar faz parte (e &eacute; bom!)</h2>
+            <p>Se tem uma certeza em programa&ccedil;&atilde;o, &eacute; esta: <strong>voc&ecirc; vai errar</strong>. Muito. E tudo bem.</p>
+            <p>Mensagens de erro n&atilde;o s&atilde;o puni&ccedil;&otilde;es &mdash; s&atilde;o pistas. Cada erro &eacute; uma oportunidade de entender melhor como o computador funciona. Os melhores programadores n&atilde;o s&atilde;o os que n&atilde;o erram, mas os que sabem <strong>interpretar e corrigir erros rapidamente</strong>.</p>
+            <p>Dicas para lidar com erros:</p>
+            <ul>
+                <li><strong>Leia a mensagem de erro inteira</strong> &mdash; ela quase sempre diz o que aconteceu e onde</li>
+                <li><strong>N&atilde;o entre em p&acirc;nico</strong> &mdash; respire e releia o c&oacute;digo com calma</li>
+                <li><strong>Compare com exemplos que funcionam</strong> &mdash; encontre a diferen&ccedil;a</li>
+                <li><strong>Pesquise o erro</strong> &mdash; milh&otilde;es de pessoas j&aacute; tiveram o mesmo problema</li>
+            </ul>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap1-01-por-que-programar.html" class="nav-link">&#x2B05; Anterior</a>
+            <a href="cap1-03-tempo-estudo.html" class="nav-link">Pr&oacute;xima: Tempo de estudo &#x27A1;</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1.5 - Por que Python?</title>
+    <style>
+        :root {
+            --primary: #306998;
+            --secondary: #FFD43B;
+            --bg-light: #f4f7fe;
+            --text-dark: #2d3748;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+
+        .page-badge {
+            font-size: 0.8em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255,212,59,0.2);
+            color: #b8960e;
+            font-weight: 600;
+        }
+
+        .content-wrapper {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        .lesson-hero {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .lesson-hero h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .lesson-hero .subtitle {
+            font-size: 1.1em;
+            color: #718096;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .content-card h2 {
+            font-size: 1.4em;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-card p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1));
+            border-left: 4px solid var(--secondary);
+            padding: 20px 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1em;
+            margin: 20px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block .code-label {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.75em;
+            color: #64748b;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .output { color: #fbbf24; }
+
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .compare-item {
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .compare-item.python-side {
+            background: rgba(48,105,152,0.05);
+            border-color: var(--primary);
+        }
+
+        .compare-item.other-side {
+            background: #f8fafc;
+        }
+
+        .compare-item strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .compare-item code {
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            display: block;
+            white-space: pre;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-item .feat-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .feature-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .feature-item span {
+            font-size: 0.9em;
+            color: #718096;
+        }
+
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        ul, ol { margin: 10px 0 15px 25px; }
+        li { margin-bottom: 8px; }
+
+        @media (max-width: 768px) {
+            .content-wrapper { padding: 0 15px; }
+            .lesson-hero, .content-card { padding: 25px; }
+            .lesson-hero h1 { font-size: 1.5em; }
+            .compare-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 1 &mdash; Motiva&ccedil;&atilde;o</span>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F40D; Por que Python?</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 1.5 &mdash; A linguagem que conquistou o mundo pela simplicidade</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x2728; Simplicidade e legibilidade</h2>
+            <p>Python foi criada por <strong>Guido van Rossum</strong> em 1991 com um objetivo claro: ser uma linguagem <strong>f&aacute;cil de ler e escrever</strong>. Enquanto outras linguagens usam chaves, ponto-e-v&iacute;rgula e s&iacute;mbolos complicados, Python usa indenta&ccedil;&atilde;o e palavras que parecem ingl&ecirc;s.</p>
+
+            <div class="compare-grid">
+                <div class="compare-item python-side">
+                    <strong>&#x1F40D; Python</strong>
+                    <code>if idade >= 18:
+    print("Maior de idade")
+else:
+    print("Menor de idade")</code>
+                </div>
+                <div class="compare-item other-side">
+                    <strong>&#x2615; Java</strong>
+                    <code>if (idade >= 18) {
+    System.out.println("Maior de idade");
+} else {
+    System.out.println("Menor de idade");
+}</code>
+                </div>
+            </div>
+
+            <p>Percebeu a diferen&ccedil;a? O c&oacute;digo Python &eacute; mais limpo, mais curto e mais pr&oacute;ximo do portugu&ecirc;s. Isso n&atilde;o &eacute; acidente &mdash; &eacute; filosofia de design.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F50B; &ldquo;Batteries Included&rdquo;</h2>
+            <p>Python vem com uma <strong>biblioteca padr&atilde;o enorme</strong> &mdash; isso significa que muita coisa j&aacute; vem pronta para usar, sem precisar instalar nada extra. Os programadores chamam isso de <em>&ldquo;batteries included&rdquo;</em> (pilhas inclusas).</p>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feat-icon">&#x1F4CA;</div>
+                    <strong>Ci&ecirc;ncia de Dados</strong>
+                    <span>pandas, numpy, matplotlib</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feat-icon">&#x1F916;</div>
+                    <strong>IA e Machine Learning</strong>
+                    <span>tensorflow, scikit-learn</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feat-icon">&#x1F310;</div>
+                    <strong>Web</strong>
+                    <span>Django, Flask, FastAPI</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feat-icon">&#x1F916;</div>
+                    <strong>Automa&ccedil;&atilde;o</strong>
+                    <span>selenium, requests, scrapy</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F680; Seu primeiro programa</h2>
+            <p>Em muitas linguagens, o primeiro programa que um iniciante escreve &eacute; o famoso <strong>&ldquo;Hello World&rdquo;</strong>. Em Python, &eacute; absurdamente simples:</p>
+
+            <div class="code-block">
+                <span class="code-label">Python</span>
+<span class="function">print</span>(<span class="string">"Ol&aacute;, Mundo!"</span>)
+            </div>
+
+            <p>Sim, &eacute; s&oacute; isso. Uma &uacute;nica linha. Execute esse comando e voc&ecirc; ver&aacute;:</p>
+
+            <div class="code-block">
+                <span class="code-label">Sa&iacute;da</span>
+<span class="output">Ol&aacute;, Mundo!</span>
+            </div>
+
+            <p>Agora vamos um pouco al&eacute;m. Que tal um programa que pergunta seu nome?</p>
+
+            <div class="code-block">
+                <span class="code-label">Python</span>
+<span class="comment"># Meu primeiro programa interativo</span>
+nome = <span class="function">input</span>(<span class="string">"Qual &eacute; o seu nome? "</span>)
+<span class="function">print</span>(<span class="string">f"Prazer em conhec&ecirc;-lo, </span>{nome}<span class="string">!"</span>)
+            </div>
+
+            <div class="highlight-box">
+                <p>&ldquo;Python &eacute; a linguagem que mais cresce no mundo. &Eacute; usada pela Google, Netflix, Instagram, NASA e milhares de empresas. Aprender Python &eacute; investir no seu futuro.&rdquo;</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F3C6; Resumo do Cap&iacute;tulo 1</h2>
+            <p>Neste cap&iacute;tulo de motiva&ccedil;&atilde;o, vimos que:</p>
+            <ul>
+                <li><strong>Qualquer pessoa pode aprender</strong> a programar &mdash; basta vontade e dedica&ccedil;&atilde;o</li>
+                <li><strong>Paci&ecirc;ncia e aten&ccedil;&atilde;o</strong> s&atilde;o mais importantes que velocidade</li>
+                <li><strong>Estudo regular</strong> em sess&otilde;es curtas &eacute; mais eficiente que marat&oacute;nas</li>
+                <li><strong>Programa&ccedil;&atilde;o est&aacute; em tudo</strong> &mdash; da web &agrave; sa&uacute;de, dos jogos &agrave; cozinha</li>
+                <li><strong>Python</strong> &eacute; a escolha ideal para iniciantes: simples, poderosa e vers&aacute;til</li>
+            </ul>
+            <p>No pr&oacute;ximo cap&iacute;tulo, vamos preparar o ambiente e come&ccedil;ar a programar de verdade!</p>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap1-04-programar-para-que.html" class="nav-link">&#x2B05; Anterior</a>
+            <a href="index.html" class="nav-link">Voltar ao Dashboard &#x1F3E0;</a>
+        </div>
+    </div>
+</body>
+</html>
