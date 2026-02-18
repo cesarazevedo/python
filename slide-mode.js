@@ -101,7 +101,7 @@
         }
     }
 
-    // Navegação entre páginas com setas (fora do modo slide)
+    // === NAVEGAÇÃO ENTRE PÁGINAS (fora do modo slide) ===
     document.addEventListener('keydown', function(e) {
         if (document.body.classList.contains('slide-active')) return;
         const links = document.querySelectorAll('.nav-link');
@@ -109,15 +109,121 @@
         if (e.key === 'ArrowRight' && links[1]) links[1].click();
     });
 
-    // Initialize when DOM is ready
+    // === BARRA DE FERRAMENTAS DOS BLOCOS DE CÓDIGO ===
+    function initCodeToolbars() {
+        document.querySelectorAll('.code-block').forEach(function(block) {
+            // Captura texto do label e do código ANTES de modificar o DOM
+            const labelEl = block.querySelector('.code-label');
+            const labelText = labelEl ? labelEl.textContent : '';
+
+            const clone = block.cloneNode(true);
+            clone.querySelector('.code-label') && clone.querySelector('.code-label').remove();
+            const codeText = clone.textContent.trim();
+
+            labelEl && labelEl.remove();
+
+            // Monta toolbar
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+
+            const labelSpan = document.createElement('span');
+            labelSpan.className = 'code-toolbar-label';
+            labelSpan.textContent = labelText;
+            toolbar.appendChild(labelSpan);
+
+            const actions = document.createElement('div');
+            actions.className = 'code-toolbar-actions';
+
+            // Botão Python Tutor (só para blocos com código Python real)
+            if (block.querySelector('.keyword, .function')) {
+                const ptUrl = 'https://pythontutor.com/render.html#code='
+                    + encodeURIComponent(codeText)
+                    + '&cumulative=false&curInstr=0&heapPrimitives=nevernest'
+                    + '&mode=display&origin=opt-frontend.js&py=3'
+                    + '&rawInputLstJSON=%5B%5D&textReferences=false';
+                const ptBtn = document.createElement('a');
+                ptBtn.className = 'code-action-btn';
+                ptBtn.href = ptUrl;
+                ptBtn.target = '_blank';
+                ptBtn.rel = 'noopener noreferrer';
+                ptBtn.textContent = '\u25B6 Executar';
+                actions.appendChild(ptBtn);
+            }
+
+            // Botão Copiar
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'code-action-btn';
+            copyBtn.textContent = 'Copiar';
+            copyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(codeText).then(function() {
+                    copyBtn.textContent = '\u2713 Copiado';
+                    copyBtn.classList.add('copied');
+                    setTimeout(function() {
+                        copyBtn.textContent = 'Copiar';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                }).catch(function() {
+                    // Fallback para navegadores sem clipboard API
+                    const ta = document.createElement('textarea');
+                    ta.value = codeText;
+                    ta.style.cssText = 'position:fixed;opacity:0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    copyBtn.textContent = '\u2713 Copiado';
+                    setTimeout(function() { copyBtn.textContent = 'Copiar'; }, 2000);
+                });
+            });
+            actions.appendChild(copyBtn);
+
+            toolbar.appendChild(actions);
+            block.insertBefore(toolbar, block.firstChild);
+            block.style.paddingTop = '44px';
+        });
+    }
+
+    // === CONTROLE DE TAMANHO DE FONTE ===
+    function initFontSize() {
+        const topBar = document.querySelector('.top-bar');
+        if (!topBar) return;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'font-controls';
+        wrap.innerHTML = '<button class="font-btn" id="fontDec" title="Diminuir fonte">A&#x2212;</button>'
+                       + '<button class="font-btn" id="fontInc" title="Aumentar fonte">A+</button>';
+
+        const slideToggle = topBar.querySelector('.slide-toggle');
+        slideToggle ? topBar.insertBefore(wrap, slideToggle) : topBar.appendChild(wrap);
+
+        let size = parseFloat(localStorage.getItem('lessonFontSize') || '16');
+        document.documentElement.style.fontSize = size + 'px';
+
+        document.getElementById('fontDec').addEventListener('click', function() {
+            size = Math.max(13, size - 1);
+            document.documentElement.style.fontSize = size + 'px';
+            localStorage.setItem('lessonFontSize', size);
+        });
+        document.getElementById('fontInc').addEventListener('click', function() {
+            size = Math.min(22, size + 1);
+            document.documentElement.style.fontSize = size + 'px';
+            localStorage.setItem('lessonFontSize', size);
+        });
+    }
+
+    // === SERVICE WORKER ===
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').catch(function() {});
+    }
+
+    // === INICIALIZAÇÃO ===
     document.addEventListener('DOMContentLoaded', function() {
         initSlideMode();
+        initCodeToolbars();
+        initFontSize();
 
-        // Attach toggle button event
         const toggleBtn = document.getElementById('slideToggleBtn');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', enterSlideMode);
-        }
+        if (toggleBtn) toggleBtn.addEventListener('click', enterSlideMode);
     });
 
     // Expose for external use

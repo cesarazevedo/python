@@ -237,6 +237,87 @@ body.slide-active .slide-title-bar {
     display: block;
 }
 
+/* === BARRA DE FERRAMENTAS DOS BLOCOS DE CÓDIGO === */
+.code-toolbar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px 12px 0 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.code-toolbar-label {
+    font-size: 0.73em;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 55%;
+}
+
+.code-toolbar-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.code-action-btn {
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.72em;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08);
+    color: #94a3b8;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.code-action-btn:hover {
+    background: rgba(255,255,255,0.18);
+    color: #e2e8f0;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.code-action-btn.copied {
+    background: rgba(56,176,0,0.25);
+    color: #86efac;
+    border-color: rgba(134,239,172,0.4);
+}
+
+/* === CONTROLES DE TAMANHO DE FONTE === */
+.font-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.font-btn {
+    padding: 5px 9px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    font-weight: 700;
+    color: #306998;
+    font-size: 0.82em;
+    line-height: 1;
+    transition: all 0.2s;
+}
+
+.font-btn:hover {
+    background: #eef4fb;
+    border-color: #306998;
+}
+
 /* --- RESPONSIVE SLIDE MODE --- */
 @media (max-width: 768px) {
     body.slide-active .content-card {

@@ -877,41 +877,60 @@
                 });
         });
 
-        // ABAS
+        // ABAS + URL HASH
         document.addEventListener('DOMContentLoaded', function() {
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
 
+            function activateTab(targetId) {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                const btn = document.querySelector('[data-target="' + targetId + '"]');
+                const content = document.getElementById(targetId);
+                if (btn) btn.classList.add('active');
+                if (content) content.classList.add('active');
+            }
+
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    tabContents.forEach(content => content.classList.remove('active'));
                     const targetId = button.getAttribute('data-target');
-                    document.getElementById(targetId).classList.add('active');
+                    activateTab(targetId);
+                    history.replaceState(null, '', '#' + targetId);
                 });
             });
+
+            // Abre a aba correta se houver hash na URL
+            const hash = location.hash.slice(1);
+            if (hash && document.getElementById(hash)) activateTab(hash);
         });
 
-        // BUSCA GLOBAL
+        // SERVICE WORKER
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
+
+        // BUSCA GLOBAL (todas as abas)
         function performGlobalSearch() {
-            const input = document.getElementById('globalSearch');
-            const filter = input.value.toUpperCase();
-            const activeSection = document.querySelector('.tab-content.active');
-            if(activeSection) {
-                const cards = activeSection.querySelectorAll('.lesson-card');
-                cards.forEach(card => {
-                    const title = card.querySelector('.lesson-title').innerText;
-                    const desc = card.querySelector('.lesson-desc').innerText;
-                    const tags = card.querySelector('.lesson-tags').innerText;
-                    if (title.toUpperCase().indexOf(filter) > -1 ||
-                        desc.toUpperCase().indexOf(filter) > -1 ||
-                        tags.toUpperCase().indexOf(filter) > -1) {
-                        card.style.display = "";
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
+            const filter = document.getElementById('globalSearch').value.toUpperCase().trim();
+            let firstMatch = null;
+
+            document.querySelectorAll('.lesson-card').forEach(card => {
+                const title = (card.querySelector('.lesson-title') || {}).innerText || '';
+                const desc  = (card.querySelector('.lesson-desc')  || {}).innerText || '';
+                const tags  = (card.querySelector('.lesson-tags')  || {}).innerText || '';
+                const match = !filter
+                    || title.toUpperCase().includes(filter)
+                    || desc.toUpperCase().includes(filter)
+                    || tags.toUpperCase().includes(filter);
+
+                card.style.display = match ? '' : 'none';
+                if (match && filter && !firstMatch) firstMatch = card.closest('.tab-content');
+            });
+
+            // Muda para a aba que tem o primeiro resultado
+            if (firstMatch && filter) {
+                const btn = document.querySelector('[data-target="' + firstMatch.id + '"]');
+                if (btn) btn.click();
             }
         }
     </script>
