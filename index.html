@@ -224,6 +224,46 @@
             color: #0891b2;
         }
 
+        /* CAPÍTULOS FUTUROS */
+        .tab-btn[data-target="cap7"].active  { border-left-color: #7c3aed; color: #7c3aed; background: rgba(124,58,237,0.08); }
+        .tab-btn[data-target="cap8"].active  { border-left-color: #059669; color: #059669; background: rgba(5,150,105,0.08); }
+        .tab-btn[data-target="cap9"].active  { border-left-color: #d97706; color: #d97706; background: rgba(217,119,6,0.08); }
+        .tab-btn[data-target="cap10"].active { border-left-color: #be185d; color: #be185d; background: rgba(190,24,93,0.08); }
+        .tab-btn[data-target="cap11"].active { border-left-color: #0369a1; color: #0369a1; background: rgba(3,105,161,0.08); }
+        .tab-btn[data-target="cap12"].active { border-left-color: #ca8a04; color: #ca8a04; background: rgba(202,138,4,0.08); }
+
+        .badge-cap7  { background: rgba(124,58,237,0.12); color: #7c3aed; }
+        .badge-cap8  { background: rgba(5,150,105,0.12);  color: #059669; }
+        .badge-cap9  { background: rgba(217,119,6,0.12);  color: #d97706; }
+        .badge-cap10 { background: rgba(190,24,93,0.12);  color: #be185d; }
+        .badge-cap11 { background: rgba(3,105,161,0.12);  color: #0369a1; }
+        .badge-cap12 { background: rgba(202,138,4,0.12);  color: #ca8a04; }
+
+        .tab-btn.coming-soon { opacity: 0.6; }
+
+        /* CARD DE EM DESENVOLVIMENTO */
+        .wip-card {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        .wip-icon { font-size: 4em; margin-bottom: 20px; }
+        .wip-card h2 { font-size: 1.8em; color: var(--primary); margin-bottom: 12px; }
+        .wip-card > p { color: #718096; font-size: 1.05em; margin-bottom: 30px; }
+        .wip-topics {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px 25px;
+            text-align: left;
+        }
+        .wip-topics h3 { font-size: 0.95em; color: #718096; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+        .wip-topics ul { margin-left: 20px; }
+        .wip-topics li { margin-bottom: 8px; color: var(--text-dark); }
+
         /* CONTEÚDO DAS ABAS */
         .tab-content {
             flex: 1;
@@ -504,6 +544,14 @@
             <button class="tab-btn" data-target="cap4">&#x2753; Cap 4 &mdash; Condi&ccedil;&otilde;es</button>
             <button class="tab-btn" data-target="cap5">&#x1F501; Cap 5 &mdash; Repeti&ccedil;&otilde;es</button>
             <button class="tab-btn" data-target="cap6">&#x1F4CB; Cap 6 &mdash; Listas</button>
+            <div class="sidebar-sep"></div>
+            <div class="sidebar-label">Em Desenvolvimento</div>
+            <button class="tab-btn coming-soon" data-target="cap7">&#x1F4AC; Cap 7 &mdash; Strings</button>
+            <button class="tab-btn coming-soon" data-target="cap8">&#x1F527; Cap 8 &mdash; Fun&ccedil;&otilde;es</button>
+            <button class="tab-btn coming-soon" data-target="cap9">&#x1F4C1; Cap 9 &mdash; Arquivos</button>
+            <button class="tab-btn coming-soon" data-target="cap10">&#x1F4E6; Cap 10 &mdash; Classes</button>
+            <button class="tab-btn coming-soon" data-target="cap11">&#x1F5C4;&#xFE0F; Cap 11 &mdash; Banco de Dados</button>
+            <button class="tab-btn coming-soon" data-target="cap12">&#x1F3C6; Cap 12 &mdash; Projeto Final</button>
         </div>
 
         <!-- VISÃO GERAL -->
@@ -537,11 +585,11 @@
                         <li><label><input type="checkbox" class="chapter-check" id="ch4"><span class="ch-name">Cap 4 &mdash; Condi&ccedil;&otilde;es</span></label></li>
                         <li><label><input type="checkbox" class="chapter-check" id="ch5"><span class="ch-name">Cap 5 &mdash; Repeti&ccedil;&otilde;es</span></label></li>
                         <li><label><input type="checkbox" class="chapter-check" id="ch6"><span class="ch-name">Cap 6 &mdash; Listas</span></label></li>
-                        <li><label><input type="checkbox" class="chapter-check" id="ch7"><span class="ch-name">Cap 7 &mdash; Fun&ccedil;&otilde;es</span></label></li>
-                        <li><label><input type="checkbox" class="chapter-check" id="ch8"><span class="ch-name">Cap 8 &mdash; Strings</span></label></li>
+                        <li><label><input type="checkbox" class="chapter-check" id="ch7"><span class="ch-name">Cap 7 &mdash; Strings</span></label></li>
+                        <li><label><input type="checkbox" class="chapter-check" id="ch8"><span class="ch-name">Cap 8 &mdash; Fun&ccedil;&otilde;es</span></label></li>
                         <li><label><input type="checkbox" class="chapter-check" id="ch9"><span class="ch-name">Cap 9 &mdash; Arquivos</span></label></li>
-                        <li><label><input type="checkbox" class="chapter-check" id="ch10"><span class="ch-name">Cap 10 &mdash; Dicion&aacute;rios</span></label></li>
-                        <li><label><input type="checkbox" class="chapter-check" id="ch11"><span class="ch-name">Cap 11 &mdash; Classes</span></label></li>
+                        <li><label><input type="checkbox" class="chapter-check" id="ch10"><span class="ch-name">Cap 10 &mdash; Classes e Objetos</span></label></li>
+                        <li><label><input type="checkbox" class="chapter-check" id="ch11"><span class="ch-name">Cap 11 &mdash; Banco de Dados</span></label></li>
                         <li><label><input type="checkbox" class="chapter-check" id="ch12"><span class="ch-name">Cap 12 &mdash; Projeto Final</span></label></li>
                     </ul>
                 </div>
@@ -907,6 +955,138 @@
                         <span class="mini-tag">Tuplas</span>
                     </div>
                 </a>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO 7 — STRINGS -->
+        <div id="cap7" class="tab-content">
+            <div class="bimestre-title">
+                Trabalhando com Strings <span class="bimestre-badge badge-cap7">Cap&iacute;tulo 7</span>
+            </div>
+            <div class="wip-card">
+                <div class="wip-icon">&#x1F6A7;</div>
+                <h2>Em Desenvolvimento</h2>
+                <p>Este cap&iacute;tulo est&aacute; sendo preparado e estar&aacute; dispon&iacute;vel em breve.</p>
+                <div class="wip-topics">
+                    <h3>O que voc&ecirc; vai aprender</h3>
+                    <ul>
+                        <li>Fatiamento e indexa&ccedil;&atilde;o de strings</li>
+                        <li>M&eacute;todos essenciais: <code>upper</code>, <code>lower</code>, <code>strip</code>, <code>split</code>, <code>join</code>, <code>replace</code></li>
+                        <li>Formata&ccedil;&atilde;o com <code>format()</code> e f-strings</li>
+                        <li>Verifica&ccedil;&atilde;o de conte&uacute;do: <code>in</code>, <code>startswith</code>, <code>endswith</code></li>
+                        <li>Convers&atilde;o entre strings e listas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO 8 — FUNÇÕES -->
+        <div id="cap8" class="tab-content">
+            <div class="bimestre-title">
+                Fun&ccedil;&otilde;es <span class="bimestre-badge badge-cap8">Cap&iacute;tulo 8</span>
+            </div>
+            <div class="wip-card">
+                <div class="wip-icon">&#x1F6A7;</div>
+                <h2>Em Desenvolvimento</h2>
+                <p>Este cap&iacute;tulo est&aacute; sendo preparado e estar&aacute; dispon&iacute;vel em breve.</p>
+                <div class="wip-topics">
+                    <h3>O que voc&ecirc; vai aprender</h3>
+                    <ul>
+                        <li>Definindo e chamando fun&ccedil;&otilde;es com <code>def</code></li>
+                        <li>Par&acirc;metros, argumentos e valores padr&atilde;o</li>
+                        <li>Retorno de valores com <code>return</code></li>
+                        <li>Escopo de vari&aacute;veis: local vs. global</li>
+                        <li>Fun&ccedil;&otilde;es recursivas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO 9 — ARQUIVOS -->
+        <div id="cap9" class="tab-content">
+            <div class="bimestre-title">
+                Arquivos <span class="bimestre-badge badge-cap9">Cap&iacute;tulo 9</span>
+            </div>
+            <div class="wip-card">
+                <div class="wip-icon">&#x1F6A7;</div>
+                <h2>Em Desenvolvimento</h2>
+                <p>Este cap&iacute;tulo est&aacute; sendo preparado e estar&aacute; dispon&iacute;vel em breve.</p>
+                <div class="wip-topics">
+                    <h3>O que voc&ecirc; vai aprender</h3>
+                    <ul>
+                        <li>Abrindo e fechando arquivos com <code>open</code> e <code>close</code></li>
+                        <li>Leitura de arquivos: <code>read</code>, <code>readline</code>, <code>readlines</code></li>
+                        <li>Escrita e adi&ccedil;&atilde;o de conte&uacute;do em arquivos</li>
+                        <li>Trabalhando com arquivos CSV</li>
+                        <li>Tratamento de erros com <code>try</code> / <code>except</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO 10 — CLASSES E OBJETOS -->
+        <div id="cap10" class="tab-content">
+            <div class="bimestre-title">
+                Classes e Objetos <span class="bimestre-badge badge-cap10">Cap&iacute;tulo 10</span>
+            </div>
+            <div class="wip-card">
+                <div class="wip-icon">&#x1F6A7;</div>
+                <h2>Em Desenvolvimento</h2>
+                <p>Este cap&iacute;tulo est&aacute; sendo preparado e estar&aacute; dispon&iacute;vel em breve.</p>
+                <div class="wip-topics">
+                    <h3>O que voc&ecirc; vai aprender</h3>
+                    <ul>
+                        <li>Introdu&ccedil;&atilde;o &agrave; Programa&ccedil;&atilde;o Orientada a Objetos (POO)</li>
+                        <li>Definindo classes com <code>class</code> e o m&eacute;todo <code>__init__</code></li>
+                        <li>Atributos de inst&acirc;ncia e m&eacute;todos</li>
+                        <li>Heran&ccedil;a e reuso de c&oacute;digo</li>
+                        <li>Encapsulamento e boas pr&aacute;ticas de POO</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO 11 — BANCO DE DADOS -->
+        <div id="cap11" class="tab-content">
+            <div class="bimestre-title">
+                Banco de Dados <span class="bimestre-badge badge-cap11">Cap&iacute;tulo 11</span>
+            </div>
+            <div class="wip-card">
+                <div class="wip-icon">&#x1F6A7;</div>
+                <h2>Em Desenvolvimento</h2>
+                <p>Este cap&iacute;tulo est&aacute; sendo preparado e estar&aacute; dispon&iacute;vel em breve.</p>
+                <div class="wip-topics">
+                    <h3>O que voc&ecirc; vai aprender</h3>
+                    <ul>
+                        <li>Introdu&ccedil;&atilde;o ao SQLite e SQL b&aacute;sico</li>
+                        <li>Criando e conectando a bancos de dados com <code>sqlite3</code></li>
+                        <li>Inserindo, consultando, atualizando e removendo dados</li>
+                        <li>Integrando banco de dados com programas Python</li>
+                        <li>Boas pr&aacute;ticas de persist&ecirc;ncia de dados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPÍTULO 12 — PROJETO FINAL -->
+        <div id="cap12" class="tab-content">
+            <div class="bimestre-title">
+                Projeto Final <span class="bimestre-badge badge-cap12">Cap&iacute;tulo 12</span>
+            </div>
+            <div class="wip-card">
+                <div class="wip-icon">&#x1F3C6;</div>
+                <h2>Em Desenvolvimento</h2>
+                <p>O projeto final integrar&aacute; todos os conceitos do curso em uma aplica&ccedil;&atilde;o completa.</p>
+                <div class="wip-topics">
+                    <h3>O que voc&ecirc; vai construir</h3>
+                    <ul>
+                        <li>Planejamento e estrutura&ccedil;&atilde;o de um projeto real</li>
+                        <li>Integra&ccedil;&atilde;o de listas, fun&ccedil;&otilde;es, arquivos e banco de dados</li>
+                        <li>Interface de usu&aacute;rio via linha de comando</li>
+                        <li>Boas pr&aacute;ticas: organiza&ccedil;&atilde;o de c&oacute;digo e documenta&ccedil;&atilde;o</li>
+                        <li>Apresenta&ccedil;&atilde;o e defesa do projeto</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
