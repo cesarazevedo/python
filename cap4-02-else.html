@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 4.2 - A Cláusula else</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #306998; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(114,9,183,0.12); color: #7209b7; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 4 &mdash; Condi&ccedil;&otilde;es</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F504; A Cl&aacute;usula else</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 4.2 &mdash; O caminho alternativo</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x2194; if ... else</h2>
+            <p>Muitas vezes temos dois caminhos bem definidos: uma a&ccedil;&atilde;o quando a condi&ccedil;&atilde;o &eacute; verdadeira e outra quando &eacute; falsa. Podemos usar o <code>else</code> para simplificar isso, sem precisar de um segundo <code>if</code> com a condi&ccedil;&atilde;o oposta:</p>
+            <div class="code-block"><span class="code-label">Formato</span><span class="keyword">if</span> <span style="color:#fb923c;font-style:italic">&lt;condi&ccedil;&atilde;o&gt;</span>:
+    bloco verdadeiro
+<span class="keyword">else</span>:
+    bloco falso</div>
+            <p>Veja o programa do carro novo ou velho reescrito com <code>else</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 4.5 &mdash; Carro novo ou velho com else</span>idade = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Digite a idade de seu carro: "</span>))
+<span class="keyword">if</span> idade &lt;= 3:
+    <span class="function">print</span>(<span class="string">"Seu carro &eacute; novo"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Seu carro &eacute; velho"</span>)</div>
+            <p>Note que usamos <strong>dois pontos (:)</strong> ap&oacute;s o <code>else</code>, e que o <code>else</code> deve estar na mesma coluna que o <code>if</code> correspondente. O bloco do <code>else</code> s&oacute; &eacute; executado quando a condi&ccedil;&atilde;o <code>idade &lt;= 3</code> for falsa.</p>
+            <div class="highlight-box">
+                <p>&#x1F4A1; A vantagem do <code>else</code> &eacute; deixar os programas mais claros: expressamos o que fazer quando a condi&ccedil;&atilde;o especificada no <code>if</code> for falsa, sem precisar escrever uma condi&ccedil;&atilde;o inversa.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F6A6; Velocidade e multa</h2>
+            <p>Outro exemplo: exibir se um carro est&aacute; dentro do limite ou foi multado:</p>
+            <div class="code-block"><span class="code-label">Exemplo &mdash; Velocidade</span>velocidade = <span class="function">float</span>(<span class="function">input</span>(<span class="string">"Digite a velocidade do ve&iacute;culo (km/h): "</span>))
+<span class="keyword">if</span> velocidade &gt; 80:
+    multa = (velocidade - 80) * 5
+    <span class="function">print</span>(<span class="string">"Voc&ecirc; foi multado! Valor da multa: R$ %.2f"</span> % multa)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Voc&ecirc; est&aacute; dentro do limite de velocidade."</span>)</div>
+            <p>Um bloco de c&oacute;digo Python pode ter mais de uma linha. O bloco do <code>if</code> aqui tem duas linhas (o c&aacute;lculo da multa e o <code>print</code>), ambas com o mesmo recuo.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x270F; Exerc&iacute;cios</h2>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.5</h3>
+                <p>Execute o programa da Listagem 4.5 e experimente alguns valores. Verifique se os resultados foram os mesmos do programa anterior (Listagem 4.3, com dois <code>if</code>s).</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.6</h3>
+                <p>Escreva um programa que pergunte a dist&acirc;ncia que um passageiro deseja percorrer em km. Calcule o pre&ccedil;o da passagem, cobrando R$ 0,50 por km para viagens de at&eacute; 200 km, e R$ 0,45 para viagens mais longas.</p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap4-01-if.html" class="nav-link">&#x2B05; Anterior: if</a>
+            <a href="cap4-03-aninhadas.html" class="nav-link">Pr&oacute;xima: Estruturas Aninhadas &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>

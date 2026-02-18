@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 4.4 - A Cláusula elif</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #306998; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(114,9,183,0.12); color: #7209b7; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .error { color: #f87171; }
+        .op-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .op-table th, .op-table td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+        .op-table th { background: #f8fafc; color: var(--primary); font-weight: 600; text-align: center; }
+        .op-table td { text-align: center; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 4 &mdash; Condi&ccedil;&otilde;es</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x26A1; A Cl&aacute;usula elif</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 4.4 &mdash; Simplificando condi&ccedil;&otilde;es aninhadas</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F504; elif: a solu&ccedil;&atilde;o elegante</h2>
+            <p>Python apresenta uma solu&ccedil;&atilde;o muito interessante ao problema de m&uacute;ltiplos <code>if</code>s aninhados. A cl&aacute;usula <code>elif</code> substitui um par <code>else</code>/<code>if</code>, sem criar outro n&iacute;vel de estrutura, evitando o deslocamento excessivo para a direita.</p>
+            <p>Veja o mesmo programa de categorias da aula anterior, agora reescrito com <code>elif</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 4.8 &mdash; Categoria x pre&ccedil;o com elif</span>categoria = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Digite a categoria do produto: "</span>))
+<span class="keyword">if</span> categoria == 1:
+    pre&ccedil;o = 10
+<span class="keyword">elif</span> categoria == 2:
+    pre&ccedil;o = 18
+<span class="keyword">elif</span> categoria == 3:
+    pre&ccedil;o = 23
+<span class="keyword">elif</span> categoria == 4:
+    pre&ccedil;o = 26
+<span class="keyword">elif</span> categoria == 5:
+    pre&ccedil;o = 31
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"Categoria inv&aacute;lida, digite um valor entre 1 e 5!"</span>)
+    pre&ccedil;o = 0
+<span class="function">print</span>(<span class="string">"O pre&ccedil;o do produto &eacute;: R$%6.2f"</span> % pre&ccedil;o)</div>
+            <p>Compare com a Listagem 4.7: o resultado &eacute; id&ecirc;ntico, mas o c&oacute;digo &eacute; muito mais leg&iacute;vel. Todos os <code>elif</code>s ficam no mesmo n&iacute;vel do <code>if</code> inicial, sem deslocamentos adicionais.</p>
+            <div class="highlight-box">
+                <p>&#x1F4A1; O <code>elif</code> &eacute; uma abreviatura de <em>else if</em>. Em uma cadeia <code>if / elif / elif / else</code>, apenas o primeiro bloco cuja condi&ccedil;&atilde;o for verdadeira ser&aacute; executado; os demais s&atilde;o ignorados.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x270F; Exerc&iacute;cios</h2>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.8</h3>
+                <p>Escreva um programa que leia dois n&uacute;meros e pergunte qual opera&ccedil;&atilde;o o usu&aacute;rio deseja realizar: soma (<code>+</code>), subtra&ccedil;&atilde;o (<code>-</code>), multiplica&ccedil;&atilde;o (<code>*</code>) ou divis&atilde;o (<code>/</code>). Exiba o resultado da opera&ccedil;&atilde;o solicitada.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.9</h3>
+                <p>Escreva um programa para aprovar o empr&eacute;stimo banc&aacute;rio para a compra de uma casa. O programa deve perguntar o valor da casa a comprar, o sal&aacute;rio e a quantidade de anos a pagar. O valor da presta&ccedil;&atilde;o mensal n&atilde;o pode ser superior a 30% do sal&aacute;rio. Calcule o valor da presta&ccedil;&atilde;o como sendo o valor da casa dividido pelo n&uacute;mero de meses a pagar.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.10</h3>
+                <p>Escreva um programa que calcule o pre&ccedil;o a pagar pelo fornecimento de energia el&eacute;trica. Pergunte a quantidade de kWh consumida e o tipo de instala&ccedil;&atilde;o: <code>R</code> para resid&ecirc;ncias, <code>I</code> para ind&uacute;strias e <code>C</code> para com&eacute;rcios. Calcule o pre&ccedil;o de acordo com a tabela:</p>
+                <table class="op-table">
+                    <thead><tr><th>Tipo</th><th>Faixa (kWh)</th><th>Pre&ccedil;o</th></tr></thead>
+                    <tbody>
+                        <tr><td>Residencial</td><td>At&eacute; 500</td><td>R$ 0,40</td></tr>
+                        <tr><td>Residencial</td><td>Acima de 500</td><td>R$ 0,65</td></tr>
+                        <tr><td>Comercial</td><td>At&eacute; 1000</td><td>R$ 0,55</td></tr>
+                        <tr><td>Comercial</td><td>Acima de 1000</td><td>R$ 0,60</td></tr>
+                        <tr><td>Industrial</td><td>Acima de 5000</td><td>R$ 0,60</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap4-03-aninhadas.html" class="nav-link">&#x2B05; Anterior: Estruturas Aninhadas</a>
+            <a href="index.html" class="nav-link">Voltar ao Dashboard &#x1F3E0;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 4.1 - A Estrutura if</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #306998; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(114,9,183,0.12); color: #7209b7; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .trivia-box { background: #f8fafc; border: 2px dashed #e2e8f0; border-radius: 12px; padding: 20px 25px; margin: 20px 0; }
+        .trivia-box strong { color: var(--primary); display: block; margin-bottom: 8px; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .placeholder { color: #fb923c; font-style: italic; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        .circle { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: white; font-size: 0.7em; font-weight: 700; margin-left: 4px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 4 &mdash; Condi&ccedil;&otilde;es</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x2753; A Estrutura if</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 4.1 &mdash; Condi&ccedil;&otilde;es simples e blocos de c&oacute;digo</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F500; Executar ou n&atilde;o executar?</h2>
+            <p>Nem sempre todas as linhas dos programas ser&atilde;o executadas. Muitas vezes, ser&aacute; mais interessante decidir que partes do programa devem ser executadas com base no resultado de uma condi&ccedil;&atilde;o. A base dessas decis&otilde;es consistir&aacute; em express&otilde;es l&oacute;gicas que permitam representar escolhas em programas.</p>
+            <p>As condi&ccedil;&otilde;es servem para selecionar quando uma parte do programa deve ser ativada e quando deve ser simplesmente ignorada. Em Python, a estrutura de decis&atilde;o &eacute; o <code>if</code>. Seu formato &eacute;:</p>
+            <div class="code-block"><span class="code-label">Listagem 4.1 &mdash; Formato do if</span><span class="keyword">if</span> <span class="placeholder">&lt;condi&ccedil;&atilde;o&gt;</span>:
+    <span class="placeholder">bloco verdadeiro</span></div>
+            <p>O <code>if</code> nada mais &eacute; que o nosso <em>"se"</em>: se a condi&ccedil;&atilde;o for verdadeira, fa&ccedil;a alguma coisa. O bloco de c&oacute;digo dentro do <code>if</code> &eacute; indicado pelo <strong>recuo</strong> (indenta&ccedil;&atilde;o) &mdash; use 4 espa&ccedil;os ou 1 tab.</p>
+            <div class="trivia-box">
+                <strong>&#x1F4A1; Trivia &mdash; Indenta&ccedil;&atilde;o em Python</strong>
+                Python &eacute; uma das poucas linguagens que utiliza o deslocamento do texto &agrave; direita (recuo) para marcar o in&iacute;cio e o fim de um bloco. Outras linguagens usam palavras especiais como <code>BEGIN</code>/<code>END</code> (Pascal) ou chaves <code>{ }</code> (C e Java).
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F522; Comparando dois valores</h2>
+            <p>Vamos ler dois n&uacute;meros e verificar qual &eacute; o maior. Cada <code>if</code> &eacute; avaliado de forma independente:</p>
+            <div class="code-block"><span class="code-label">Listagem 4.2 &mdash; Condi&ccedil;&otilde;es</span>a = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Primeiro valor: "</span>))
+b = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Segundo valor: "</span>))
+<span class="keyword">if</span> a &gt; b:
+    <span class="function">print</span>(<span class="string">"O primeiro n&uacute;mero &eacute; o maior!"</span>)
+<span class="keyword">if</span> b &gt; a:
+    <span class="function">print</span>(<span class="string">"O segundo n&uacute;mero &eacute; o maior!"</span>)</div>
+            <p>A express&atilde;o <code>a &gt; b</code> ser&aacute; avaliada, e se o resultado for <code>True</code>, a linha do <code>print</code> ser&aacute; executada. Se for <code>False</code>, ser&aacute; ignorada. O mesmo acontece para <code>b &gt; a</code>. Note que as linhas com <code>if</code> foram terminadas com <strong>dois pontos (:)</strong> &mdash; isso &eacute; obrigat&oacute;rio em Python.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F697; Carro novo ou velho</h2>
+            <p>Outro exemplo: solicitar a idade do carro e exibir se &eacute; novo ou velho. Carros com at&eacute; 3 anos s&atilde;o considerados novos:</p>
+            <div class="code-block"><span class="code-label">Listagem 4.3 &mdash; Carro novo ou velho</span>idade = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Digite a idade do seu carro: "</span>))
+<span class="keyword">if</span> idade &lt;= 3:
+    <span class="function">print</span>(<span class="string">"Seu carro &eacute; novo"</span>)
+<span class="keyword">if</span> idade &gt; 3:
+    <span class="function">print</span>(<span class="string">"Seu carro &eacute; velho"</span>)</div>
+            <p>Note que as duas condi&ccedil;&otilde;es s&atilde;o sempre opostas: se uma for verdadeira, a outra ser&aacute; necessariamente falsa. Veremos uma maneira mais elegante de expressar isso na pr&oacute;xima aula com o <code>else</code>.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F4B0; C&aacute;lculo do Imposto de Renda</h2>
+            <p>Um exemplo mais avan&ccedil;ado: calcular o imposto de renda em faixas. Sal&aacute;rios at&eacute; R$ 1.000 est&atilde;o isentos; entre R$ 1.000 e R$ 3.000 pagam 20%; acima de R$ 3.000 pagam 35% sobre o excedente:</p>
+            <div class="code-block"><span class="code-label">Listagem 4.4 &mdash; C&aacute;lculo do Imposto de Renda</span>sal&aacute;rio = <span class="function">float</span>(<span class="function">input</span>(<span class="string">"Digite o sal&aacute;rio para c&aacute;lculo do imposto: "</span>))
+base = sal&aacute;rio
+imposto = 0
+<span class="keyword">if</span> base &gt; 3000:
+    imposto = imposto + ((base - 3000) * 0.35)
+    base = 3000
+<span class="keyword">if</span> base &gt; 1000:
+    imposto = imposto + ((base - 1000) * 0.20)
+<span class="function">print</span>(<span class="string">"Sal&aacute;rio: R$%6.2f  Imposto a pagar: R$%6.2f"</span> % (sal&aacute;rio, imposto))</div>
+            <div class="highlight-box">
+                <p>&#x1F4A1; A vari&aacute;vel <code>base</code> guarda uma c&oacute;pia do sal&aacute;rio. Isso &eacute; necess&aacute;rio porque vamos modificar <code>base</code> durante o c&aacute;lculo, mas precisamos do valor original de <code>sal&aacute;rio</code> para exibi-lo no final. Os dois <code>if</code>s s&atilde;o independentes e ambos ser&atilde;o avaliados.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x270F; Exerc&iacute;cios</h2>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.1</h3>
+                <p>Analise o programa da Listagem 4.2. Responda: o que acontece se o primeiro e o segundo valores forem iguais? Explique.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.2</h3>
+                <p>Escreva um programa que pergunte a velocidade do carro de um usu&aacute;rio. Caso ultrapasse 80 km/h, exiba uma mensagem dizendo que o usu&aacute;rio foi multado. Nesse caso, exiba o valor da multa, cobrando R$ 5 por km acima de 80 km/h.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.3</h3>
+                <p>Escreva um programa que leia tr&ecirc;s n&uacute;meros e que imprima o maior e o menor.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 4.4</h3>
+                <p>Escreva um programa que pergunte o sal&aacute;rio do funcion&aacute;rio e calcule o valor do aumento. Para sal&aacute;rios superiores a R$ 1.250,00, calcule um aumento de 10%. Para os inferiores ou iguais, de 15%.</p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap3-06-entrada-dados.html" class="nav-link">&#x2B05; Anterior: Entrada de Dados</a>
+            <a href="cap4-02-else.html" class="nav-link">Pr&oacute;xima: else &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>
