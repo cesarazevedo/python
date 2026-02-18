@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .prompt { color: #93c5fd; }
         .code-block .output { color: #fbbf24; }
@@ -68,25 +68,20 @@
                 </div>
             </div>
             <p>Os &iacute;ndices come&ccedil;am em <strong>0</strong>, n&atilde;o em 1! A fun&ccedil;&atilde;o <code>len()</code> retorna o tamanho:</p>
-            <div class="code-block">
-                <span class="code-label">len()</span>
-<span class="prompt">&gt;&gt;&gt;</span> print(len(<span class="string">"A"</span>))
+            <div class="code-block"><span class="code-label">len()</span><span class="prompt">&gt;&gt;&gt;</span> print(len(<span class="string">"A"</span>))
 <span class="output">1</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(len(<span class="string">"AB"</span>))
 <span class="output">2</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(len(<span class="string">""</span>))      <span class="comment"># string vazia</span>
 <span class="output">0</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(len(<span class="string">"O rato roeu a roupa"</span>))
-<span class="output">19</span>
-            </div>
+<span class="output">19</span></div>
         </div>
 
         <div class="content-card">
             <h2>&#x1F517; Concatena&ccedil;&atilde;o e repeti&ccedil;&atilde;o</h2>
             <p>Use <code>+</code> para juntar strings e <code>*</code> para repetir:</p>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.9</span>
-<span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"ABC"</span>
+            <div class="code-block"><span class="code-label">Listagem 3.9</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"ABC"</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(s + <span class="string">"C"</span>)
 <span class="output">ABCC</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(s + <span class="string">"D"</span> * 4)
@@ -94,8 +89,7 @@
 <span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"X"</span> + <span class="string">"-"</span> * 10 + <span class="string">"X"</span>)
 <span class="output">X----------X</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"A"</span> * 3)
-<span class="output">AAA</span>
-            </div>
+<span class="output">AAA</span></div>
         </div>
 
         <div class="content-card">
@@ -109,23 +103,18 @@
                     <tr><td>%f</td><td>N&uacute;meros decimais</td></tr>
                 </tbody>
             </table>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.12</span>
-<span class="prompt">&gt;&gt;&gt;</span> nome = <span class="string">"Jo&atilde;o"</span>
+            <div class="code-block"><span class="code-label">Listagem 3.12</span><span class="prompt">&gt;&gt;&gt;</span> nome = <span class="string">"Jo&atilde;o"</span>
 <span class="prompt">&gt;&gt;&gt;</span> idade = 22
 <span class="prompt">&gt;&gt;&gt;</span> grana = 51.34
 <span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"%s tem %d anos e R$%5.2f no bolso."</span> % (nome, idade, grana))
-<span class="output">Jo&atilde;o tem 22 anos e R$51.34 no bolso.</span>
-            </div>
+<span class="output">Jo&atilde;o tem 22 anos e R$51.34 no bolso.</span></div>
             <p>O <code>%5.2f</code> significa: reserve 5 posi&ccedil;&otilde;es, com 2 casas decimais. Muito &uacute;til para valores monet&aacute;rios!</p>
         </div>
 
         <div class="content-card">
             <h2>&#x2702; Fatiamento (slicing)</h2>
             <p>Extraia peda&ccedil;os de uma string usando <code>[in&iacute;cio:fim]</code>. O caractere na posi&ccedil;&atilde;o <code>fim</code> <strong>n&atilde;o &eacute; inclu&iacute;do</strong>:</p>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.13-3.14</span>
-<span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"ABCDEFGHI"</span>
+            <div class="code-block"><span class="code-label">Listagem 3.13-3.14</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"ABCDEFGHI"</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(s[0:2])     <span class="comment"># posi&ccedil;&otilde;es 0 e 1</span>
 <span class="output">AB</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(s[2:4])     <span class="comment"># posi&ccedil;&otilde;es 2 e 3</span>
@@ -139,8 +128,7 @@
 <span class="prompt">&gt;&gt;&gt;</span> print(s[-1:])     <span class="comment"># &uacute;ltimo caractere</span>
 <span class="output">I</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(s[-5:7])    <span class="comment"># &iacute;ndices negativos!</span>
-<span class="output">EFG</span>
-            </div>
+<span class="output">EFG</span></div>
             <div class="highlight-box">
                 <p>&#x1F4A1; &Iacute;ndices negativos contam de tr&aacute;s para frente: <code>-1</code> &eacute; o &uacute;ltimo, <code>-2</code> o pen&uacute;ltimo, etc.</p>
             </div>

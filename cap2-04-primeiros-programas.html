@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .prompt { color: #93c5fd; }
         .code-block .output { color: #fbbf24; }
@@ -82,9 +82,7 @@
             <h2>&#x1F522; Python como calculadora</h2>
             <p>O interpretador Python tamb&eacute;m funciona como uma poderosa calculadora. Experimente no IDLE:</p>
 
-            <div class="code-block">
-                <span class="code-label">IDLE</span>
-<span class="prompt">&gt;&gt;&gt;</span> 2 + 3          <span class="comment"># Adi&ccedil;&atilde;o</span>
+            <div class="code-block"><span class="code-label">IDLE</span><span class="prompt">&gt;&gt;&gt;</span> 2 + 3          <span class="comment"># Adi&ccedil;&atilde;o</span>
 <span class="output">5</span>
 <span class="prompt">&gt;&gt;&gt;</span> 5 - 3          <span class="comment"># Subtra&ccedil;&atilde;o</span>
 <span class="output">2</span>
@@ -93,8 +91,7 @@
 <span class="prompt">&gt;&gt;&gt;</span> 2 * 10         <span class="comment"># Multiplica&ccedil;&atilde;o</span>
 <span class="output">20</span>
 <span class="prompt">&gt;&gt;&gt;</span> 20 / 4         <span class="comment"># Divis&atilde;o</span>
-<span class="output">5.0</span>
-            </div>
+<span class="output">5.0</span></div>
 
             <p>N&atilde;o se esque&ccedil;a de pressionar <strong>Enter</strong> ap&oacute;s cada linha para que o interpretador calcule o resultado.</p>
         </div>
@@ -117,15 +114,12 @@
                 </tbody>
             </table>
 
-            <div class="code-block">
-                <span class="code-label">IDLE</span>
-<span class="prompt">&gt;&gt;&gt;</span> 2 ** 3         <span class="comment"># 2 elevado a 3</span>
+            <div class="code-block"><span class="code-label">IDLE</span><span class="prompt">&gt;&gt;&gt;</span> 2 ** 3         <span class="comment"># 2 elevado a 3</span>
 <span class="output">8</span>
 <span class="prompt">&gt;&gt;&gt;</span> 10 % 3         <span class="comment"># Resto de 10 &divide; 3</span>
 <span class="output">1</span>
 <span class="prompt">&gt;&gt;&gt;</span> 16 % 7         <span class="comment"># Resto de 16 &divide; 7</span>
-<span class="output">2</span>
-            </div>
+<span class="output">2</span></div>
         </div>
 
         <div class="content-card">
@@ -138,11 +132,8 @@
             </ol>
             <p>Use <strong>par&ecirc;nteses</strong> para alterar a ordem ou para deixar a express&atilde;o mais clara:</p>
 
-            <div class="code-block">
-                <span class="code-label">Exemplo</span>
-<span class="prompt">&gt;&gt;&gt;</span> 1500 + (1500 * 5 / 100)
-<span class="output">1575.0</span>
-            </div>
+            <div class="code-block"><span class="code-label">Exemplo</span><span class="prompt">&gt;&gt;&gt;</span> 1500 + (1500 * 5 / 100)
+<span class="output">1575.0</span></div>
 
             <div class="highlight-box">
                 <p>&ldquo;Na d&uacute;vida, use par&ecirc;nteses! Al&eacute;m de garantir a ordem correta, eles tornam a f&oacute;rmula mais f&aacute;cil de ler.&rdquo;</p>

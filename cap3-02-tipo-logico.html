@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .prompt { color: #93c5fd; }
         .code-block .output { color: #fbbf24; }
@@ -54,11 +54,8 @@
         <div class="content-card">
             <h2>&#x2705; True e False</h2>
             <p>Muitas vezes queremos armazenar algo simples: <strong>verdadeiro ou falso</strong>. Em Python, usamos o tipo <strong>booleano</strong> (<code>bool</code>):</p>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.1</span>
-resultado = <span class="keyword">True</span>
-aprovado = <span class="keyword">False</span>
-            </div>
+            <div class="code-block"><span class="code-label">Listagem 3.1</span>resultado = <span class="keyword">True</span>
+aprovado = <span class="keyword">False</span></div>
             <p>Observe que <code>True</code> e <code>False</code> s&atilde;o escritos com a <strong>primeira letra mai&uacute;scula</strong>. S&atilde;o palavras reservadas do Python.</p>
         </div>
 
@@ -83,9 +80,7 @@ aprovado = <span class="keyword">False</span>
 
         <div class="content-card">
             <h2>&#x1F9EA; Exemplos pr&aacute;ticos</h2>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.2</span>
-<span class="prompt">&gt;&gt;&gt;</span> a = 1       <span class="comment"># a recebe 1</span>
+            <div class="code-block"><span class="code-label">Listagem 3.2</span><span class="prompt">&gt;&gt;&gt;</span> a = 1       <span class="comment"># a recebe 1</span>
 <span class="prompt">&gt;&gt;&gt;</span> b = 5       <span class="comment"># b recebe 5</span>
 <span class="prompt">&gt;&gt;&gt;</span> c = 2       <span class="comment"># c recebe 2</span>
 <span class="prompt">&gt;&gt;&gt;</span> d = 1       <span class="comment"># d recebe 1</span>
@@ -102,16 +97,12 @@ aprovado = <span class="keyword">False</span>
 <span class="prompt">&gt;&gt;&gt;</span> d != a      <span class="comment"># d &eacute; diferente de a?</span>
 <span class="output">False</span>
 <span class="prompt">&gt;&gt;&gt;</span> d != b      <span class="comment"># d &eacute; diferente de b?</span>
-<span class="output">True</span>
-            </div>
+<span class="output">True</span></div>
             <p>Podemos tamb&eacute;m armazenar o resultado de uma compara&ccedil;&atilde;o em uma vari&aacute;vel:</p>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.3</span>
-nota = 8
+            <div class="code-block"><span class="code-label">Listagem 3.3</span>nota = 8
 m&eacute;dia = 7
 aprovado = nota &gt; m&eacute;dia
-print(aprovado)    <span class="comment"># True</span>
-            </div>
+print(aprovado)    <span class="comment"># True</span></div>
             <p>O <code>#</code> (cerquilha) inicia um <strong>coment&aacute;rio</strong>. Tudo ap&oacute;s o <code>#</code> na mesma linha &eacute; ignorado pelo Python. Use coment&aacute;rios para explicar seu c&oacute;digo!</p>
         </div>
 

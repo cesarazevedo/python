@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .prompt { color: #93c5fd; }
         .code-block .output { color: #fbbf24; }
@@ -91,53 +91,37 @@
 
         <div class="content-card">
             <h2>&#x1F4BB; Exemplos no interpretador</h2>
-            <div class="code-block">
-                <span class="code-label">not</span>
-<span class="prompt">&gt;&gt;&gt;</span> <span class="keyword">not</span> True
+            <div class="code-block"><span class="code-label">not</span><span class="prompt">&gt;&gt;&gt;</span> <span class="keyword">not</span> True
 <span class="output">False</span>
 <span class="prompt">&gt;&gt;&gt;</span> <span class="keyword">not</span> False
-<span class="output">True</span>
-            </div>
-            <div class="code-block">
-                <span class="code-label">and</span>
-<span class="prompt">&gt;&gt;&gt;</span> True <span class="keyword">and</span> True
+<span class="output">True</span></div>
+            <div class="code-block"><span class="code-label">and</span><span class="prompt">&gt;&gt;&gt;</span> True <span class="keyword">and</span> True
 <span class="output">True</span>
 <span class="prompt">&gt;&gt;&gt;</span> True <span class="keyword">and</span> False
 <span class="output">False</span>
 <span class="prompt">&gt;&gt;&gt;</span> False <span class="keyword">and</span> True
-<span class="output">False</span>
-            </div>
-            <div class="code-block">
-                <span class="code-label">or</span>
-<span class="prompt">&gt;&gt;&gt;</span> True <span class="keyword">or</span> False
+<span class="output">False</span></div>
+            <div class="code-block"><span class="code-label">or</span><span class="prompt">&gt;&gt;&gt;</span> True <span class="keyword">or</span> False
 <span class="output">True</span>
 <span class="prompt">&gt;&gt;&gt;</span> False <span class="keyword">or</span> True
 <span class="output">True</span>
 <span class="prompt">&gt;&gt;&gt;</span> False <span class="keyword">or</span> False
-<span class="output">False</span>
-            </div>
+<span class="output">False</span></div>
         </div>
 
         <div class="content-card">
             <h2>&#x1F3AF; Express&otilde;es l&oacute;gicas combinadas</h2>
             <p>Podemos combinar operadores relacionais com l&oacute;gicos. A <strong>preced&ecirc;ncia</strong> &eacute;: <code>not</code> primeiro, depois <code>and</code>, depois <code>or</code>.</p>
             <p><strong>Exemplo pr&aacute;tico:</strong> Uma pessoa pode fazer empr&eacute;stimo se ganhar mais de R$ 1000 <strong>e</strong> tiver mais de 18 anos:</p>
-            <div class="code-block">
-                <span class="code-label">Exemplo</span>
-sal&aacute;rio &gt; 1000 <span class="keyword">and</span> idade &gt; 18
-            </div>
+            <div class="code-block"><span class="code-label">Exemplo</span>sal&aacute;rio &gt; 1000 <span class="keyword">and</span> idade &gt; 18</div>
             <p>Se <code>sal&aacute;rio = 100</code> e <code>idade = 20</code>:</p>
-            <div class="code-block">
-100 &gt; 1000 <span class="keyword">and</span> 20 &gt; 18
+            <div class="code-block">100 &gt; 1000 <span class="keyword">and</span> 20 &gt; 18
   False    <span class="keyword">and</span>  True
-         <span class="output">False</span>
-            </div>
+         <span class="output">False</span></div>
             <p>Se <code>sal&aacute;rio = 2000</code> e <code>idade = 30</code>:</p>
-            <div class="code-block">
-2000 &gt; 1000 <span class="keyword">and</span> 30 &gt; 18
+            <div class="code-block">2000 &gt; 1000 <span class="keyword">and</span> 30 &gt; 18
    True     <span class="keyword">and</span>  True
-          <span class="output">True</span>
-            </div>
+          <span class="output">True</span></div>
 
             <div class="highlight-box">
                 <p>&#x1F4A1; Express&otilde;es com mais de um operador l&oacute;gico: avalie primeiro <code>not</code>, depois <code>and</code>, por &uacute;ltimo <code>or</code>. Na d&uacute;vida, use par&ecirc;nteses para deixar claro.</p>

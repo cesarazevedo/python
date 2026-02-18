@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .prompt { color: #93c5fd; }
         .code-block .output { color: #fbbf24; }
@@ -64,12 +64,9 @@
             <p>Ao abrir o IDLE, voc&ecirc; ver&aacute; a <strong>janela do interpretador</strong> (Python Shell). Repare no s&iacute;mbolo <code>&gt;&gt;&gt;</code> &mdash; ele indica que o Python est&aacute; pronto para receber um comando.</p>
             <p>Digite seu primeiro comando e pressione <strong>Enter</strong>:</p>
 
-            <div class="code-block">
-                <span class="code-label">IDLE - Python Shell</span>
-<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"Oi"</span>)
+            <div class="code-block"><span class="code-label">IDLE - Python Shell</span><span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"Oi"</span>)
 <span class="output">Oi</span>
-<span class="prompt">&gt;&gt;&gt;</span>
-            </div>
+<span class="prompt">&gt;&gt;&gt;</span></div>
 
             <p>Pronto! Voc&ecirc; acabou de executar seu primeiro comando Python. A fun&ccedil;&atilde;o <code>print()</code> exibe uma mensagem na tela.</p>
 
@@ -82,15 +79,12 @@
             <h2>&#x1F9EA; Experimente!</h2>
             <p>O interpretador &eacute; perfeito para experimentar. Tente digitar outros comandos:</p>
 
-            <div class="code-block">
-                <span class="code-label">IDLE</span>
-<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"Ol&aacute;, Mundo!"</span>)
+            <div class="code-block"><span class="code-label">IDLE</span><span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"Ol&aacute;, Mundo!"</span>)
 <span class="output">Ol&aacute;, Mundo!</span>
 <span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"Meu nome &eacute; Python"</span>)
 <span class="output">Meu nome &eacute; Python</span>
 <span class="prompt">&gt;&gt;&gt;</span> 2 + 3
-<span class="output">5</span>
-            </div>
+<span class="output">5</span></div>
 
             <p>Perceba que o interpretador tamb&eacute;m funciona como uma <strong>calculadora</strong>. Digitou <code>2 + 3</code> e ele respondeu <code>5</code>. Veremos mais sobre isso nas pr&oacute;ximas aulas.</p>
             <p>Esse ciclo de <strong>digitar &rarr; executar &rarr; ver resultado</strong> &eacute; muito importante para o aprendizado. Use e abuse do interpretador para testar ideias!</p>

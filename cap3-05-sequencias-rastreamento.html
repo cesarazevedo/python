@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .comment { color: #64748b; font-style: italic; }
         .code-block .number { color: #f472b6; }
@@ -55,9 +55,7 @@
             <h2>&#x23F1; Vari&aacute;veis mudam no tempo</h2>
             <p>Um programa &eacute; executado <strong>linha por linha</strong>, de cima para baixo. O valor de uma vari&aacute;vel pode mudar ao longo da execu&ccedil;&atilde;o &mdash; o valor anterior &eacute; substitu&iacute;do pelo novo.</p>
             <p>Observe o programa abaixo que registra compras e calcula uma d&iacute;vida:</p>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.15</span>
-d&iacute;vida = <span class="number">0</span>           <span class="comment"># linha 1</span>
+            <div class="code-block"><span class="code-label">Listagem 3.15</span>d&iacute;vida = <span class="number">0</span>           <span class="comment"># linha 1</span>
 compra = <span class="number">100</span>         <span class="comment"># linha 2</span>
 d&iacute;vida = d&iacute;vida + compra  <span class="comment"># linha 3</span>
 compra = <span class="number">200</span>         <span class="comment"># linha 4</span>
@@ -65,8 +63,7 @@ d&iacute;vida = d&iacute;vida + compra  <span class="comment"># linha 5</span>
 compra = <span class="number">300</span>         <span class="comment"># linha 6</span>
 d&iacute;vida = d&iacute;vida + compra  <span class="comment"># linha 7</span>
 compra = <span class="number">0</span>           <span class="comment"># linha 8</span>
-<span class="function">print</span>(d&iacute;vida)         <span class="comment"># linha 9</span>
-            </div>
+<span class="function">print</span>(d&iacute;vida)         <span class="comment"># linha 9</span></div>
             <p>O resultado &eacute; <strong>600</strong> (100 + 200 + 300). Mas como chegamos l&aacute;?</p>
         </div>
 

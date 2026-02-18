@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .prompt { color: #93c5fd; }
         .code-block .output { color: #fbbf24; }
@@ -66,12 +66,9 @@
             <h2>&#x270D; Primeiro programa com vari&aacute;veis</h2>
             <p>Observe este programa simples:</p>
 
-            <div class="code-block">
-                <span class="code-label">Listagem 2.7</span>
-a = <span class="number">2</span>         <span class="comment"># a recebe 2</span>
+            <div class="code-block"><span class="code-label">Listagem 2.7</span>a = <span class="number">2</span>         <span class="comment"># a recebe 2</span>
 b = <span class="number">3</span>         <span class="comment"># b recebe 3</span>
-<span class="function">print</span>(a + b)  <span class="comment"># exibe a soma</span>
-            </div>
+<span class="function">print</span>(a + b)  <span class="comment"># exibe a soma</span></div>
 
             <p><strong>Linha por linha:</strong></p>
             <ul>
@@ -82,13 +79,10 @@ b = <span class="number">3</span>         <span class="comment"># b recebe 3</sp
 
             <p>Voc&ecirc; pode testar isso direto no interpretador:</p>
 
-            <div class="code-block">
-                <span class="code-label">IDLE</span>
-<span class="prompt">&gt;&gt;&gt;</span> a = <span class="number">2</span>
+            <div class="code-block"><span class="code-label">IDLE</span><span class="prompt">&gt;&gt;&gt;</span> a = <span class="number">2</span>
 <span class="prompt">&gt;&gt;&gt;</span> b = <span class="number">3</span>
 <span class="prompt">&gt;&gt;&gt;</span> <span class="function">print</span>(a + b)
-<span class="output">5</span>
-            </div>
+<span class="output">5</span></div>
 
             <p>Note que as duas primeiras linhas n&atilde;o exibem nada na tela &mdash; elas apenas guardam os valores na mem&oacute;ria. S&oacute; o <code>print</code> mostra o resultado.</p>
         </div>
@@ -97,17 +91,11 @@ b = <span class="number">3</span>         <span class="comment"># b recebe 3</sp
             <h2>&#x1F4B0; Exemplo pr&aacute;tico: aumento de sal&aacute;rio</h2>
             <p>Vamos a um exemplo do mundo real. Calcular um aumento de 5% sobre um sal&aacute;rio de R$ 1500:</p>
 
-            <div class="code-block">
-                <span class="code-label">Listagem 2.11</span>
-sal&aacute;rio = <span class="number">1500</span>
+            <div class="code-block"><span class="code-label">Listagem 2.11</span>sal&aacute;rio = <span class="number">1500</span>
 aumento = <span class="number">5</span>
-<span class="function">print</span>(sal&aacute;rio + (sal&aacute;rio * aumento / <span class="number">100</span>))
-            </div>
+<span class="function">print</span>(sal&aacute;rio + (sal&aacute;rio * aumento / <span class="number">100</span>))</div>
 
-            <div class="code-block">
-                <span class="code-label">Resultado</span>
-<span class="output">1575.0</span>
-            </div>
+            <div class="code-block"><span class="code-label">Resultado</span><span class="output">1575.0</span></div>
 
             <p><strong>Por que usar vari&aacute;veis em vez de n&uacute;meros diretos?</strong></p>
             <ul>
@@ -118,10 +106,7 @@ aumento = <span class="number">5</span>
 
             <p>Compare com a vers&atilde;o sem vari&aacute;veis:</p>
 
-            <div class="code-block">
-                <span class="code-label">Sem vari&aacute;veis</span>
-<span class="function">print</span>(<span class="number">1500</span> + (<span class="number">1500</span> * <span class="number">5</span> / <span class="number">100</span>))
-            </div>
+            <div class="code-block"><span class="code-label">Sem vari&aacute;veis</span><span class="function">print</span>(<span class="number">1500</span> + (<span class="number">1500</span> * <span class="number">5</span> / <span class="number">100</span>))</div>
 
             <p>O resultado &eacute; o mesmo, mas se precisarmos mudar o sal&aacute;rio, teremos que alterar em <strong>dois lugares</strong> &mdash; aumentando a chance de esquecer um e ter resultado incorreto.</p>
 

@@ -24,7 +24,7 @@
         .highlight-box p { margin-bottom: 0; font-style: italic; }
         .warning-box { background: rgba(229,62,62,0.06); border-left: 4px solid #e53e3e; padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .warning-box p { margin-bottom: 0; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .string { color: #86efac; }
         .code-block .function { color: #93c5fd; }
@@ -58,32 +58,20 @@
             <h2>&#x1F4AC; A fun&ccedil;&atilde;o input()</h2>
             <p>At&eacute; agora, todos os valores estavam escritos no pr&oacute;prio programa. Mas o melhor da programa&ccedil;&atilde;o &eacute; poder <strong>receber dados do usu&aacute;rio</strong> durante a execu&ccedil;&atilde;o.</p>
             <p>A fun&ccedil;&atilde;o <code>input()</code> exibe uma mensagem e espera o usu&aacute;rio digitar algo:</p>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.16</span>
-x = <span class="function">input</span>(<span class="string">"Digite um n&uacute;mero: "</span>)
-<span class="function">print</span>(x)
-            </div>
-            <div class="code-block">
-                <span class="code-label">Sa&iacute;da</span>
-<span class="output">Digite um n&uacute;mero: </span><span class="user-input">5</span>
-<span class="output">5</span>
-            </div>
+            <div class="code-block"><span class="code-label">Listagem 3.16</span>x = <span class="function">input</span>(<span class="string">"Digite um n&uacute;mero: "</span>)
+<span class="function">print</span>(x)</div>
+            <div class="code-block"><span class="code-label">Sa&iacute;da</span><span class="output">Digite um n&uacute;mero: </span><span class="user-input">5</span>
+<span class="output">5</span></div>
         </div>
 
         <div class="content-card">
             <h2>&#x1F4DD; Exemplo interativo</h2>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.18</span>
-nome = <span class="function">input</span>(<span class="string">"Digite seu nome: "</span>)
+            <div class="code-block"><span class="code-label">Listagem 3.18</span>nome = <span class="function">input</span>(<span class="string">"Digite seu nome: "</span>)
 <span class="function">print</span>(<span class="string">"Voc&ecirc; digitou %s"</span> % nome)
-<span class="function">print</span>(<span class="string">"Ol&aacute;, %s!"</span> % nome)
-            </div>
-            <div class="code-block">
-                <span class="code-label">Sa&iacute;da</span>
-<span class="output">Digite seu nome: </span><span class="user-input">Jo&atilde;o</span>
+<span class="function">print</span>(<span class="string">"Ol&aacute;, %s!"</span> % nome)</div>
+            <div class="code-block"><span class="code-label">Sa&iacute;da</span><span class="output">Digite seu nome: </span><span class="user-input">Jo&atilde;o</span>
 <span class="output">Voc&ecirc; digitou Jo&atilde;o</span>
-<span class="output">Ol&aacute;, Jo&atilde;o!</span>
-            </div>
+<span class="output">Ol&aacute;, Jo&atilde;o!</span></div>
             <p>O programa funciona com qualquer nome &mdash; ele n&atilde;o se importa com o que o usu&aacute;rio digita (por enquanto).</p>
         </div>
 
@@ -94,34 +82,22 @@ nome = <span class="function">input</span>(<span class="string">"Digite seu nome
                 <li><code>int()</code> &mdash; converte para n&uacute;mero inteiro</li>
                 <li><code>float()</code> &mdash; converte para n&uacute;mero decimal</li>
             </ul>
-            <div class="code-block">
-                <span class="code-label">Listagem 3.20 &mdash; B&ocirc;nus por tempo de servi&ccedil;o</span>
-anos = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Anos de servi&ccedil;o: "</span>))
+            <div class="code-block"><span class="code-label">Listagem 3.20 &mdash; B&ocirc;nus por tempo de servi&ccedil;o</span>anos = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Anos de servi&ccedil;o: "</span>))
 valor_por_ano = <span class="function">float</span>(<span class="function">input</span>(<span class="string">"Valor por ano: "</span>))
 b&ocirc;nus = anos * valor_por_ano
-<span class="function">print</span>(<span class="string">"B&ocirc;nus de R$ %5.2f"</span> % b&ocirc;nus)
-            </div>
-            <div class="code-block">
-                <span class="code-label">Sa&iacute;da</span>
-<span class="output">Anos de servi&ccedil;o: </span><span class="user-input">10</span>
+<span class="function">print</span>(<span class="string">"B&ocirc;nus de R$ %5.2f"</span> % b&ocirc;nus)</div>
+            <div class="code-block"><span class="code-label">Sa&iacute;da</span><span class="output">Anos de servi&ccedil;o: </span><span class="user-input">10</span>
 <span class="output">Valor por ano: </span><span class="user-input">25</span>
-<span class="output">B&ocirc;nus de R$ 250.00</span>
-            </div>
+<span class="output">B&ocirc;nus de R$ 250.00</span></div>
         </div>
 
         <div class="content-card">
             <h2>&#x26A0; Erros comuns na entrada de dados</h2>
             <p>Se o usu&aacute;rio digitar algo que n&atilde;o pode ser convertido, o programa d&aacute; erro:</p>
-            <div class="code-block">
-                <span class="code-label">Erro: letras onde esperava n&uacute;mero</span>
-<span class="output">Digite sua idade: </span><span class="user-input">abc</span>
-<span class="error">ValueError: invalid literal for int() with base 10: 'abc'</span>
-            </div>
-            <div class="code-block">
-                <span class="code-label">Erro: v&iacute;rgula no lugar do ponto</span>
-<span class="output">Digite o saldo: </span><span class="user-input">17,4</span>
-<span class="error">ValueError: could not convert string to float: '17,4'</span>
-            </div>
+            <div class="code-block"><span class="code-label">Erro: letras onde esperava n&uacute;mero</span><span class="output">Digite sua idade: </span><span class="user-input">abc</span>
+<span class="error">ValueError: invalid literal for int() with base 10: 'abc'</span></div>
+            <div class="code-block"><span class="code-label">Erro: v&iacute;rgula no lugar do ponto</span><span class="output">Digite o saldo: </span><span class="user-input">17,4</span>
+<span class="error">ValueError: could not convert string to float: '17,4'</span></div>
             <div class="warning-box">
                 <p>&#x26A0; Em Python, o separador decimal &eacute; o <strong>ponto</strong> (17.4), n&atilde;o a v&iacute;rgula (17,4). Esse &eacute; um erro muito comum para brasileiros! Por enquanto, nossos programas ainda n&atilde;o tratam esses erros &mdash; veremos isso mais adiante.</p>
             </div>

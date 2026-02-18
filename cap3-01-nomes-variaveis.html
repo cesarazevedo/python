@@ -22,7 +22,7 @@
         .content-card p { margin-bottom: 15px; text-align: justify; }
         .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
         .highlight-box p { margin-bottom: 0; font-style: italic; }
-        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
         .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
         .code-block .prompt { color: #93c5fd; }
         .code-block .output { color: #fbbf24; }
@@ -78,17 +78,14 @@
                 <li><strong>Inteiros (int)</strong> &mdash; n&uacute;meros sem parte decimal: <code>1, 0, -5, 550, 30000</code></li>
                 <li><strong>Ponto flutuante (float)</strong> &mdash; n&uacute;meros com casa decimal: <code>1.0, 5478, 10.478, 3.14</code></li>
             </ul>
-            <div class="code-block">
-                <span class="code-label">Exemplos</span>
-<span class="prompt">&gt;&gt;&gt;</span> type(5)
+            <div class="code-block"><span class="code-label">Exemplos</span><span class="prompt">&gt;&gt;&gt;</span> type(5)
 <span class="output">&lt;class 'int'&gt;</span>
 <span class="prompt">&gt;&gt;&gt;</span> type(5.0)
 <span class="output">&lt;class 'float'&gt;</span>
 <span class="prompt">&gt;&gt;&gt;</span> type(-2)
 <span class="output">&lt;class 'int'&gt;</span>
 <span class="prompt">&gt;&gt;&gt;</span> type(1.333)
-<span class="output">&lt;class 'float'&gt;</span>
-            </div>
+<span class="output">&lt;class 'float'&gt;</span></div>
             <p><strong>Aten&ccedil;&atilde;o:</strong> Em Python usamos o <strong>ponto</strong> como separador decimal, n&atilde;o a v&iacute;rgula. Ent&atilde;o &eacute; <code>3.14</code> e n&atilde;o <code>3,14</code>. Tamb&eacute;m n&atilde;o usamos separador de milhar: um milh&atilde;o &eacute; <code>1000000</code>.</p>
         </div>
 
@@ -96,13 +93,10 @@
             <h2>&#x1F4BB; Representa&ccedil;&atilde;o bin&aacute;ria</h2>
             <p>Internamente, o computador representa todos os n&uacute;meros no <strong>sistema bin&aacute;rio</strong> (base 2), usando apenas os d&iacute;gitos 0 e 1.</p>
             <p>Por exemplo, o n&uacute;mero <strong>1010</strong> em bin&aacute;rio representa:</p>
-            <div class="code-block">
-                <span class="code-label">Base 2 &rarr; Base 10</span>
-1010 = 1&times;2&sup3; + 0&times;2&sup2; + 1&times;2&sup1; + 0&times;2&sup0;
+            <div class="code-block"><span class="code-label">Base 2 &rarr; Base 10</span>1010 = 1&times;2&sup3; + 0&times;2&sup2; + 1&times;2&sup1; + 0&times;2&sup0;
      = 1&times;8 + 0&times;4 + 1&times;2 + 0&times;1
      = 8 + 2
-     = <span class="output">10</span>
-            </div>
+     = <span class="output">10</span></div>
             <p>Para n&uacute;meros inteiros, Python tem precis&atilde;o ilimitada &mdash; pode trabalhar com n&uacute;meros enormes sem problemas. Para ponto flutuante, existem limites de precis&atilde;o (por isso <code>3 * 0.1</code> pode dar <code>0.30000000000000004</code>).</p>
         </div>
 
