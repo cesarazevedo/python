@@ -36,6 +36,9 @@
         .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
         .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
         @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
     </style>
 </head>
@@ -104,6 +107,30 @@ m&eacute;dia = 7
 aprovado = nota &gt; m&eacute;dia
 print(aprovado)    <span class="comment"># True</span></div>
             <p>O <code>#</code> (cerquilha) inicia um <strong>coment&aacute;rio</strong>. Tudo ap&oacute;s o <code>#</code> na mesma linha &eacute; ignorado pelo Python. Use coment&aacute;rios para explicar seu c&oacute;digo!</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x270F; Exerc&iacute;cio</h2>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 3.2</h3>
+                <p>Complete a tabela abaixo, respondendo True ou False. Considere <code>a = 4</code>, <code>b = 10</code>, <code>c = 5.0</code>, <code>d = 1</code> e <code>f = 5</code>.</p>
+                <table class="op-table">
+                    <thead><tr><th>Express&atilde;o</th><th>Resultado</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>a == c</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>a &lt; b</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>d &gt; b</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>d == f</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>a == b</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>c &lt; d</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>b &gt; a</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>b &gt;= f</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>f &gt;= c</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>c &lt;= c</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                        <tr><td><code>c &lt;= f</code></td><td>&#9675; True &nbsp;&nbsp; &#9675; False</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="nav-footer">

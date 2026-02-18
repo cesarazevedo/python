@@ -92,6 +92,24 @@ b&ocirc;nus = anos * valor_por_ano
         </div>
 
         <div class="content-card">
+            <h2>&#x1F4CB; Combinando os tr&ecirc;s tipos</h2>
+            <p>Podemos combinar <code>input()</code>, <code>int()</code> e <code>float()</code> no mesmo programa para ler dados de tipos diferentes:</p>
+            <div class="code-block"><span class="code-label">Listagem 3.22</span>nome = <span class="function">input</span>(<span class="string">"Digite seu nome: "</span>)
+idade = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Digite sua idade: "</span>))
+saldo = <span class="function">float</span>(<span class="function">input</span>(<span class="string">"Digite o saldo da sua conta banc&aacute;ria: "</span>))
+<span class="function">print</span>(nome)
+<span class="function">print</span>(idade)
+<span class="function">print</span>(saldo)</div>
+            <div class="code-block"><span class="code-label">Sa&iacute;da</span><span class="output">Digite seu nome: </span><span class="user-input">Jo&atilde;o</span>
+<span class="output">Digite sua idade: </span><span class="user-input">42</span>
+<span class="output">Digite o saldo da sua conta banc&aacute;ria: </span><span class="user-input">15756.34</span>
+<span class="output">Jo&atilde;o</span>
+<span class="output">42</span>
+<span class="output">15756.34</span></div>
+            <p>Note que <code>print(saldo)</code> exibe <code>15756.34</code> e n&atilde;o <code>15756.340000</code>, pois o Python remove zeros desnecess&aacute;rios ao exibir floats diretamente.</p>
+        </div>
+
+        <div class="content-card">
             <h2>&#x26A0; Erros comuns na entrada de dados</h2>
             <p>Se o usu&aacute;rio digitar algo que n&atilde;o pode ser convertido, o programa d&aacute; erro:</p>
             <div class="code-block"><span class="code-label">Erro: letras onde esperava n&uacute;mero</span><span class="output">Digite sua idade: </span><span class="user-input">abc</span>
@@ -132,8 +150,23 @@ b&ocirc;nus = anos * valor_por_ano
             </div>
 
             <div class="exercise-box">
+                <h3>&#x270F; Exerc&iacute;cio 3.12</h3>
+                <p>Escreva um programa que calcule o tempo de uma viagem de carro. Pergunte a dist&acirc;ncia a percorrer e a velocidade m&eacute;dia esperada para a viagem.</p>
+            </div>
+
+            <div class="exercise-box">
                 <h3>&#x270F; Exerc&iacute;cio 3.13</h3>
                 <p>Escreva um programa que converta uma temperatura digitada em &deg;C para &deg;F. F&oacute;rmula: <strong>F = (9 &times; C / 5) + 32</strong></p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>&#x270F; Exerc&iacute;cio 3.14</h3>
+                <p>Escreva um programa que pergunte a quantidade de km percorridos por um carro alugado pelo usu&aacute;rio, assim como a quantidade de dias pelos quais o carro foi alugado. Calcule o pre&ccedil;o a pagar, sabendo que o carro custa R$ 60 por dia e R$ 0,15 por km rodado.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>&#x270F; Exerc&iacute;cio 3.15</h3>
+                <p>Escreva um programa para calcular a redu&ccedil;&atilde;o do tempo de vida de um fumante. Pergunte a quantidade de cigarros fumados por dia e quantos anos ele j&aacute; fumou. Considere que um fumante perde 10 minutos de vida a cada cigarro; calcule quantos dias de vida um fumante perder&aacute;. Exiba o total em dias.</p>
             </div>
         </div>
 

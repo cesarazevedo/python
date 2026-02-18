@@ -38,6 +38,12 @@
         .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
         .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        .exercise-table th, .exercise-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #bbf7d0; font-family: 'Consolas', monospace; }
+        .exercise-table th { background: #dcfce7; color: #166534; font-weight: 600; font-family: 'Segoe UI', sans-serif; }
         @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
     </style>
 </head>
@@ -125,6 +131,56 @@
 
             <div class="highlight-box">
                 <p>&#x1F4A1; Express&otilde;es com mais de um operador l&oacute;gico: avalie primeiro <code>not</code>, depois <code>and</code>, por &uacute;ltimo <code>or</code>. Na d&uacute;vida, use par&ecirc;nteses para deixar claro.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x270F; Exerc&iacute;cios</h2>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 3.3</h3>
+                <p>Complete a tabela a seguir utilizando <code>a = True</code>, <code>b = False</code> e <code>c = True</code>.</p>
+                <table class="exercise-table">
+                    <thead><tr><th>Express&atilde;o</th><th>Resultado</th></tr></thead>
+                    <tbody>
+                        <tr><td>a and a</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>b and b</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>not c</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>not b</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>not a</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>a and b</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>b and c</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>a or c</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>b or c</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>c or a</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>c or b</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>c or c</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                        <tr><td>b or b</td><td>&#9675; True &nbsp; &#9675; False</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 3.4</h3>
+                <p>Escreva uma express&atilde;o para determinar se uma pessoa deve ou n&atilde;o pagar imposto. Considere que pagam imposto pessoas cujo sal&aacute;rio &eacute; maior que R$ 1.200,00.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 3.5</h3>
+                <p>Calcule o resultado da express&atilde;o <code>A &gt; B and C or D</code>, utilizando os valores da tabela a seguir.</p>
+                <table class="exercise-table">
+                    <thead><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>Resultado</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>2</td><td>True</td><td>False</td><td>&nbsp;</td></tr>
+                        <tr><td>10</td><td>3</td><td>False</td><td>False</td><td>&nbsp;</td></tr>
+                        <tr><td>5</td><td>1</td><td>False</td><td>True</td><td>&nbsp;</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 3.6</h3>
+                <p>Escreva uma express&atilde;o que ser&aacute; utilizada para decidir se um aluno foi ou n&atilde;o aprovado. Para ser aprovado, todas as m&eacute;dias do aluno devem ser maiores que 7. Considere que o aluno cursa apenas tr&ecirc;s mat&eacute;rias, e que a nota de cada uma est&aacute; armazenada nas seguintes vari&aacute;veis: <code>mat&eacute;ria1</code>, <code>mat&eacute;ria2</code> e <code>mat&eacute;ria3</code>.</p>
             </div>
         </div>
 

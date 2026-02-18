@@ -28,6 +28,7 @@
         .code-block .output { color: #fbbf24; }
         .code-block .string { color: #86efac; }
         .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .error { color: #f87171; }
         .string-visual { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 15px 0; text-align: center; overflow-x: auto; }
         .string-visual .boxes { display: inline-flex; gap: 0; }
         .string-visual .box { width: 40px; height: 45px; border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; font-family: 'Consolas', monospace; font-size: 1.1em; font-weight: 600; background: white; }
@@ -79,6 +80,25 @@
         </div>
 
         <div class="content-card">
+            <h2>&#x1F4CD; Acessando caracteres por &iacute;ndice</h2>
+            <p>Voc&ecirc; pode acessar um caractere individual usando seu &iacute;ndice entre colchetes: <code>variavel[indice]</code>. Se tentar um &iacute;ndice fora do intervalo, Python gera um erro:</p>
+            <div class="code-block"><span class="code-label">Listagem 3.8</span><span class="prompt">&gt;&gt;&gt;</span> a = <span class="string">"ABCDEF"</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(a[0])
+<span class="output">A</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(a[1])
+<span class="output">B</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(a[5])
+<span class="output">F</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(a[6])
+<span class="error">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+IndexError: string index out of range</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(len(a))
+<span class="output">6</span></div>
+            <p>A string <code>"ABCDEF"</code> tem 6 caracteres (posições 0 a 5). Tentar acessar a posição 6 &mdash; que n&atilde;o existe &mdash; gera um <code>IndexError</code>.</p>
+        </div>
+
+        <div class="content-card">
             <h2>&#x1F517; Concatena&ccedil;&atilde;o e repeti&ccedil;&atilde;o</h2>
             <p>Use <code>+</code> para juntar strings e <code>*</code> para repetir:</p>
             <div class="code-block"><span class="code-label">Listagem 3.9</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"ABC"</span>
@@ -103,6 +123,24 @@
                     <tr><td>%f</td><td>N&uacute;meros decimais</td></tr>
                 </tbody>
             </table>
+            <p>Para inteiros, o marcador <code>%d</code> aceita modifica&ccedil;&otilde;es: <code>%03d</code> preenche com zeros &agrave; esquerda, <code>%3d</code> preenche com espa&ccedil;os, <code>%-3d</code> alinha &agrave; esquerda:</p>
+            <div class="code-block"><span class="code-label">Listagem 3.10</span><span class="prompt">&gt;&gt;&gt;</span> idade = 22
+<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"[%d]"</span> % idade)
+<span class="output">[22]</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"[%03d]"</span> % idade)
+<span class="output">[022]</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"[%3d]"</span> % idade)
+<span class="output">[ 22]</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"[%-3d]"</span> % idade)
+<span class="output">[22 ]</span></div>
+            <p>Para n&uacute;meros decimais, <code>%5f</code> reserva 5 posi&ccedil;&otilde;es no total e <code>%5.2f</code> reserva 5 posi&ccedil;&otilde;es com 2 casas decimais:</p>
+            <div class="code-block"><span class="code-label">Listagem 3.11</span><span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"%5f"</span> % 5)
+<span class="output">5.000000</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"%5.2f"</span> % 5)
+<span class="output"> 5.00</span>
+<span class="prompt">&gt;&gt;&gt;</span> print(<span class="string">"%10.5f"</span> % 5)
+<span class="output">   5.00000</span></div>
+            <p>Combinando tudo, podemos montar mensagens completas com v&aacute;rias vari&aacute;veis de tipos diferentes:</p>
             <div class="code-block"><span class="code-label">Listagem 3.12</span><span class="prompt">&gt;&gt;&gt;</span> nome = <span class="string">"Jo&atilde;o"</span>
 <span class="prompt">&gt;&gt;&gt;</span> idade = 22
 <span class="prompt">&gt;&gt;&gt;</span> grana = 51.34

@@ -36,6 +36,9 @@
         .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
         .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
         @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
     </style>
 </head>
@@ -98,6 +101,25 @@
      = 8 + 2
      = <span class="output">10</span></div>
             <p>Para n&uacute;meros inteiros, Python tem precis&atilde;o ilimitada &mdash; pode trabalhar com n&uacute;meros enormes sem problemas. Para ponto flutuante, existem limites de precis&atilde;o (por isso <code>3 * 0.1</code> pode dar <code>0.30000000000000004</code>).</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x270F; Exerc&iacute;cio</h2>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 3.1</h3>
+                <p>Complete a tabela a seguir, marcando <strong>inteiro</strong> ou <strong>ponto flutuante</strong> dependendo do n&uacute;mero apresentado.</p>
+                <table class="op-table">
+                    <thead><tr><th>N&uacute;mero</th><th>Tipo num&eacute;rico</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>5</code></td><td>&#9675; inteiro &nbsp;&nbsp; &#9675; ponto flutuante</td></tr>
+                        <tr><td><code>5.0</code></td><td>&#9675; inteiro &nbsp;&nbsp; &#9675; ponto flutuante</td></tr>
+                        <tr><td><code>4.3</code></td><td>&#9675; inteiro &nbsp;&nbsp; &#9675; ponto flutuante</td></tr>
+                        <tr><td><code>-2</code></td><td>&#9675; inteiro &nbsp;&nbsp; &#9675; ponto flutuante</td></tr>
+                        <tr><td><code>100</code></td><td>&#9675; inteiro &nbsp;&nbsp; &#9675; ponto flutuante</td></tr>
+                        <tr><td><code>1.333</code></td><td>&#9675; inteiro &nbsp;&nbsp; &#9675; ponto flutuante</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="nav-footer">
