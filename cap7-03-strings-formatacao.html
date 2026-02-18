@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 7.3 - Strings: Formatação e Jogo da Forca</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #306998; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(124,58,237,0.12); color: #7c3aed; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .prompt { color: #64748b; }
+        .code-block .number { color: #fb923c; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-box code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .format-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.88em; }
+        .format-table th { background: #7c3aed; color: white; padding: 10px 14px; text-align: left; }
+        .format-table td { padding: 8px 14px; border-bottom: 1px solid #e2e8f0; font-family: 'Consolas', monospace; }
+        .format-table tr:nth-child(even) td { background: #f8f7ff; }
+        .format-table td:first-child { color: #7c3aed; font-weight: 600; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 7 &mdash; Strings</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F4CF; Formata&ccedil;&atilde;o de Strings e Jogo da Forca</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 7.9&ndash;7.10 &mdash; M&eacute;todo format e projeto pr&aacute;tico</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F9EE; 7.9 Formata&ccedil;&atilde;o de Strings</h2>
+            <p>O m&eacute;todo <code>format()</code> permite criar strings com valores inseridos dinamicamente. Os campos entre chaves <code>{}</code> s&atilde;o substitu&iacute;dos pelos argumentos fornecidos, identificados por &iacute;ndice:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.27 &mdash; Uso b&aacute;sico do format</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0} {1}"</span>.<span class="function">format</span>(<span class="string">"Al&ocirc;"</span>, <span class="string">"Mundo"</span>)
+<span class="output">'Al&ocirc; Mundo'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0} x {1} R${2}"</span>.<span class="function">format</span>(5, <span class="string">"ma&ccedil;&atilde;"</span>, <span class="string">"1.20"</span>)
+<span class="output">'5 x ma&ccedil;&atilde; R$1.20'</span></div>
+            <p>O mesmo &iacute;ndice pode ser reutilizado v&aacute;rias vezes na mesma string:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.28 &mdash; Reutiliza&ccedil;&atilde;o de &iacute;ndices</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0} {1} {0}"</span>.<span class="function">format</span>(<span class="string">"-"</span>, <span class="string">"x"</span>)
+<span class="output">'- x -'</span></div>
+            <p>Os &iacute;ndices tamb&eacute;m podem ser usados fora de ordem:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.29 &mdash; &Iacute;ndices fora de ordem</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{1} {0}"</span>.<span class="function">format</span>(<span class="string">"primeiro"</span>, <span class="string">"segundo"</span>)
+<span class="output">'segundo primeiro'</span></div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">Largura e Alinhamento</h3>
+            <p>Ap&oacute;s o &iacute;ndice, um dois pontos (<code>:</code>) indica especifica&ccedil;&otilde;es de formato. Um n&uacute;mero define a largura m&iacute;nima do campo:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.30 &mdash; Largura m&iacute;nima</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:10} {1}"</span>.<span class="function">format</span>(<span class="string">"123"</span>, <span class="string">"456"</span>)
+<span class="output">'123        456'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:10}X"</span>.<span class="function">format</span>(<span class="string">"123"</span>)
+<span class="output">'123       X'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:10}X"</span>.<span class="function">format</span>(<span class="string">"12345678901345"</span>)
+<span class="output">'12345678901345X'</span>   <span class="comment"># n&atilde;o &eacute; truncado</span></div>
+            <p>O alinhamento &eacute; controlado por <code>&lt;</code> (esquerda), <code>&gt;</code> (direita) ou <code>^</code> (centro):</p>
+            <div class="code-block"><span class="code-label">Listagem 7.31 &mdash; Alinhamento esquerda e direita</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:&lt;10}X"</span>.<span class="function">format</span>(<span class="string">"123"</span>)
+<span class="output">'123       X'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:&gt;10}X"</span>.<span class="function">format</span>(<span class="string">"123"</span>)
+<span class="output">'       123X'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.32 &mdash; Centraliza&ccedil;&atilde;o</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:^10}X"</span>.<span class="function">format</span>(<span class="string">"123"</span>)
+<span class="output">'   123    X'</span></div>
+            <p>Antes do alinhamento, um caractere de preenchimento (fill) substitui os espa&ccedil;os em branco:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.33 &mdash; Caractere de preenchimento</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:.&lt;10}X"</span>.<span class="function">format</span>(<span class="string">"123"</span>)
+<span class="output">'123.......X'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:!&gt;10}X"</span>.<span class="function">format</span>(<span class="string">"123"</span>)
+<span class="output">'!!!!!!!123X'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:*^10}X"</span>.<span class="function">format</span>(<span class="string">"123"</span>)
+<span class="output">'***123****X'</span></div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">Acesso a Listas e Dicion&aacute;rios</h3>
+            <div class="code-block"><span class="code-label">Listagem 7.34 &mdash; Acesso a elementos de lista</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0[1]} {0[2]}"</span>.<span class="function">format</span>([<span class="string">"zero"</span>, <span class="string">"456"</span>, <span class="string">"789"</span>])
+<span class="output">'456 789'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.35 &mdash; Acesso a campos de dicion&aacute;rio</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0[nome]} {0[telefone]}"</span>.<span class="function">format</span>({<span class="string">"telefone"</span>: 572, <span class="string">"nome"</span>: <span class="string">"Maria"</span>})
+<span class="output">'Maria 572'</span></div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">7.9.1 Formata&ccedil;&atilde;o de N&uacute;meros</h3>
+            <p>Para n&uacute;meros, podemos usar zeros &agrave; esquerda, separador de milhar, casas decimais e sinal:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.36 &mdash; Zeros &agrave; esquerda</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:05}"</span>.<span class="function">format</span>(5)
+<span class="output">'00005'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.37 &mdash; Preenchimento com asterisco (direita)</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:*&gt;7}"</span>.<span class="function">format</span>(32)
+<span class="output">'*****32'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.38 &mdash; Alinhamento com preenchimento para inteiros</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:*^10}"</span>.<span class="function">format</span>(123)
+<span class="output">'***123****'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:*&lt;10}"</span>.<span class="function">format</span>(123)
+<span class="output">'123*******'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:*&gt;10}"</span>.<span class="function">format</span>(123)
+<span class="output">'*******123'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.39 &mdash; Separador de milhar e casas decimais</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:10,}"</span>.<span class="function">format</span>(7532)
+<span class="output">'     7,532'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:10.5f}"</span>.<span class="function">format</span>(1500.31)
+<span class="output">'1500.31000'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:10,.5f}"</span>.<span class="function">format</span>(1500.31)
+<span class="output">'1,500.31000'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.40 &mdash; Sinal de positivo e negativo</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:+10} {1:+10}"</span>.<span class="function">format</span>(5, -6)
+<span class="output">'        +5        -6'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0:-10} {1:-10}"</span>.<span class="function">format</span>(5, -6)
+<span class="output">'         5        -6'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{0: 10} {1: 10}"</span>.<span class="function">format</span>(5, -6)
+<span class="output">'         5        -6'</span></div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">Formatos de N&uacute;meros Inteiros</h3>
+            <table class="format-table">
+                <tr><th>Formato</th><th>Descri&ccedil;&atilde;o</th><th>Exemplo</th></tr>
+                <tr><td>b</td><td>Bin&aacute;rio</td><td>{:b} de 5678 → 1011000101110</td></tr>
+                <tr><td>c</td><td>Caractere Unicode</td><td>{:c} de 65 → A</td></tr>
+                <tr><td>d</td><td>Decimal (padr&atilde;o)</td><td>{:d} de 5678 → 5678</td></tr>
+                <tr><td>n</td><td>Decimal com locale</td><td>{:n} de 5678 → 5.678 (pt_BR)</td></tr>
+                <tr><td>o</td><td>Octal</td><td>{:o} de 5678 → 13056</td></tr>
+                <tr><td>x</td><td>Hexadecimal min&uacute;sculo</td><td>{:x} de 5678 → 162e</td></tr>
+                <tr><td>X</td><td>Hexadecimal mai&uacute;sculo</td><td>{:X} de 5678 → 162E</td></tr>
+            </table>
+            <div class="code-block"><span class="code-label">Listagem 7.41 &mdash; Formatos de inteiros</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:b}"</span>.<span class="function">format</span>(5678)
+<span class="output">'1011000101110'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:c}"</span>.<span class="function">format</span>(65)
+<span class="output">'A'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:o}"</span>.<span class="function">format</span>(5678)
+<span class="output">'13056'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:x}"</span>.<span class="function">format</span>(5678)
+<span class="output">'162e'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:X}"</span>.<span class="function">format</span>(5678)
+<span class="output">'162E'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.42 &mdash; Formato n com locale pt_BR</span><span class="keyword">import</span> locale
+locale.<span class="function">setlocale</span>(locale.LC_ALL, <span class="string">"pt_BR"</span>)
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:n}"</span>.<span class="function">format</span>(5678)
+<span class="output">'5.678'</span></div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">Formatos de N&uacute;meros Decimais</h3>
+            <table class="format-table">
+                <tr><th>Formato</th><th>Descri&ccedil;&atilde;o</th></tr>
+                <tr><td>e</td><td>Nota&ccedil;&atilde;o cient&iacute;fica (min&uacute;sculo)</td></tr>
+                <tr><td>E</td><td>Nota&ccedil;&atilde;o cient&iacute;fica (mai&uacute;sculo)</td></tr>
+                <tr><td>f</td><td>Ponto flutuante fixo</td></tr>
+                <tr><td>g</td><td>Geral: usa f ou e conforme magnitude</td></tr>
+                <tr><td>G</td><td>Geral: usa f ou E conforme magnitude</td></tr>
+                <tr><td>n</td><td>Ponto flutuante com locale</td></tr>
+                <tr><td>%</td><td>Percentagem (multiplica por 100)</td></tr>
+            </table>
+            <div class="code-block"><span class="code-label">Listagem 7.43 &mdash; Formato f e n para decimais</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:f}"</span>.<span class="function">format</span>(1579.543)
+<span class="output">'1579.543000'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:n}"</span>.<span class="function">format</span>(1579.543)   <span class="comment"># sem locale</span>
+<span class="output">'1579.54'</span>
+<span class="comment"># com locale pt_BR:</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:n}"</span>.<span class="function">format</span>(1579.543)
+<span class="output">'1.579,54'</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.44 &mdash; Nota&ccedil;&atilde;o cient&iacute;fica e percentagem</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:8e}"</span>.<span class="function">format</span>(1579.543)
+<span class="output">'1.579543e+03'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:8E}"</span>.<span class="function">format</span>(1579.543)
+<span class="output">'1.579543E+03'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:8g}"</span>.<span class="function">format</span>(1579.543)
+<span class="output">'1579.54'</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"{:5.2%}"</span>.<span class="function">format</span>(0.75)
+<span class="output">'75.00%'</span></div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1FAE3; 7.10 Projeto: Jogo da Forca</h2>
+            <p>Vamos aplicar os conceitos de strings em um jogo da forca completo. O jogo pede uma palavra secreta, mostra o progresso do jogador (pontos no lugar das letras ainda n&atilde;o descobertas) e desenha o boneco conforme os erros aumentam.</p>
+            <p>Conceitos-chave utilizados:</p>
+            <ul>
+                <li><code>lower()</code> e <code>strip()</code> para normalizar a entrada</li>
+                <li>La&ccedil;o <code>for</code> sobre os caracteres da palavra</li>
+                <li>Listas <code>acertos</code> e <code>digitadas</code> como conjuntos de letras</li>
+                <li><code>continue</code> para pular para a pr&oacute;xima itera&ccedil;&atilde;o do la&ccedil;o</li>
+                <li>Formata&ccedil;&atilde;o de strings para exibir o boneco</li>
+            </ul>
+            <div class="code-block"><span class="code-label">Listagem 7.45 &mdash; Jogo da Forca</span>palavra = <span class="function">input</span>(<span class="string">"Digite a palavra secreta:"</span>).<span class="function">lower</span>().<span class="function">strip</span>()  <span class="comment">①</span>
+<span class="keyword">for</span> x <span class="keyword">in</span> <span class="function">range</span>(100):
+    <span class="function">print</span>()  <span class="comment">②</span>
+digitadas = []
+acertos = []
+erros = 0
+<span class="keyword">while True</span>:
+    senha = <span class="string">""</span>
+    <span class="keyword">for</span> letra <span class="keyword">in</span> palavra:
+        senha += letra <span class="keyword">if</span> letra <span class="keyword">in</span> acertos <span class="keyword">else</span> <span class="string">"."</span>  <span class="comment">③</span>
+    <span class="function">print</span>(senha)
+    <span class="keyword">if</span> senha == palavra:
+        <span class="function">print</span>(<span class="string">"Voc&ecirc; acertou!"</span>)
+        <span class="keyword">break</span>
+    tentativa = <span class="function">input</span>(<span class="string">"\nDigite uma letra:"</span>).<span class="function">lower</span>().<span class="function">strip</span>()
+    <span class="keyword">if</span> tentativa <span class="keyword">in</span> digitadas:
+        <span class="function">print</span>(<span class="string">"Voc&ecirc; j&aacute; tentou esta letra!"</span>)
+        <span class="keyword">continue</span>  <span class="comment">④</span>
+    <span class="keyword">else</span>:
+        digitadas += tentativa
+        <span class="keyword">if</span> tentativa <span class="keyword">in</span> palavra:
+            acertos += tentativa
+        <span class="keyword">else</span>:
+            erros += 1
+            <span class="function">print</span>(<span class="string">"Voc&ecirc; errou!"</span>)
+    <span class="function">print</span>(<span class="string">"X==:=="</span>)
+    <span class="function">print</span>(<span class="string">"X  :"</span>)
+    <span class="function">print</span>(<span class="string">"X O "</span> <span class="keyword">if</span> erros >= 1 <span class="keyword">else</span> <span class="string">"X"</span>)
+    linha2 = <span class="string">""</span>
+    <span class="keyword">if</span> erros == 2:
+        linha2 = <span class="string">" | "</span>
+    <span class="keyword">elif</span> erros == 3:
+        linha2 = <span class="string">" \| "</span>
+    <span class="keyword">elif</span> erros >= 4:
+        linha2 = <span class="string">" \|/ "</span>
+    <span class="function">print</span>(<span class="string">"X%s"</span> % linha2)
+    <span class="function">print</span>(<span class="string">"X\============"</span>)
+    <span class="keyword">if</span> erros == 6:
+        <span class="function">print</span>(<span class="string">"Enforcado!"</span>)
+        <span class="keyword">break</span></div>
+
+            <div class="highlight-box">
+                <p><strong>Notas sobre o c&oacute;digo:</strong> ① Converte a palavra para min&uacute;sculas e remove espa&ccedil;os nas bordas. ② Imprime 100 linhas em branco para &ldquo;limpar&rdquo; a tela (a palavra n&atilde;o deve ser vista pelo jogador). ③ Express&atilde;o condicional: mostra a letra se ela est&aacute; nos acertos, caso contr&aacute;rio mostra ponto. ④ <code>continue</code> pula diretamente para o come&ccedil;o do pr&oacute;ximo la&ccedil;o, sem executar o restante do bloco.</p>
+            </div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">A instru&ccedil;&atilde;o continue</h3>
+            <p>A instru&ccedil;&atilde;o <code>continue</code> interrompe a itera&ccedil;&atilde;o atual de um la&ccedil;o e vai imediatamente para a pr&oacute;xima. No jogo da forca, quando o jogador tenta uma letra que j&aacute; foi digitada, <code>continue</code> evita que o programa registre novamente essa tentativa e redesenhe o boneco desnecessariamente.</p>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.7</h3>
+                <p>Modifique o programa da Listagem 7.45 de forma a escrever a palavra secreta caso o jogador perca (quando <code>erros == 6</code>).</p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.8</h3>
+                <p>Modifique o jogo da forca para utilizar uma <strong>lista de palavras</strong>. No in&iacute;cio, pergunte um n&uacute;mero ao usu&aacute;rio e calcule o &iacute;ndice da palavra pela f&oacute;rmula:</p>
+                <p><code>&iacute;ndice = (n&uacute;mero * 776) % len(lista_de_palavras)</code></p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.9</h3>
+                <p>Modifique o programa para utilizar <strong>listas de strings</strong> para desenhar o boneco da forca, em vez de imprimir cada linha individualmente com <code>if</code>/<code>elif</code>. Dica: crie uma lista onde cada elemento &eacute; a linha correspondente ao n&uacute;mero de erros.</p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.10</h3>
+                <p>Escreva um <strong>jogo da velha</strong> para dois jogadores. O tabuleiro deve ser representado como uma lista (ou lista de listas) e exibido ap&oacute;s cada jogada. O programa deve detectar quando um jogador vence ou quando h&aacute; empate.</p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap7-02-strings-metodos.html" class="nav-link">&#x2B05; Anterior: M&eacute;todos de Strings</a>
+            <a href="index.html" class="nav-link">&#x1F3E0; Voltar ao Dashboard &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>

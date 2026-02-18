@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 7.1 - Strings: Introdução e Pesquisa</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #306998; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(124,58,237,0.12); color: #7c3aed; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .prompt { color: #64748b; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-box code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 7 &mdash; Strings</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F4AC; Strings: Introdu&ccedil;&atilde;o e Pesquisa</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 7.0&ndash;7.3 &mdash; Imutabilidade, verifica&ccedil;&atilde;o, contagem e pesquisa</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F512; 7.0 Strings s&atilde;o Imut&aacute;veis</h2>
+            <p>Diferentemente das listas, as strings em Python s&atilde;o <strong>imut&aacute;veis</strong>: n&atilde;o &eacute; poss&iacute;vel alterar um caractere individual de uma string diretamente. Qualquer tentativa de atribuir um valor a um &iacute;ndice gera um erro do tipo <code>TypeError</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.1 &mdash; Altera&ccedil;&atilde;o de uma string</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"Al&ocirc; Mundo"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s[0] = <span class="string">"a"</span>
+<span class="output">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: 'str' object does not support item assignment</span></div>
+            <p>Para modificar caracteres individuais, uma estrat&eacute;gia &eacute; converter a string em uma lista usando <code>list()</code>, fazer as altera&ccedil;&otilde;es e depois converter de volta com <code>"".join()</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.2 &mdash; Convers&atilde;o de string para lista e de volta</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"Al&ocirc; Mundo"</span>
+<span class="prompt">&gt;&gt;&gt;</span> L = <span class="function">list</span>(s)
+<span class="prompt">&gt;&gt;&gt;</span> L
+<span class="output">['A', 'l', '&ocirc;', ' ', 'M', 'u', 'n', 'd', 'o']</span>
+<span class="prompt">&gt;&gt;&gt;</span> L[0] = <span class="string">"a"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">""</span>.<span class="function">join</span>(L)
+<span class="prompt">&gt;&gt;&gt;</span> s
+<span class="output">'al&ocirc; Mundo'</span></div>
+            <p>O m&eacute;todo <code>join()</code> concatena todos os elementos de uma lista usando a string &agrave; esquerda como separador. Com <code>""</code> (string vazia), os caracteres s&atilde;o simplesmente reunidos sem nenhum separador.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F50D; 7.1 Verifica&ccedil;&atilde;o Parcial de Strings</h2>
+            <p>Python oferece m&eacute;todos pr&aacute;ticos para verificar se uma string come&ccedil;a ou termina com determinado texto, sem precisar acessar cada caractere manualmente.</p>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">startswith e endswith</h3>
+            <p>Os m&eacute;todos <code>startswith()</code> e <code>endswith()</code> retornam <code>True</code> ou <code>False</code> e s&atilde;o <strong>sens&iacute;veis a mai&uacute;sculas e min&uacute;sculas</strong>:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.3 &mdash; startswith e endswith</span><span class="prompt">&gt;&gt;&gt;</span> nome = <span class="string">"Jo&atilde;o da Silva"</span>
+<span class="prompt">&gt;&gt;&gt;</span> nome.<span class="function">startswith</span>(<span class="string">"Jo&atilde;o"</span>)
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> nome.<span class="function">startswith</span>(<span class="string">"jo&atilde;o"</span>)
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> nome.<span class="function">endswith</span>(<span class="string">"Silva"</span>)
+<span class="output">True</span></div>
+
+            <p>Para fazer verifica&ccedil;&otilde;es sem distinguir mai&uacute;sculas de min&uacute;sculas, use <code>lower()</code> ou <code>upper()</code> primeiro. Esses m&eacute;todos retornam uma nova string convertida, sem alterar a original:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.4 &mdash; lower, upper e startswith</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"O Rato roeu a roupa do Rei de Roma"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">lower</span>()
+<span class="output">'o rato roeu a roupa do rei de roma'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">upper</span>()
+<span class="output">'O RATO ROEU A ROUPA DO REI DE ROMA'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">lower</span>().<span class="function">startswith</span>(<span class="string">"o rato"</span>)
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">upper</span>().<span class="function">startswith</span>(<span class="string">"O RATO"</span>)
+<span class="output">True</span></div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">Operador in e not in</h3>
+            <p>O operador <code>in</code> verifica se uma substring est&aacute; contida dentro de outra string. Tamb&eacute;m &eacute; sens&iacute;vel a mai&uacute;sculas e min&uacute;sculas:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.5 &mdash; Operador in com strings</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"Maria Am&eacute;lia Souza"</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"Am&eacute;lia"</span> <span class="keyword">in</span> s
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"Maria"</span> <span class="keyword">in</span> s
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"Souza"</span> <span class="keyword">in</span> s
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"a A"</span> <span class="keyword">in</span> s
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"am&eacute;lia"</span> <span class="keyword">in</span> s
+<span class="output">False</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.6 &mdash; Operador not in</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"Todos os caminhos levam a Roma"</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"levam"</span> <span class="keyword">not in</span> s
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"Caminhos"</span> <span class="keyword">not in</span> s
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"AS"</span> <span class="keyword">not in</span> s
+<span class="output">True</span></div>
+            <p>Para ignorar mai&uacute;sculas ao usar <code>in</code>, aplique <code>lower()</code> ou <code>upper()</code> antes da verifica&ccedil;&atilde;o:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.7 &mdash; Verifica&ccedil;&atilde;o sem distinção de maiúsculas</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"Jo&atilde;o comprou um carro"</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"jo&atilde;o"</span> <span class="keyword">in</span> s.<span class="function">lower</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"CARRO"</span> <span class="keyword">in</span> s.<span class="function">upper</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"comprou"</span> <span class="keyword">not in</span> s.<span class="function">lower</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"barco"</span> <span class="keyword">not in</span> s.<span class="function">lower</span>()
+<span class="output">True</span></div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F522; 7.2 Contagem</h2>
+            <p>O m&eacute;todo <code>count()</code> conta quantas vezes uma substring aparece dentro de uma string. A busca &eacute; sens&iacute;vel a mai&uacute;sculas e n&atilde;o conta sobreposi&ccedil;&otilde;es:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.8 &mdash; Contagem com count</span><span class="prompt">&gt;&gt;&gt;</span> t = <span class="string">"um tigre, dois tigres, tr&ecirc;s tigres"</span>
+<span class="prompt">&gt;&gt;&gt;</span> t.<span class="function">count</span>(<span class="string">"tigre"</span>)
+<span class="output">3</span>
+<span class="prompt">&gt;&gt;&gt;</span> t.<span class="function">count</span>(<span class="string">"tigres"</span>)
+<span class="output">2</span>
+<span class="prompt">&gt;&gt;&gt;</span> t.<span class="function">count</span>(<span class="string">"t"</span>)
+<span class="output">4</span>
+<span class="prompt">&gt;&gt;&gt;</span> t.<span class="function">count</span>(<span class="string">"z"</span>)
+<span class="output">0</span></div>
+            <p>Note que <code>count("tigre")</code> retorna 3 porque <code>"tigres"</code> cont&eacute;m <code>"tigre"</code>. J&aacute; <code>count("tigres")</code> retorna 2, pois conta somente as ocorr&ecirc;ncias exatas de <code>"tigres"</code>.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F50E; 7.3 Pesquisa de Strings</h2>
+            <p>Para localizar a posi&ccedil;&atilde;o de uma substring dentro de uma string, usamos o m&eacute;todo <code>find()</code>. Ele retorna o &iacute;ndice da primeira ocorr&ecirc;ncia ou <code>-1</code> se n&atilde;o encontrar:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.9 &mdash; M&eacute;todo find</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"Al&ocirc; mundo"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">find</span>(<span class="string">"mun"</span>)
+<span class="output">4</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">find</span>(<span class="string">"ok"</span>)
+<span class="output">-1</span></div>
+            <p>O m&eacute;todo <code>rfind()</code> funciona como <code>find()</code>, mas busca a partir do final da string (retornando a &uacute;ltima ocorr&ecirc;ncia):</p>
+            <div class="code-block"><span class="code-label">Listagem 7.10 &mdash; find e rfind comparados</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"Um dia de sol"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">find</span>(<span class="string">"d"</span>)
+<span class="output">3</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">rfind</span>(<span class="string">"d"</span>)
+<span class="output">7</span></div>
+            <p>Ambos aceitam par&acirc;metros opcionais de in&iacute;cio e fim para limitar o intervalo de busca:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.11 &mdash; find com par&acirc;metros de intervalo</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"um tigre, dois tigres, tr&ecirc;s tigres"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">find</span>(<span class="string">"tigres"</span>)
+<span class="output">15</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">rfind</span>(<span class="string">"tigres"</span>)
+<span class="output">28</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">find</span>(<span class="string">"tigres"</span>, 7)
+<span class="output">15</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">find</span>(<span class="string">"tigres"</span>, 30)
+<span class="output">-1</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">find</span>(<span class="string">"tigres"</span>, 0, 10)
+<span class="output">-1</span></div>
+
+            <h3 style="color:#7c3aed; margin: 20px 0 10px;">Pesquisa de Todas as Ocorr&ecirc;ncias</h3>
+            <p>Para encontrar todas as ocorr&ecirc;ncias de uma substring, podemos usar um la&ccedil;o <code>while</code> que chama <code>find()</code> repetidamente, avan&ccedil;ando a partir da &uacute;ltima posi&ccedil;&atilde;o encontrada:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.12 &mdash; Pesquisa de todas as ocorr&ecirc;ncias</span>s = <span class="string">"um tigre, dois tigres, tr&ecirc;s tigres"</span>
+p = 0
+<span class="keyword">while</span> p > -1:
+    p = s.<span class="function">find</span>(<span class="string">"tigre"</span>, p)
+    <span class="keyword">if</span> p >= 0:
+        <span class="function">print</span>(<span class="string">"Posi&ccedil;&atilde;o: %d"</span> % p)
+        p += 1</div>
+            <div class="code-block"><span class="code-label">Listagem 7.13 &mdash; Resultado da pesquisa</span><span class="output">Posi&ccedil;&atilde;o: 3
+Posi&ccedil;&atilde;o: 15
+Posi&ccedil;&atilde;o: 28</span></div>
+            <p>A vari&aacute;vel <code>p</code> serve como marcador: come&ccedil;a em 0 e a cada itera&ccedil;&atilde;o avan&ccedil;a um passo al&eacute;m da &uacute;ltima ocorr&ecirc;ncia encontrada (<code>p += 1</code>). Quando <code>find()</code> retorna <code>-1</code>, a condi&ccedil;&atilde;o <code>while p > -1</code> termina o la&ccedil;o.</p>
+
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.1</h3>
+                <p>Leia duas strings. Verifique se a segunda ocorre dentro da primeira e imprima a posi&ccedil;&atilde;o de in&iacute;cio.</p>
+                <p>Exemplo: 1&ordf; string: <code>AABBEFAATT</code>, 2&ordf; string: <code>BE</code></p>
+                <p>Sa&iacute;da: <em>BE encontrado na posi&ccedil;&atilde;o 3 de AABBEFAATT</em></p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.2</h3>
+                <p>Leia duas strings e gere uma terceira com os caracteres <strong>comuns</strong> &agrave;s duas strings lidas (cada caractere comum aparece uma vez no resultado).</p>
+                <p>Exemplo: 1&ordf;: <code>AAACTBF</code>, 2&ordf;: <code>CBT</code> &rarr; Resultado: <code>CBT</code></p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.3</h3>
+                <p>Leia duas strings e gere uma terceira apenas com os caracteres que aparecem em <strong>somente uma</strong> delas (diferen&ccedil;a sim&eacute;trica).</p>
+                <p>Exemplo: 1&ordf;: <code>CTA</code>, 2&ordf;: <code>ABC</code> &rarr; 3&ordf;: <code>BT</code></p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.4</h3>
+                <p>Leia uma string e imprima quantas vezes cada caractere aparece.</p>
+                <p>Exemplo: String: <code>TTAAC</code> &rarr; <code>T: 2x, A: 2x, C: 1x</code></p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.5</h3>
+                <p>Leia duas strings e gere uma terceira na qual os caracteres da segunda foram retirados da primeira.</p>
+                <p>Exemplo: 1&ordf;: <code>AATTGGAA</code>, 2&ordf;: <code>TG</code> &rarr; 3&ordf;: <code>AAAA</code></p>
+            </div>
+            <div class="exercise-box">
+                <h3>Exerc&iacute;cio 7.6</h3>
+                <p>Leia tr&ecirc;s strings. Imprima o resultado da substitui&ccedil;&atilde;o, na primeira, dos caracteres da segunda pelos da terceira (substitui&ccedil;&atilde;o caractere a caractere).</p>
+                <p>Exemplo: 1&ordf;: <code>AATTCGAA</code>, 2&ordf;: <code>TG</code>, 3&ordf;: <code>AC</code> &rarr; Resultado: <code>AAAACCAA</code></p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap6-05-ordenacao-dicionarios.html" class="nav-link">&#x2B05; Anterior: Ordena&ccedil;&atilde;o e Dicion&aacute;rios</a>
+            <a href="cap7-02-strings-metodos.html" class="nav-link">Pr&oacute;ximo: M&eacute;todos de Strings &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>

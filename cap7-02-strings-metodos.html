@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 7.2 - Strings: Métodos de Manipulação</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #306998; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(48,105,152,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(124,58,237,0.12); color: #7c3aed; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(48,105,152,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .prompt { color: #64748b; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-box code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .method-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9em; }
+        .method-table th { background: #7c3aed; color: white; padding: 10px 14px; text-align: left; }
+        .method-table td { padding: 9px 14px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+        .method-table tr:nth-child(even) td { background: #f8f7ff; }
+        .method-table code { background: #ede9fe; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; color: #5b21b6; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 7 &mdash; Strings</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F6E0;&#xFE0F; M&eacute;todos de Manipula&ccedil;&atilde;o de Strings</h1>
+            <p class="subtitle">Se&ccedil;&atilde;o 7.4&ndash;7.8 &mdash; Posicionamento, divis&atilde;o, substitui&ccedil;&atilde;o, remo&ccedil;&atilde;o e valida&ccedil;&atilde;o</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x21C4; 7.4 Posicionamento de Strings</h2>
+            <p>Para alinhar texto em colunas ou formatar sa&iacute;das, o Python oferece os m&eacute;todos <code>center()</code>, <code>ljust()</code> e <code>rjust()</code>. Todos recebem a largura total desejada e um caractere de preenchimento opcional.</p>
+            <div class="code-block"><span class="code-label">Listagem 7.14 &mdash; Centraliza&ccedil;&atilde;o com center</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"tigre"</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="function">print</span>(<span class="string">"X"</span> + s.<span class="function">center</span>(10) + <span class="string">"X"</span>)
+<span class="output">X  tigre   X</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="function">print</span>(<span class="string">"X"</span> + s.<span class="function">center</span>(10, <span class="string">"."</span>) + <span class="string">"X"</span>)
+<span class="output">X..tigre...X</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.15 &mdash; Alinhamento com ljust e rjust</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"tigre"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">ljust</span>(28)
+<span class="output">'tigre                       '</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">rjust</span>(28)
+<span class="output">'                       tigre'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">ljust</span>(28, <span class="string">"."</span>)
+<span class="output">'tigre.......................'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">rjust</span>(28, <span class="string">"-"</span>)
+<span class="output">'-----------------------tigre'</span></div>
+            <p><code>ljust()</code> alinha o texto &agrave; esquerda (preenchendo &agrave; direita) e <code>rjust()</code> alinha &agrave; direita (preenchendo &agrave; esquerda). Se a string for maior que a largura especificada, ela n&atilde;o &eacute; truncada.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x2702;&#xFE0F; 7.5 Quebra ou Separa&ccedil;&atilde;o de Strings</h2>
+            <p>O m&eacute;todo <code>split()</code> divide uma string em uma lista de substrings com base em um separador. Sem par&acirc;metros, usa qualquer espa&ccedil;o em branco como separador e ignora espa&ccedil;os m&uacute;ltiplos:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.16 &mdash; Separa&ccedil;&atilde;o com split</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"um tigre, dois tigres, tr&ecirc;s tigres"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">split</span>(<span class="string">","</span>)
+<span class="output">['um tigre', ' dois tigres', ' tr&ecirc;s tigres']</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">split</span>(<span class="string">" "</span>)
+<span class="output">['um', 'tigre,', 'dois', 'tigres,', 'tr&ecirc;s', 'tigres']</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">split</span>()
+<span class="output">['um', 'tigre,', 'dois', 'tigres,', 'tr&ecirc;s', 'tigres']</span></div>
+            <p>Para dividir uma string que cont&eacute;m m&uacute;ltiplas linhas, use <code>splitlines()</code>. Ele divide nos caracteres de quebra de linha (<code>\n</code>, <code>\r\n</code>, etc.) e ignora a &uacute;ltima linha vazia:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.17 &mdash; Divis&atilde;o por linhas com splitlines</span><span class="prompt">&gt;&gt;&gt;</span> m = <span class="string">"Uma linha\noutra linha\ne mais uma\n"</span>
+<span class="prompt">&gt;&gt;&gt;</span> m.<span class="function">splitlines</span>()
+<span class="output">['Uma linha', 'outra linha', 'e mais uma']</span></div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x1F504; 7.6 Substitui&ccedil;&atilde;o de Strings</h2>
+            <p>O m&eacute;todo <code>replace(antigo, novo)</code> retorna uma nova string com todas as ocorr&ecirc;ncias de <code>antigo</code> substitu&iacute;das por <code>novo</code>. Um terceiro par&acirc;metro opcional limita o n&uacute;mero de substitui&ccedil;&otilde;es:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.18 &mdash; Substitui&ccedil;&atilde;o com replace</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"um tigre, dois tigres, tr&ecirc;s tigres"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">replace</span>(<span class="string">"tigre"</span>, <span class="string">"gato"</span>)
+<span class="output">'um gato, dois gatos, tr&ecirc;s gatos'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">replace</span>(<span class="string">"tigre"</span>, <span class="string">"gato"</span>, 1)
+<span class="output">'um gato, dois tigres, tr&ecirc;s tigres'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">replace</span>(<span class="string">"tigre"</span>, <span class="string">"gato"</span>, 2)
+<span class="output">'um gato, dois gatos, tr&ecirc;s tigres'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">replace</span>(<span class="string">"tigre"</span>, <span class="string">""</span>)
+<span class="output">'um , dois s, tr&ecirc;s s'</span></div>
+            <p>Substituir por string vazia equivale a remover todas as ocorr&ecirc;ncias. Se o primeiro argumento for uma string vazia, o separador &eacute; inserido entre cada caractere:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.18 (continua&ccedil;&atilde;o)</span><span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">replace</span>(<span class="string">""</span>, <span class="string">"-"</span>)
+<span class="output">'-u-m- -t-i-g-r-e-,-...'</span></div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x2702;&#xFE0F; 7.7 Remo&ccedil;&atilde;o de Espa&ccedil;os em Branco</h2>
+            <p>Os m&eacute;todos <code>strip()</code>, <code>lstrip()</code> e <code>rstrip()</code> removem espa&ccedil;os em branco (ou outros caracteres especificados) das extremidades de uma string:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.19 &mdash; strip, lstrip e rstrip</span><span class="prompt">&gt;&gt;&gt;</span> t = <span class="string">"  Ol&aacute;  "</span>
+<span class="prompt">&gt;&gt;&gt;</span> t.<span class="function">strip</span>()
+<span class="output">'Ol&aacute;'</span>
+<span class="prompt">&gt;&gt;&gt;</span> t.<span class="function">lstrip</span>()
+<span class="output">'Ol&aacute;  '</span>
+<span class="prompt">&gt;&gt;&gt;</span> t.<span class="function">rstrip</span>()
+<span class="output">'  Ol&aacute;'</span></div>
+            <p>Com um par&acirc;metro, os m&eacute;todos removem qualquer combinação dos caracteres especificados (n&atilde;o uma substring exata) das extremidades:</p>
+            <div class="code-block"><span class="code-label">Listagem 7.20 &mdash; strip com par&acirc;metros</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"...///Ol&aacute;///..."</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">lstrip</span>(<span class="string">"."</span>)
+<span class="output">'///Ol&aacute;///...'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">rstrip</span>(<span class="string">"."</span>)
+<span class="output">'...///Ol&aacute;///'</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">strip</span>(<span class="string">"./"</span>)
+<span class="output">'Ol&aacute;'</span></div>
+            <p>O <code>strip("./")</code> remove qualquer combina&ccedil;&atilde;o de <code>"."</code> e <code>"/"</code> das duas extremidades at&eacute; encontrar um caractere que n&atilde;o esteja no conjunto fornecido.</p>
+            <div class="highlight-box">
+                <p>Dica pr&aacute;tica: ao ler dados do usu&aacute;rio com <code>input()</code>, &eacute; comum aplicar <code>.strip()</code> para eliminar espa&ccedil;os digitados acidentalmente no in&iacute;cio ou fim da entrada.</p>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>&#x2705; 7.8 Valida&ccedil;&atilde;o por Tipo de Conte&uacute;do</h2>
+            <p>Python oferece uma fam&iacute;lia de m&eacute;todos <code>is*()</code> que retornam <code>True</code> ou <code>False</code> conforme o tipo de conte&uacute;do da string:</p>
+
+            <table class="method-table">
+                <tr><th>M&eacute;todo</th><th>Retorna True se...</th></tr>
+                <tr><td><code>isalnum()</code></td><td>todos os caracteres s&atilde;o letras ou d&iacute;gitos</td></tr>
+                <tr><td><code>isalpha()</code></td><td>todos os caracteres s&atilde;o letras</td></tr>
+                <tr><td><code>isdigit()</code></td><td>todos os caracteres s&atilde;o d&iacute;gitos (0&ndash;9)</td></tr>
+                <tr><td><code>isupper()</code></td><td>todas as letras s&atilde;o mai&uacute;sculas</td></tr>
+                <tr><td><code>islower()</code></td><td>todas as letras s&atilde;o min&uacute;sculas</td></tr>
+                <tr><td><code>isspace()</code></td><td>todos os caracteres s&atilde;o espa&ccedil;os em branco</td></tr>
+                <tr><td><code>isprintable()</code></td><td>todos os caracteres s&atilde;o imprim&iacute;veis</td></tr>
+            </table>
+
+            <div class="code-block"><span class="code-label">Listagem 7.21 &mdash; isalnum e isalpha</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"125"</span>
+<span class="prompt">&gt;&gt;&gt;</span> p = <span class="string">"al&ocirc; mundo"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">isalnum</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> p.<span class="function">isalnum</span>()
+<span class="output">False</span>   <span class="comment"># espa&ccedil;o n&atilde;o &eacute; alfanum&eacute;rico</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">isalpha</span>()
+<span class="output">False</span>   <span class="comment"># d&iacute;gitos n&atilde;o s&atilde;o letras</span>
+<span class="prompt">&gt;&gt;&gt;</span> p.<span class="function">isalpha</span>()
+<span class="output">False</span>   <span class="comment"># espa&ccedil;o n&atilde;o &eacute; letra</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.22 &mdash; isdigit</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"777"</span>.<span class="function">isdigit</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"1R-4"</span>.<span class="function">isdigit</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"&gt;10"</span>.<span class="function">isdigit</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"-5"</span>.<span class="function">isdigit</span>()
+<span class="output">False</span>   <span class="comment"># sinal negativo n&atilde;o &eacute; d&iacute;gito</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.23 &mdash; isdigit vs isnumeric com Unicode</span><span class="prompt">&gt;&gt;&gt;</span> umter&ccedil;o = <span class="string">"\u2153"</span>   <span class="comment"># caractere &#x2153;</span>
+<span class="prompt">&gt;&gt;&gt;</span> novetibetano = <span class="string">"\u0F29"</span>   <span class="comment"># d&iacute;gito tibetano 9</span>
+<span class="prompt">&gt;&gt;&gt;</span> umter&ccedil;o.<span class="function">isdigit</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> umter&ccedil;o.<span class="function">isnumeric</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> novetibetano.<span class="function">isdigit</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> novetibetano.<span class="function">isnumeric</span>()
+<span class="output">True</span></div>
+            <p><code>isnumeric()</code> aceita uma variedade maior de caracteres num&eacute;ricos Unicode (fra&ccedil;&otilde;es, d&iacute;gitos de outros sistemas de escrita), enquanto <code>isdigit()</code> &eacute; mais restrito.</p>
+            <div class="code-block"><span class="code-label">Listagem 7.24 &mdash; isupper e islower</span><span class="prompt">&gt;&gt;&gt;</span> s = <span class="string">"ABC"</span>
+<span class="prompt">&gt;&gt;&gt;</span> p = <span class="string">"abc"</span>
+<span class="prompt">&gt;&gt;&gt;</span> e = <span class="string">"aBc"</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">isupper</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> s.<span class="function">islower</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> p.<span class="function">isupper</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> p.<span class="function">islower</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> e.<span class="function">isupper</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> e.<span class="function">islower</span>()
+<span class="output">False</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.25 &mdash; isspace</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"\t\n\r   "</span>.<span class="function">isspace</span>()
+<span class="output">True</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"\tAl&ocirc;"</span>.<span class="function">isspace</span>()
+<span class="output">False</span></div>
+            <div class="code-block"><span class="code-label">Listagem 7.26 &mdash; isprintable</span><span class="prompt">&gt;&gt;&gt;</span> <span class="string">"\n\t"</span>.<span class="function">isprintable</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"\nAl&ocirc;"</span>.<span class="function">isprintable</span>()
+<span class="output">False</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="string">"Al&ocirc; mundo"</span>.<span class="function">isprintable</span>()
+<span class="output">True</span></div>
+            <p>Caracteres de controle como <code>\n</code> (nova linha) e <code>\t</code> (tabula&ccedil;&atilde;o) n&atilde;o s&atilde;o imprim&iacute;veis, pois representam a&ccedil;&otilde;es e n&atilde;o glifos vis&iacute;veis.</p>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap7-01-strings-intro.html" class="nav-link">&#x2B05; Anterior: Introdu&ccedil;&atilde;o e Pesquisa</a>
+            <a href="cap7-03-strings-formatacao.html" class="nav-link">Pr&oacute;ximo: Formata&ccedil;&atilde;o &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>
