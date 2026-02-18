@@ -105,60 +105,74 @@
         .main-container {
             flex: 1;
             display: flex;
-            flex-direction: column;
-            padding: 20px 30px;
+            flex-direction: row;
             overflow: hidden;
         }
 
-        /* NAVEGAÇÃO POR ABAS */
+        /* SIDEBAR DE NAVEGAÇÃO */
         .tabs-nav {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 2px;
+            flex-direction: column;
+            width: 210px;
+            flex-shrink: 0;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+            padding: 20px 0;
+            gap: 2px;
+        }
+
+        .sidebar-label {
+            font-size: 0.7em;
+            font-weight: 700;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 18px 8px;
+        }
+
+        .sidebar-sep {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 10px 18px;
         }
 
         .tab-btn {
-            padding: 12px 24px;
+            padding: 9px 16px 9px 22px;
             background: transparent;
             border: none;
-            font-size: 1em;
+            border-left: 3px solid transparent;
+            font-size: 0.87em;
             font-weight: 600;
             color: #718096;
             cursor: pointer;
-            position: relative;
-            transition: all 0.3s;
-            border-radius: 8px 8px 0 0;
+            transition: all 0.2s;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            width: 100%;
         }
 
         .tab-btn:hover {
             color: var(--primary);
-            background: rgba(48, 105, 152, 0.05);
+            background: rgba(48, 105, 152, 0.06);
         }
 
         .tab-btn.active {
             color: var(--primary);
-            background: white;
+            background: rgba(48, 105, 152, 0.08);
+            border-left-color: var(--primary);
         }
 
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 4px 4px 0 0;
+        .tab-btn[data-target="cap1"].active {
+            border-left-color: var(--secondary);
+            color: #b8960e;
+            background: rgba(255, 212, 59, 0.1);
         }
 
-        .tab-btn[data-target="cap1"].active::after {
-            background: var(--secondary);
-        }
-
-        .tab-btn[data-target="cap2"].active::after {
-            background: #38b000;
+        .tab-btn[data-target="cap2"].active {
+            border-left-color: #38b000;
+            color: #2d8a00;
+            background: rgba(56, 176, 0, 0.08);
         }
 
         .badge-cap2 {
@@ -166,8 +180,10 @@
             color: #2d8a00;
         }
 
-        .tab-btn[data-target="cap3"].active::after {
-            background: #e63946;
+        .tab-btn[data-target="cap3"].active {
+            border-left-color: #e63946;
+            color: #c1121f;
+            background: rgba(230, 57, 70, 0.08);
         }
 
         .badge-cap3 {
@@ -175,8 +191,10 @@
             color: #c1121f;
         }
 
-        .tab-btn[data-target="cap4"].active::after {
-            background: #7209b7;
+        .tab-btn[data-target="cap4"].active {
+            border-left-color: #7209b7;
+            color: #7209b7;
+            background: rgba(114, 9, 183, 0.08);
         }
 
         .badge-cap4 {
@@ -184,8 +202,10 @@
             color: #7209b7;
         }
 
-        .tab-btn[data-target="cap5"].active::after {
-            background: #ea580c;
+        .tab-btn[data-target="cap5"].active {
+            border-left-color: #ea580c;
+            color: #ea580c;
+            background: rgba(249, 115, 22, 0.08);
         }
 
         .badge-cap5 {
@@ -193,8 +213,10 @@
             color: #ea580c;
         }
 
-        .tab-btn[data-target="cap6"].active::after {
-            background: #0891b2;
+        .tab-btn[data-target="cap6"].active {
+            border-left-color: #0891b2;
+            color: #0891b2;
+            background: rgba(8, 145, 178, 0.08);
         }
 
         .badge-cap6 {
@@ -208,7 +230,7 @@
             overflow-y: auto;
             display: none;
             animation: fadeIn 0.4s ease;
-            padding-bottom: 50px;
+            padding: 25px 30px 50px;
         }
 
         .tab-content.active {
@@ -396,13 +418,48 @@
                 width: 100%;
             }
 
+            .main-container {
+                flex-direction: column;
+            }
+
             .tabs-nav {
+                flex-direction: row;
+                width: 100%;
                 overflow-x: auto;
-                padding-bottom: 5px;
+                overflow-y: hidden;
+                padding: 8px 10px;
+                gap: 4px;
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            .sidebar-label, .sidebar-sep {
+                display: none;
             }
 
             .tab-btn {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                border-radius: 8px 8px 0 0;
                 white-space: nowrap;
+                width: auto;
+                padding: 8px 14px;
+            }
+
+            .tab-btn.active,
+            .tab-btn[data-target="cap1"].active,
+            .tab-btn[data-target="cap2"].active,
+            .tab-btn[data-target="cap3"].active,
+            .tab-btn[data-target="cap4"].active,
+            .tab-btn[data-target="cap5"].active,
+            .tab-btn[data-target="cap6"].active {
+                border-left-color: transparent;
+                border-bottom-color: currentColor;
+                background: rgba(48, 105, 152, 0.06);
+            }
+
+            .tab-content {
+                padding: 20px 15px 40px;
             }
         }
     </style>
@@ -435,12 +492,15 @@
 
     <!-- MAIN CONTAINER -->
     <div class="main-container">
-        <!-- NAVEGAÇÃO POR ABAS -->
+        <!-- SIDEBAR DE NAVEGAÇÃO -->
         <div class="tabs-nav">
+            <div class="sidebar-label">Dashboard</div>
             <button class="tab-btn active" data-target="visao-geral">&#x1F4CA; Vis&atilde;o Geral</button>
+            <div class="sidebar-sep"></div>
+            <div class="sidebar-label">Cap&iacute;tulos</div>
             <button class="tab-btn" data-target="cap1">&#x1F680; Cap 1 &mdash; Motiva&ccedil;&atilde;o</button>
-            <button class="tab-btn" data-target="cap2">&#x2699; Cap 2 &mdash; Preparando o Ambiente</button>
-            <button class="tab-btn" data-target="cap3">&#x1F4CA; Cap 3 &mdash; Vari&aacute;veis e Entrada</button>
+            <button class="tab-btn" data-target="cap2">&#x2699;&#xFE0F; Cap 2 &mdash; Ambiente</button>
+            <button class="tab-btn" data-target="cap3">&#x1F4CA; Cap 3 &mdash; Vari&aacute;veis</button>
             <button class="tab-btn" data-target="cap4">&#x2753; Cap 4 &mdash; Condi&ccedil;&otilde;es</button>
             <button class="tab-btn" data-target="cap5">&#x1F501; Cap 5 &mdash; Repeti&ccedil;&otilde;es</button>
             <button class="tab-btn" data-target="cap6">&#x1F4CB; Cap 6 &mdash; Listas</button>
