@@ -1245,6 +1245,8 @@
         const SHEET_ID = '1hBTt9Elc_7geXmgvSoMu6GU8QzYqC1PLuNHN74vWbW8';
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID
                         + '/gviz/tq?tqx=out:csv&t=' + Date.now();
+        const AULAS_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID
+                        + '/gviz/tq?tqx=out:csv&sheet=aulas&t=' + Date.now();
         // ────────────────────────────────────────────────────────────────
 
         function updateProgress() {
@@ -1258,11 +1260,38 @@
             document.getElementById('progLabel').textContent = checked + ' de ' + total + ' cap\u00edtulos';
         }
 
+        function updateLessonCards(csv) {
+            // Remove done de todos os cards primeiro
+            document.querySelectorAll('.lesson-card').forEach(card => {
+                card.classList.remove('done');
+                const status = card.querySelector('.lesson-status');
+                if (status) status.textContent = '';
+            });
+
+            // Lê o CSV e aplica done onde status = TRUE
+            const linhas = csv.trim().split('\n').slice(1); // pula cabeçalho
+            linhas.forEach(linha => {
+                const partes = linha.split(',');
+                if (partes.length < 2) return;
+                const aula = partes[0].trim().replace(/"/g, '');
+                const status = partes[1].trim().replace(/"/g, '').toUpperCase();
+                if (status !== 'TRUE') return;
+
+                // Encontra o card pelo href
+                const card = document.querySelector('.lesson-card[href*="' + aula + '"]');
+                if (card) {
+                    card.classList.add('done');
+                    const statusEl = card.querySelector('.lesson-status');
+                    if (statusEl) statusEl.textContent = '\u2705';
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Checkboxes são somente leitura — professor controla pela planilha
             document.querySelectorAll('.chapter-check').forEach(cb => cb.disabled = true);
 
-            // Buscar dados da planilha
+            // Buscar status dos capítulos
             fetch(SHEET_URL)
                 .then(r => r.text())
                 .then(csv => {
@@ -1275,10 +1304,15 @@
                     updateProgress();
                 })
                 .catch(() => {
-                    // Se falhar (offline, erro de CORS), não quebra a página
                     console.warn('Não foi possível carregar o progresso da planilha.');
                     updateProgress();
                 });
+
+            // Buscar status das aulas
+            fetch(AULAS_URL)
+                .then(r => r.text())
+                .then(csv => updateLessonCards(csv))
+                .catch(() => console.warn('Não foi possível carregar o status das aulas.'));
         });
 
         // ABAS + URL HASH
