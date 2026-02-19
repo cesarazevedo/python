@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 8.4 - Módulos, Aleatórios e type()</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #059669; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(5,150,105,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(5,150,105,0.12); color: #059669; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card h3 { color: #059669; margin: 20px 0 10px; font-size: 1.1em; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .prompt { color: #64748b; }
+        .code-block .number { color: #fb923c; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-box code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .method-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.88em; }
+        .method-table th { background: #059669; color: white; padding: 10px 14px; text-align: left; }
+        .method-table td { padding: 8px 14px; border-bottom: 1px solid #e2e8f0; }
+        .method-table tr:nth-child(even) td { background: #f0fdf4; }
+        .method-table td:first-child { font-family: 'Consolas', monospace; color: #059669; font-weight: 600; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 8 &mdash; Fun&ccedil;&otilde;es</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F4E6; M&oacute;dulos, Aleat&oacute;rios e type()</h1>
+            <p class="subtitle">Se&ccedil;&otilde;es 8.10&ndash;8.12 &mdash; Criando m&oacute;dulos, n&uacute;meros aleat&oacute;rios e a fun&ccedil;&atilde;o type</p>
+        </div>
+
+        <!-- Card 1: Módulos -->
+        <div class="content-card">
+            <h2>&#x1F9E9; 8.10 M&oacute;dulos</h2>
+            <p>Um <strong>m&oacute;dulo</strong> &eacute; simplesmente um arquivo Python com fun&ccedil;&otilde;es que podem ser importadas em outros programas. Isso permite criar bibliotecas reutiliz&aacute;veis e organizar o c&oacute;digo em arquivos separados.</p>
+            <p>Abaixo criamos um m&oacute;dulo chamado <code>entrada.py</code> com fun&ccedil;&otilde;es de valida&ccedil;&atilde;o de entrada:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.34 &mdash; M&oacute;dulo entrada.py</span><span class="comment"># entrada.py &mdash; fun&ccedil;&otilde;es de leitura validada</span>
+
+<span class="keyword">def</span> <span class="function">l&ecirc;_int</span>(msg):
+    <span class="string">"""L&ecirc; um inteiro do teclado, pedindo novamente em caso de erro."""</span>
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        <span class="keyword">try</span>:
+            <span class="keyword">return</span> <span class="function">int</span>(<span class="function">input</span>(msg))
+        <span class="keyword">except</span> ValueError:
+            <span class="function">print</span>(<span class="string">"Erro: digite um n&uacute;mero inteiro."</span>)
+
+<span class="keyword">def</span> <span class="function">l&ecirc;_float</span>(msg):
+    <span class="string">"""L&ecirc; um float do teclado, pedindo novamente em caso de erro."""</span>
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        <span class="keyword">try</span>:
+            <span class="keyword">return</span> <span class="function">float</span>(<span class="function">input</span>(msg))
+        <span class="keyword">except</span> ValueError:
+            <span class="function">print</span>(<span class="string">"Erro: digite um n&uacute;mero real."</span>)
+
+<span class="keyword">def</span> <span class="function">faixa_int</span>(msg, minimo, maximo):
+    <span class="string">"""L&ecirc; um inteiro dentro de [minimo, maximo]."""</span>
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        n = <span class="function">l&ecirc;_int</span>(msg)
+        <span class="keyword">if</span> minimo <= n <= maximo:
+            <span class="keyword">return</span> n
+        <span class="function">print</span>(<span class="string">f"Digite entre </span>{minimo}<span class="string"> e </span>{maximo}<span class="string">."</span>)</div>
+
+            <p>Para usar o m&oacute;dulo em outro arquivo, usamos <code>import</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.35 &mdash; Importando e usando o m&oacute;dulo entrada</span><span class="comment"># Forma 1: importar o m&oacute;dulo inteiro</span>
+<span class="keyword">import</span> entrada
+
+n = entrada.<span class="function">l&ecirc;_int</span>(<span class="string">"Digite um inteiro: "</span>)
+nota = entrada.<span class="function">faixa_int</span>(<span class="string">"Nota (0-10): "</span>, <span class="number">0</span>, <span class="number">10</span>)
+
+<span class="comment"># Forma 2: importar fun&ccedil;&otilde;es espec&iacute;ficas</span>
+<span class="keyword">from</span> entrada <span class="keyword">import</span> l&ecirc;_int, faixa_int
+
+n = <span class="function">l&ecirc;_int</span>(<span class="string">"Digite um inteiro: "</span>)</div>
+
+            <div class="highlight-box">
+                <p>&#x1F4A1; O arquivo <code>entrada.py</code> deve estar na mesma pasta do programa que o importa, ou num diret&oacute;rio que esteja no <code>PYTHONPATH</code>.</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Números aleatórios -->
+        <div class="content-card">
+            <h2>&#x1F3B2; 8.11 N&uacute;meros Aleat&oacute;rios</h2>
+            <p>O m&oacute;dulo <code>random</code> da biblioteca padr&atilde;o do Python oferece fun&ccedil;&otilde;es para gerar n&uacute;meros pseudo-aleat&oacute;rios. &Eacute; muito &uacute;til em jogos, simula&ccedil;&otilde;es e testes.</p>
+
+            <h3>random.randint(a, b)</h3>
+            <p>Retorna um inteiro aleat&oacute;rio entre <code>a</code> e <code>b</code>, <strong>inclusive</strong>:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.36 &mdash; Usando randint</span><span class="keyword">import</span> random
+
+dado = random.<span class="function">randint</span>(<span class="number">1</span>, <span class="number">6</span>)
+<span class="function">print</span>(dado)   <span class="comment"># um n&uacute;mero entre 1 e 6</span></div>
+
+            <p>Exemplo completo: jogo de adivinhar o n&uacute;mero:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.37 &mdash; Jogo: adivinhe o n&uacute;mero</span><span class="keyword">import</span> random
+
+secreto = random.<span class="function">randint</span>(<span class="number">1</span>, <span class="number">10</span>)
+tentativas = <span class="number">0</span>
+
+<span class="keyword">while</span> <span class="keyword">True</span>:
+    chute = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Adivinhe o n&uacute;mero (1-10): "</span>))
+    tentativas += <span class="number">1</span>
+    <span class="keyword">if</span> chute == secreto:
+        <span class="function">print</span>(<span class="string">f"Acertou em </span>{tentativas}<span class="string"> tentativa(s)!"</span>)
+        <span class="keyword">break</span>
+    <span class="keyword">elif</span> chute < secreto:
+        <span class="function">print</span>(<span class="string">"Maior!"</span>)
+    <span class="keyword">else</span>:
+        <span class="function">print</span>(<span class="string">"Menor!"</span>)</div>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.13</h3>
+                <p>Modifique o jogo de adivinhar para limitar o n&uacute;mero de tentativas a 5. Se o jogador errar 5 vezes, o programa deve revelar o n&uacute;mero secreto.</p>
+            </div>
+
+            <h3>Outras fun&ccedil;&otilde;es do m&oacute;dulo random</h3>
+            <div class="code-block"><span class="code-label">Listagem 8.38 &mdash; random.random()</span><span class="prompt">&gt;&gt;&gt;</span> random.<span class="function">random</span>()
+<span class="output">0.37444887175646646</span>   <span class="comment"># float entre 0.0 e 1.0 (exclusive)</span></div>
+            <div class="code-block"><span class="code-label">Listagem 8.39 &mdash; random.uniform(a, b)</span><span class="prompt">&gt;&gt;&gt;</span> random.<span class="function">uniform</span>(<span class="number">1.5</span>, <span class="number">3.5</span>)
+<span class="output">2.847392...</span>   <span class="comment"># float aleat&oacute;rio entre 1.5 e 3.5</span></div>
+            <div class="code-block"><span class="code-label">Listagem 8.40 &mdash; random.sample() &mdash; loteria</span><span class="keyword">import</span> random
+
+dezenas = random.<span class="function">sample</span>(<span class="function">range</span>(<span class="number">1</span>, <span class="number">61</span>), <span class="number">6</span>)
+dezenas.<span class="function">sort</span>()
+<span class="function">print</span>(dezenas)</div>
+            <div class="code-block"><span class="output">[3, 17, 24, 38, 45, 59]</span></div>
+            <div class="code-block"><span class="code-label">Listagem 8.41 &mdash; random.shuffle() &mdash; embaralhar</span><span class="keyword">import</span> random
+
+cartas = [<span class="string">'A'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>,
+          <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'8'</span>, <span class="string">'9'</span>, <span class="string">'10'</span>,
+          <span class="string">'J'</span>, <span class="string">'Q'</span>, <span class="string">'K'</span>]
+
+random.<span class="function">shuffle</span>(cartas)
+<span class="function">print</span>(cartas[:<span class="number">5</span>])   <span class="comment"># primeiras 5 cartas embaralhadas</span></div>
+            <div class="code-block"><span class="output">['7', 'Q', '2', 'K', 'A']</span></div>
+
+            <table class="method-table">
+                <tr>
+                    <th>Fun&ccedil;&atilde;o</th>
+                    <th>Descri&ccedil;&atilde;o</th>
+                </tr>
+                <tr><td>random.randint(a, b)</td><td>Inteiro aleat&oacute;rio em [a, b]</td></tr>
+                <tr><td>random.random()</td><td>Float aleat&oacute;rio em [0.0, 1.0)</td></tr>
+                <tr><td>random.uniform(a, b)</td><td>Float aleat&oacute;rio em [a, b]</td></tr>
+                <tr><td>random.sample(seq, k)</td><td>k elementos distintos aleat&oacute;rios de seq</td></tr>
+                <tr><td>random.shuffle(lista)</td><td>Embaralha a lista no lugar (in-place)</td></tr>
+                <tr><td>random.choice(seq)</td><td>Elemento aleat&oacute;rio de uma seq&uuml;&ecirc;ncia</td></tr>
+            </table>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.14</h3>
+                <p>Escreva um programa de simula&ccedil;&atilde;o de dados: lan&ccedil;a dois dados (1&ndash;6) 1000 vezes e conta quantas vezes a soma foi igual a 7. Exiba a porcentagem.</p>
+            </div>
+        </div>
+
+        <!-- Card 3: A função type -->
+        <div class="content-card">
+            <h2>&#x1F50D; 8.12 A Fun&ccedil;&atilde;o type()</h2>
+            <p>A fun&ccedil;&atilde;o embutida <code>type()</code> retorna o tipo de um objeto. &Eacute; &uacute;til para depurar c&oacute;digo e para escrever fun&ccedil;&otilde;es que se comportam diferentemente conforme o tipo do argumento:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.42 &mdash; Exemplos de type()</span><span class="prompt">&gt;&gt;&gt;</span> <span class="function">type</span>(<span class="number">42</span>)
+<span class="output">&lt;class 'int'&gt;</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="function">type</span>(<span class="number">3.14</span>)
+<span class="output">&lt;class 'float'&gt;</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="function">type</span>(<span class="string">"ol&aacute;"</span>)
+<span class="output">&lt;class 'str'&gt;</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="function">type</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
+<span class="output">&lt;class 'list'&gt;</span>
+<span class="prompt">&gt;&gt;&gt;</span> <span class="function">type</span>(<span class="keyword">True</span>)
+<span class="output">&lt;class 'bool'&gt;</span></div>
+
+            <p>Podemos usar <code>type()</code> em compara&ccedil;&otilde;es com <code>==</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.43 &mdash; Fun&ccedil;&atilde;o diz_o_tipo</span><span class="keyword">def</span> <span class="function">diz_o_tipo</span>(x):
+    t = <span class="function">type</span>(x)
+    <span class="keyword">if</span> t == <span class="function">int</span>:
+        <span class="function">print</span>(<span class="string">f"</span>{x}<span class="string"> &eacute; um inteiro"</span>)
+    <span class="keyword">elif</span> t == <span class="function">float</span>:
+        <span class="function">print</span>(<span class="string">f"</span>{x}<span class="string"> &eacute; um real"</span>)
+    <span class="keyword">elif</span> t == <span class="function">str</span>:
+        <span class="function">print</span>(<span class="string">f"</span>{x}<span class="string"> &eacute; uma string"</span>)
+    <span class="keyword">elif</span> t == <span class="function">list</span>:
+        <span class="function">print</span>(<span class="string">f"</span>{x}<span class="string"> &eacute; uma lista"</span>)
+    <span class="keyword">else</span>:
+        <span class="function">print</span>(<span class="string">f"</span>{x}<span class="string"> &eacute; do tipo </span>{t}<span class="string">"</span>)
+
+<span class="function">diz_o_tipo</span>(<span class="number">42</span>)
+<span class="function">diz_o_tipo</span>(<span class="string">"Python"</span>)
+<span class="function">diz_o_tipo</span>([<span class="number">1</span>, <span class="number">2</span>])</div>
+            <div class="code-block"><span class="output">42 &eacute; um inteiro
+Python &eacute; uma string
+[1, 2] &eacute; uma lista</span></div>
+
+            <h3>Verificando tipos em listas mistas</h3>
+            <div class="code-block"><span class="code-label">Listagem 8.44 &mdash; Tipos dos elementos de uma lista</span>lista = [<span class="number">1</span>, <span class="string">"dois"</span>, <span class="number">3.0</span>, <span class="keyword">True</span>, [<span class="number">4</span>, <span class="number">5</span>]]
+
+<span class="keyword">for</span> e <span class="keyword">in</span> lista:
+    <span class="function">print</span>(<span class="function">type</span>(e).__name__, <span class="string">"→"</span>, e)</div>
+            <div class="code-block"><span class="output">int → 1
+str → dois
+float → 3.0
+bool → True
+list → [4, 5]</span></div>
+
+            <p>Podemos usar <code>type()</code> para filtrar elementos de um tipo espec&iacute;fico:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.45 &mdash; Navegando listas pelo tipo</span><span class="keyword">def</span> <span class="function">s&oacute;_inteiros</span>(lista):
+    <span class="keyword">return</span> [e <span class="keyword">for</span> e <span class="keyword">in</span> lista <span class="keyword">if</span> <span class="function">type</span>(e) == <span class="function">int</span>]
+
+<span class="keyword">def</span> <span class="function">s&oacute;_strings</span>(lista):
+    <span class="keyword">return</span> [e <span class="keyword">for</span> e <span class="keyword">in</span> lista <span class="keyword">if</span> <span class="function">type</span>(e) == <span class="function">str</span>]
+
+mista = [<span class="number">1</span>, <span class="string">"a"</span>, <span class="number">2</span>, <span class="string">"b"</span>, <span class="number">3.5</span>, <span class="number">4</span>]
+<span class="function">print</span>(<span class="function">s&oacute;_inteiros</span>(mista))
+<span class="function">print</span>(<span class="function">s&oacute;_strings</span>(mista))</div>
+            <div class="code-block"><span class="output">[1, 2, 4]
+['a', 'b']</span></div>
+
+            <div class="highlight-box">
+                <p>&#x1F4A1; Para verificar tipos de forma mais flex&iacute;vel (respeitando heran&ccedil;a), prefira <code>isinstance(x, int)</code> em vez de <code>type(x) == int</code>. O <code>isinstance</code> retorna <code>True</code> tamb&eacute;m para subclasses.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.15</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>soma_por_tipo(lista)</code> que receba uma lista mista e retorne um dicion&aacute;rio com as somas separadas por tipo. Por exemplo: <code>{"int": 6, "float": 3.5}</code> para a lista <code>[1, 2, 3, 3.5]</code>.</p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap8-03-funcoes-avancadas.html" class="nav-link">&#x2B05; Aula anterior</a>
+            <a href="index.html" class="nav-link">&#x1F3E0; Voltar ao in&iacute;cio</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>

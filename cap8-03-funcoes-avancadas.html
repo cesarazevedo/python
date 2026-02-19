@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 8.3 - Funções Avançadas</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #059669; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(5,150,105,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(5,150,105,0.12); color: #059669; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card h3 { color: #059669; margin: 20px 0 10px; font-size: 1.1em; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .prompt { color: #64748b; }
+        .code-block .number { color: #fb923c; }
+        .code-block .error { color: #f87171; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-box code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .warn-box { background: #fff7ed; border: 2px solid #fed7aa; border-radius: 12px; padding: 20px 25px; margin: 20px 0; }
+        .warn-box p { margin-bottom: 0; color: #92400e; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 8 &mdash; Fun&ccedil;&otilde;es</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x2699;&#xFE0F; Fun&ccedil;&otilde;es Avan&ccedil;adas</h1>
+            <p class="subtitle">Se&ccedil;&otilde;es 8.4&ndash;8.9 &mdash; Par&acirc;metros opcionais, nomeados, fun&ccedil;&otilde;es de ordem superior, empacotamento e lambda</p>
+        </div>
+
+        <!-- Card 1: Parâmetros opcionais -->
+        <div class="content-card">
+            <h2>&#x1F527; 8.4 Par&acirc;metros Opcionais</h2>
+            <p>Par&acirc;metros opcionais (ou com <em>valor padr&atilde;o</em>) tornam certos argumentos opcion&aacute;rios na chamada. Se o argumento n&atilde;o for fornecido, o valor padr&atilde;o &eacute; usado:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.17 &mdash; Fun&ccedil;&atilde;o barra simples</span><span class="keyword">def</span> <span class="function">barra</span>(largura):
+    <span class="function">print</span>(<span class="string">"="</span> * largura)</div>
+            <div class="code-block"><span class="code-label">Listagem 8.18 &mdash; Barra com par&acirc;metros opcionais</span><span class="keyword">def</span> <span class="function">barra</span>(largura=<span class="number">40</span>, char=<span class="string">"="</span>):
+    <span class="function">print</span>(char * largura)</div>
+            <div class="code-block"><span class="code-label">Listagem 8.19 &mdash; Chamando barra de v&aacute;rias formas</span><span class="function">barra</span>()           <span class="comment"># usa largura=40, char="="</span>
+<span class="function">barra</span>(<span class="number">20</span>)         <span class="comment"># usa largura=20, char="="</span>
+<span class="function">barra</span>(<span class="number">30</span>, <span class="string">"-"</span>)   <span class="comment"># usa largura=30, char="-"</span></div>
+            <div class="code-block"><span class="output">========================================
+====================
+------------------------------</span></div>
+
+            <p>Par&acirc;metros opcionais tamb&eacute;m podem controlar o comportamento da fun&ccedil;&atilde;o:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.20 &mdash; Par&acirc;metro booleano opcional</span><span class="keyword">def</span> <span class="function">soma</span>(a, b, imprime=<span class="keyword">False</span>):
+    resultado = a + b
+    <span class="keyword">if</span> imprime:
+        <span class="function">print</span>(<span class="string">f"</span>{a}<span class="string"> + </span>{b}<span class="string"> = </span>{resultado}<span class="string">"</span>)
+    <span class="keyword">return</span> resultado</div>
+            <div class="code-block"><span class="code-label">Listagem 8.21 &mdash; Uso da fun&ccedil;&atilde;o soma</span>x = <span class="function">soma</span>(<span class="number">2</span>, <span class="number">3</span>)               <span class="comment"># silencioso</span>
+y = <span class="function">soma</span>(<span class="number">2</span>, <span class="number">3</span>, <span class="keyword">True</span>)          <span class="comment"># imprime</span>
+z = <span class="function">soma</span>(<span class="number">2</span>, <span class="number">3</span>, imprime=<span class="keyword">True</span>)   <span class="comment"># imprime (nomeando)</span></div>
+            <div class="code-block"><span class="output">2 + 3 = 5
+2 + 3 = 5</span></div>
+
+            <div class="warn-box">
+                <p>&#x26A0;&#xFE0F; <strong>Aten&ccedil;&atilde;o:</strong> par&acirc;metros com valor padr&atilde;o devem sempre vir <strong>depois</strong> dos par&acirc;metros obrigat&oacute;rios. O c&oacute;digo abaixo causa erro de sintaxe:</p>
+            </div>
+            <div class="code-block"><span class="code-label">Listagem 8.22 &mdash; Defini&ccedil;&atilde;o INV&Aacute;LIDA</span><span class="keyword">def</span> <span class="function">soma</span>(a=<span class="number">0</span>, b):   <span class="comment"># SyntaxError: par&acirc;metro sem padr&atilde;o ap&oacute;s par&acirc;metro com padr&atilde;o</span>
+    <span class="keyword">return</span> a + b</div>
+        </div>
+
+        <!-- Card 2: Nomeando parâmetros -->
+        <div class="content-card">
+            <h2>&#x1F3F7;&#xFE0F; 8.5 Nomeando Par&acirc;metros</h2>
+            <p>Ao chamar uma fun&ccedil;&atilde;o, podemos nomear os argumentos para maior clareza e flexibilidade de ordem:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.23 &mdash; Fun&ccedil;&atilde;o ret&acirc;ngulo</span><span class="keyword">def</span> <span class="function">ret&acirc;ngulo</span>(largura, altura, char=<span class="string">"*"</span>, preenche=<span class="keyword">False</span>):
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(altura):
+        <span class="keyword">if</span> preenche <span class="keyword">or</span> i == <span class="number">0</span> <span class="keyword">or</span> i == altura - <span class="number">1</span>:
+            <span class="function">print</span>(char * largura)
+        <span class="keyword">else</span>:
+            <span class="function">print</span>(char + <span class="string">" "</span> * (largura - <span class="number">2</span>) + char)</div>
+            <div class="code-block"><span class="code-label">Listagem 8.24 &mdash; Chamando com argumentos nomeados</span><span class="function">ret&acirc;ngulo</span>(<span class="number">10</span>, <span class="number">4</span>)
+<span class="function">ret&acirc;ngulo</span>(<span class="number">10</span>, <span class="number">4</span>, char=<span class="string">"-"</span>)
+<span class="function">ret&acirc;ngulo</span>(<span class="number">10</span>, <span class="number">4</span>, preenche=<span class="keyword">True</span>)
+<span class="function">ret&acirc;ngulo</span>(altura=<span class="number">4</span>, largura=<span class="number">10</span>)   <span class="comment"># ordem invertida &eacute; OK</span></div>
+            <div class="code-block"><span class="code-label">Listagem 8.25 &mdash; Chamadas inv&aacute;lidas</span><span class="function">ret&acirc;ngulo</span>(<span class="number">10</span>)               <span class="error"># TypeError: falta 'altura'</span>
+<span class="function">ret&acirc;ngulo</span>(<span class="number">10</span>, <span class="number">4</span>, <span class="number">3</span>)          <span class="error"># TypeError: 3 n&atilde;o &eacute; str</span></div>
+            <div class="highlight-box">
+                <p>&#x1F4A1; Nomear argumentos torna o c&oacute;digo mais leg&iacute;vel, especialmente quando a fun&ccedil;&atilde;o tem muitos par&acirc;metros opcionais. Use nomes claros e descritivos.</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Funções como parâmetro -->
+        <div class="content-card">
+            <h2>&#x1F501; 8.6 Fun&ccedil;&otilde;es como Par&acirc;metro</h2>
+            <p>Em Python, fun&ccedil;&otilde;es s&atilde;o objetos de primeira classe &mdash; podem ser passadas como argumentos para outras fun&ccedil;&otilde;es. Isso permite criar c&oacute;digo extremamente flex&iacute;vel:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.26 &mdash; Passando fun&ccedil;&atilde;o como argumento</span><span class="keyword">def</span> <span class="function">aplica</span>(func, valor):
+    <span class="keyword">return</span> <span class="function">func</span>(valor)
+
+<span class="keyword">def</span> <span class="function">dobro</span>(x):
+    <span class="keyword">return</span> x * <span class="number">2</span>
+
+<span class="function">print</span>(<span class="function">aplica</span>(dobro, <span class="number">5</span>))    <span class="comment"># 10</span>
+<span class="function">print</span>(<span class="function">aplica</span>(str, <span class="number">42</span>))    <span class="comment"># '42'</span></div>
+            <div class="code-block"><span class="output">10
+42</span></div>
+
+            <p>Um exemplo mais pr&aacute;tico: uma fun&ccedil;&atilde;o que imprime elementos de uma lista, com filtro e formato configur&aacute;veis:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.27 &mdash; imprime_lista com fun&ccedil;&otilde;es configur&aacute;veis</span><span class="keyword">def</span> <span class="function">imprime_lista</span>(lista, fcondi&ccedil;&atilde;o=<span class="keyword">None</span>, fimpress&atilde;o=<span class="function">print</span>):
+    <span class="keyword">for</span> e <span class="keyword">in</span> lista:
+        <span class="keyword">if</span> fcondi&ccedil;&atilde;o <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> <span class="function">fcondi&ccedil;&atilde;o</span>(e):
+            <span class="function">fimpress&atilde;o</span>(e)
+
+<span class="keyword">def</span> <span class="function">&eacute;par</span>(n):
+    <span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">0</span>
+
+numeros = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]
+<span class="function">imprime_lista</span>(numeros)                        <span class="comment"># imprime todos</span>
+<span class="function">imprime_lista</span>(numeros, fcondi&ccedil;&atilde;o=&eacute;par)      <span class="comment"># s&oacute; os pares</span></div>
+            <div class="code-block"><span class="output">1
+2
+3
+4
+5
+6
+---
+2
+4
+6</span></div>
+        </div>
+
+        <!-- Card 4: Empacotamento -->
+        <div class="content-card">
+            <h2>&#x1F4E6; 8.7 Empacotamento com *args</h2>
+            <p>Quando uma fun&ccedil;&atilde;o precisa aceitar um n&uacute;mero vari&aacute;vel de argumentos, usamos o prefixo <code>*</code> no par&acirc;metro. Os argumentos extras s&atilde;o empacotados numa tupla:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.28 &mdash; soma com *args</span><span class="keyword">def</span> <span class="function">soma</span>(*args):
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> n <span class="keyword">in</span> args:
+        total += n
+    <span class="keyword">return</span> total
+
+<span class="function">print</span>(<span class="function">soma</span>(<span class="number">1</span>, <span class="number">2</span>))
+<span class="function">print</span>(<span class="function">soma</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>))
+<span class="function">print</span>(<span class="function">soma</span>())           <span class="comment"># args ser&aacute; uma tupla vazia</span></div>
+            <div class="code-block"><span class="output">3
+15
+0</span></div>
+
+            <div class="code-block"><span class="code-label">Listagem 8.29 &mdash; Barra com *args</span><span class="keyword">def</span> <span class="function">barra</span>(*args):
+    <span class="keyword">if</span> <span class="function">len</span>(args) == <span class="number">0</span>:
+        <span class="function">print</span>(<span class="string">"="</span> * <span class="number">40</span>)
+    <span class="keyword">elif</span> <span class="function">len</span>(args) == <span class="number">1</span>:
+        <span class="function">print</span>(<span class="string">"="</span> * args[<span class="number">0</span>])
+    <span class="keyword">else</span>:
+        <span class="function">print</span>(args[<span class="number">1</span>] * args[<span class="number">0</span>])</div>
+
+            <h3>Misturando par&acirc;metros obrigat&oacute;rios e *args</h3>
+            <div class="code-block"><span class="code-label">Listagem 8.30 &mdash; Par&acirc;metros fixos + *args</span><span class="keyword">def</span> <span class="function">cabecalho</span>(titulo, *subtitulos):
+    <span class="function">print</span>(<span class="string">"==="</span>, titulo, <span class="string">"==="</span>)
+    <span class="keyword">for</span> s <span class="keyword">in</span> subtitulos:
+        <span class="function">print</span>(<span class="string">"  -"</span>, s)
+
+<span class="function">cabecalho</span>(<span class="string">"Python"</span>)
+<span class="function">cabecalho</span>(<span class="string">"Python"</span>, <span class="string">"R&aacute;pido"</span>, <span class="string">"Leg&iacute;vel"</span>, <span class="string">"Poderoso"</span>)</div>
+            <div class="code-block"><span class="output">=== Python ===
+=== Python ===
+  - R&aacute;pido
+  - Leg&iacute;vel
+  - Poderoso</span></div>
+        </div>
+
+        <!-- Card 5: Desempacotamento -->
+        <div class="content-card">
+            <h2>&#x1F4E4; 8.8 Desempacotamento</h2>
+            <p>O operador <code>*</code> tamb&eacute;m pode ser usado na <em>chamada</em> de uma fun&ccedil;&atilde;o para desempacotar uma lista ou tupla em argumentos separados:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.31 &mdash; Desempacotando lista na chamada</span><span class="keyword">def</span> <span class="function">soma3</span>(a, b, c):
+    <span class="keyword">return</span> a + b + c
+
+numeros = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]
+<span class="function">print</span>(<span class="function">soma3</span>(*numeros))   <span class="comment"># equivale a soma3(10, 20, 30)</span></div>
+            <div class="code-block"><span class="output">60</span></div>
+            <div class="highlight-box">
+                <p>&#x1F4A1; <strong>Empacotamento</strong> (na defini&ccedil;&atilde;o): <code>*args</code> agrupa m&uacute;ltiplos argumentos em uma tupla. <strong>Desempacotamento</strong> (na chamada): <code>*lista</code> expande uma seq&uuml;&ecirc;ncia em argumentos separados.</p>
+            </div>
+        </div>
+
+        <!-- Card 6: Lambda -->
+        <div class="content-card">
+            <h2>&#x03BB; 8.9 Fun&ccedil;&otilde;es Lambda</h2>
+            <p>Uma <strong>fun&ccedil;&atilde;o lambda</strong> &eacute; uma fun&ccedil;&atilde;o an&ocirc;nima definida em uma &uacute;nica express&atilde;o. A sintaxe &eacute;: <code>lambda par&acirc;metros: express&atilde;o</code>. S&atilde;o &uacute;teis quando precisamos de uma fun&ccedil;&atilde;o simples por pouco tempo:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.32 &mdash; Lambda b&aacute;sico</span>dobro = <span class="keyword">lambda</span> x: x * <span class="number">2</span>
+quadrado = <span class="keyword">lambda</span> x: x ** <span class="number">2</span>
+soma = <span class="keyword">lambda</span> a, b: a + b
+
+<span class="function">print</span>(dobro(<span class="number">5</span>))         <span class="comment"># 10</span>
+<span class="function">print</span>(quadrado(<span class="number">4</span>))     <span class="comment"># 16</span>
+<span class="function">print</span>(soma(<span class="number">3</span>, <span class="number">7</span>))      <span class="comment"># 10</span></div>
+            <div class="code-block"><span class="output">10
+16
+10</span></div>
+
+            <p>O uso mais comum de lambdas &eacute; como argumento para fun&ccedil;&otilde;es como <code>sorted()</code>, <code>filter()</code> e <code>map()</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.33 &mdash; Lambda com sorted e filter</span>nomes = [<span class="string">"Bruno"</span>, <span class="string">"Ana"</span>, <span class="string">"Carla"</span>, <span class="string">"Diego"</span>]
+
+<span class="comment"># ordena pelo comprimento do nome</span>
+por_tamanho = <span class="function">sorted</span>(nomes, key=<span class="keyword">lambda</span> n: <span class="function">len</span>(n))
+<span class="function">print</span>(por_tamanho)
+
+<span class="comment"># filtra apenas nomes com mais de 4 letras</span>
+longos = <span class="function">list</span>(<span class="function">filter</span>(<span class="keyword">lambda</span> n: <span class="function">len</span>(n) > <span class="number">4</span>, nomes))
+<span class="function">print</span>(longos)
+
+<span class="comment"># dobra cada elemento</span>
+dobrados = <span class="function">list</span>(<span class="function">map</span>(<span class="keyword">lambda</span> x: x * <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]))
+<span class="function">print</span>(dobrados)</div>
+            <div class="code-block"><span class="output">['Ana', 'Bruno', 'Carla', 'Diego']
+['Bruno', 'Carla', 'Diego']
+[2, 4, 6, 8]</span></div>
+            <div class="highlight-box">
+                <p>&#x1F4A1; Para fun&ccedil;&otilde;es simples de uma linha passadas como argumento, lambda &eacute; conciso e leg&iacute;vel. Para fun&ccedil;&otilde;es mais complexas (com condicionais, loops, etc.), prefira <code>def</code>.</p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap8-02-funcoes-recursao.html" class="nav-link">&#x2B05; Aula anterior</a>
+            <a href="cap8-04-modulos-random-type.html" class="nav-link">Pr&oacute;xima aula &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>

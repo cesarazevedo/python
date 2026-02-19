@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 8.1 - Funções: Introdução e Variáveis</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #059669; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(5,150,105,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(5,150,105,0.12); color: #059669; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card h3 { color: #059669; margin: 20px 0 10px; font-size: 1.1em; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .prompt { color: #64748b; }
+        .code-block .number { color: #fb923c; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-box code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .warn-box { background: #fff7ed; border: 2px solid #fed7aa; border-radius: 12px; padding: 20px 25px; margin: 20px 0; }
+        .warn-box p { margin-bottom: 0; color: #92400e; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 8 &mdash; Fun&ccedil;&otilde;es</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x1F9F0; Fun&ccedil;&otilde;es: Introdu&ccedil;&atilde;o</h1>
+            <p class="subtitle">Se&ccedil;&otilde;es 8.0&ndash;8.1 &mdash; Definindo fun&ccedil;&otilde;es, retorno e vari&aacute;veis locais/globais</p>
+        </div>
+
+        <!-- Card 1: O que é uma função -->
+        <div class="content-card">
+            <h2>&#x1F4D6; O que &eacute; uma Fun&ccedil;&atilde;o?</h2>
+            <p>Uma <strong>fun&ccedil;&atilde;o</strong> &eacute; um trecho de programa que pode ser chamado (executado) v&aacute;rias vezes. Em vez de repetir c&oacute;digo, encapsulamos a l&oacute;gica numa fun&ccedil;&atilde;o e a reutilizamos quando necess&aacute;rio.</p>
+            <p>Em Python, a defini&ccedil;&atilde;o de fun&ccedil;&otilde;es usa a palavra-chave <code>def</code>, seguida do nome, par&acirc;metros entre par&ecirc;nteses e dois-pontos. O corpo &eacute; indentado:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.1 &mdash; Primeira fun&ccedil;&atilde;o</span><span class="keyword">def</span> <span class="function">soma</span>(a, b):
+    <span class="function">print</span>(a + b)
+
+<span class="function">soma</span>(<span class="number">2</span>, <span class="number">3</span>)
+<span class="function">soma</span>(<span class="number">10</span>, <span class="number">20</span>)
+<span class="function">soma</span>(<span class="number">-5</span>, <span class="number">8</span>)</div>
+            <div class="code-block"><span class="output">5
+30
+3</span></div>
+            <p>Os valores <code>a</code> e <code>b</code> s&atilde;o <strong>par&acirc;metros</strong> &mdash; placeholders que recebem os valores passados na chamada (<strong>argumentos</strong>).</p>
+            <div class="highlight-box">
+                <p>&#x1F4A1; Fun&ccedil;&otilde;es permitem dividir um programa grande em partes menores e reutiliz&aacute;veis. Isso facilita a leitura, o teste e a manuten&ccedil;&atilde;o do c&oacute;digo.</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Retorno de valores -->
+        <div class="content-card">
+            <h2>&#x21A9;&#xFE0F; Retorno de Valores</h2>
+            <p>A fun&ccedil;&atilde;o anterior imprime o resultado, mas n&atilde;o o &ldquo;devolve&rdquo; ao c&oacute;digo que a chamou. Para isso, usamos <code>return</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.2 &mdash; Fun&ccedil;&atilde;o com retorno</span><span class="keyword">def</span> <span class="function">soma</span>(a, b):
+    <span class="keyword">return</span> a + b
+
+resultado = <span class="function">soma</span>(<span class="number">2</span>, <span class="number">3</span>)
+<span class="function">print</span>(resultado)
+<span class="function">print</span>(<span class="function">soma</span>(<span class="number">10</span>, <span class="number">20</span>))
+<span class="function">print</span>(<span class="function">soma</span>(<span class="number">4</span>, <span class="number">5</span>) * <span class="number">2</span>)</div>
+            <div class="code-block"><span class="output">5
+30
+18</span></div>
+            <p>O <code>return</code> encerra a execu&ccedil;&atilde;o da fun&ccedil;&atilde;o e devolve o valor ao chamador. Agora o resultado pode ser armazenado numa vari&aacute;vel ou usado em express&otilde;es.</p>
+
+            <h3>Fun&ccedil;&otilde;es que retornam booleanos</h3>
+            <p>Fun&ccedil;&otilde;es podem retornar qualquer tipo &mdash; inclusive <code>True</code>/<code>False</code>. Isso as torna leg&iacute;veis como express&otilde;es condicionais:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.3 &mdash; Fun&ccedil;&atilde;o &eacute;par</span><span class="keyword">def</span> <span class="function">&eacute;par</span>(n):
+    <span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">0</span></div>
+            <div class="code-block"><span class="code-label">Listagem 8.4 &mdash; Usando &eacute;par dentro de outra fun&ccedil;&atilde;o</span><span class="keyword">def</span> <span class="function">par_ou_impar</span>(n):
+    <span class="keyword">if</span> <span class="function">&eacute;par</span>(n):
+        <span class="function">print</span>(<span class="string">f'</span>{n}<span class="string"> &eacute; par'</span>)
+    <span class="keyword">else</span>:
+        <span class="function">print</span>(<span class="string">f'</span>{n}<span class="string"> &eacute; &iacute;mpar'</span>)
+
+<span class="function">par_ou_impar</span>(<span class="number">4</span>)
+<span class="function">par_ou_impar</span>(<span class="number">7</span>)</div>
+            <div class="code-block"><span class="output">4 &eacute; par
+7 &eacute; &iacute;mpar</span></div>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.1</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>dobro(n)</code> que receba um n&uacute;mero inteiro e retorne o seu dobro. Teste chamando-a com diferentes valores.</p>
+            </div>
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.2</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>media(a, b, c)</code> que receba tr&ecirc;s n&uacute;meros reais e retorne a m&eacute;dia aritm&eacute;tica entre eles.</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Funções com listas -->
+        <div class="content-card">
+            <h2>&#x1F4CB; Fun&ccedil;&otilde;es com Listas</h2>
+            <p>Fun&ccedil;&otilde;es aceitam qualquer tipo como par&acirc;metro, inclusive listas. Veja uma fun&ccedil;&atilde;o que pesquisa um elemento numa lista:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.5 &mdash; Pesquisa em lista</span><span class="keyword">def</span> <span class="function">pesquisa</span>(lista, item):
+    <span class="keyword">for</span> e <span class="keyword">in</span> lista:
+        <span class="keyword">if</span> e == item:
+            <span class="keyword">return</span> <span class="keyword">True</span>
+    <span class="keyword">return</span> <span class="keyword">False</span>
+
+nomes = [<span class="string">"Ana"</span>, <span class="string">"Bruno"</span>, <span class="string">"Carla"</span>]
+<span class="function">print</span>(<span class="function">pesquisa</span>(nomes, <span class="string">"Bruno"</span>))
+<span class="function">print</span>(<span class="function">pesquisa</span>(nomes, <span class="string">"Diego"</span>))</div>
+            <div class="code-block"><span class="output">True
+False</span></div>
+
+            <p>Podemos calcular a m&eacute;dia de uma lista de valores:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.6 &mdash; C&aacute;lculo de m&eacute;dia</span><span class="keyword">def</span> <span class="function">media</span>(lista):
+    soma = <span class="number">0</span>
+    <span class="keyword">for</span> e <span class="keyword">in</span> lista:
+        soma += e
+    <span class="keyword">return</span> soma / <span class="function">len</span>(lista)
+
+notas = [<span class="number">7.5</span>, <span class="number">8.0</span>, <span class="number">6.5</span>, <span class="number">9.0</span>]
+<span class="function">print</span>(<span class="function">media</span>(notas))</div>
+            <div class="code-block"><span class="output">7.75</span></div>
+
+            <p>Fun&ccedil;&otilde;es tamb&eacute;m podem chamar umas &agrave;s outras. Abaixo, <code>media</code> usa a fun&ccedil;&atilde;o <code>soma</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.7 &mdash; Fun&ccedil;&otilde;es que colaboram</span><span class="keyword">def</span> <span class="function">soma</span>(lista):
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> e <span class="keyword">in</span> lista:
+        total += e
+    <span class="keyword">return</span> total
+
+<span class="keyword">def</span> <span class="function">media</span>(lista):
+    <span class="keyword">return</span> <span class="function">soma</span>(lista) / <span class="function">len</span>(lista)
+
+notas = [<span class="number">7.5</span>, <span class="number">8.0</span>, <span class="number">6.5</span>, <span class="number">9.0</span>]
+<span class="function">print</span>(<span class="function">soma</span>(notas))
+<span class="function">print</span>(<span class="function">media</span>(notas))</div>
+            <div class="code-block"><span class="output">31.0
+7.75</span></div>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.3</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>maior(lista)</code> que receba uma lista de n&uacute;meros e retorne o maior deles, <strong>sem usar</strong> a fun&ccedil;&atilde;o embutida <code>max()</code>.</p>
+            </div>
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.4</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>conta_pares(lista)</code> que retorne quantos n&uacute;meros pares existem na lista.</p>
+            </div>
+        </div>
+
+        <!-- Card 4: Boas práticas e fatorial iterativo -->
+        <div class="content-card">
+            <h2>&#x26A0;&#xFE0F; Boas Pr&aacute;ticas &mdash; Evite Fun&ccedil;&otilde;es R&iacute;gidas</h2>
+            <p>Uma fun&ccedil;&atilde;o bem projetada deve ser <strong>geral</strong> e <strong>reutiliz&aacute;vel</strong>. O exemplo abaixo mostra como <strong>n&atilde;o</strong> escrever uma fun&ccedil;&atilde;o de soma:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.8 &mdash; Como N&Atilde;O escrever (fun&ccedil;&atilde;o r&iacute;gida)</span><span class="comment"># Errado: depende de vari&aacute;veis globais espec&iacute;ficas</span>
+<span class="keyword">def</span> <span class="function">soma</span>():
+    <span class="keyword">return</span> n1 + n2 + n3 + n4 + n5
+
+<span class="comment"># Correto: recebe os dados como par&acirc;metros</span>
+<span class="keyword">def</span> <span class="function">soma</span>(lista):
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> e <span class="keyword">in</span> lista:
+        total += e
+    <span class="keyword">return</span> total</div>
+
+            <h3>Fatorial Iterativo</h3>
+            <p>O fatorial de n &eacute; o produto 1 &times; 2 &times; 3 &times; &hellip; &times; n. Podemos calcul&aacute;-lo de duas formas iterativas:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.9 &mdash; Fatorial iterativo (v1)</span><span class="keyword">def</span> <span class="function">fatorial</span>(n):
+    fat = <span class="number">1</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1</span>, n + <span class="number">1</span>):
+        fat *= i
+    <span class="keyword">return</span> fat
+
+<span class="function">print</span>(<span class="function">fatorial</span>(<span class="number">5</span>))   <span class="comment"># 120</span>
+<span class="function">print</span>(<span class="function">fatorial</span>(<span class="number">10</span>))  <span class="comment"># 3628800</span></div>
+            <div class="code-block"><span class="code-label">Listagem 8.10 &mdash; Fatorial iterativo (v2)</span><span class="keyword">def</span> <span class="function">fatorial</span>(n):
+    fat = n
+    <span class="keyword">while</span> n > <span class="number">1</span>:
+        n -= <span class="number">1</span>
+        fat *= n
+    <span class="keyword">return</span> fat
+
+<span class="function">print</span>(<span class="function">fatorial</span>(<span class="number">5</span>))   <span class="comment"># 120</span></div>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.5</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>potencia(base, exp)</code> que calcule <code>base</code> elevado a <code>exp</code> de forma iterativa, sem usar o operador <code>**</code>.</p>
+            </div>
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.6</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>combinacao(n, k)</code> que calcule o n&uacute;mero de combina&ccedil;&otilde;es de <em>n</em> elementos tomados <em>k</em> a <em>k</em>, usando a fun&ccedil;&atilde;o <code>fatorial</code>.</p>
+            </div>
+        </div>
+
+        <!-- Card 5: Variáveis locais e globais -->
+        <div class="content-card">
+            <h2>&#x1F510; 8.1 Vari&aacute;veis Locais e Globais</h2>
+            <p>Vari&aacute;veis criadas <em>dentro</em> de uma fun&ccedil;&atilde;o s&atilde;o <strong>locais</strong> &mdash; existem apenas durante a execu&ccedil;&atilde;o da fun&ccedil;&atilde;o e n&atilde;o s&atilde;o vis&iacute;veis fora dela. Vari&aacute;veis criadas fora de qualquer fun&ccedil;&atilde;o s&atilde;o <strong>globais</strong>.</p>
+            <div class="code-block"><span class="code-label">Exemplo &mdash; Vari&aacute;vel local</span>EMPRESA = <span class="string">"Python S.A."</span>   <span class="comment"># global</span>
+
+<span class="keyword">def</span> <span class="function">muda_e_imprime</span>():
+    EMPRESA = <span class="string">"Java Ltda."</span>   <span class="comment"># local &mdash; n&atilde;o altera a global!</span>
+    <span class="function">print</span>(EMPRESA)
+
+<span class="function">muda_e_imprime</span>()   <span class="comment"># imprime "Java Ltda."</span>
+<span class="function">print</span>(EMPRESA)     <span class="comment"># imprime "Python S.A." (inalterada)</span></div>
+            <div class="code-block"><span class="output">Java Ltda.
+Python S.A.</span></div>
+            <p>Para que uma fun&ccedil;&atilde;o modifique uma vari&aacute;vel global, &eacute; necess&aacute;rio declar&aacute;-la com <code>global</code>:</p>
+            <div class="code-block"><span class="code-label">Listagem &mdash; Usando a palavra-chave global</span>EMPRESA = <span class="string">"Python S.A."</span>
+
+<span class="keyword">def</span> <span class="function">muda_e_imprime</span>():
+    <span class="keyword">global</span> EMPRESA
+    EMPRESA = <span class="string">"Java Ltda."</span>
+    <span class="function">print</span>(EMPRESA)
+
+<span class="function">muda_e_imprime</span>()   <span class="comment"># imprime "Java Ltda."</span>
+<span class="function">print</span>(EMPRESA)     <span class="comment"># imprime "Java Ltda." (foi alterada!)</span></div>
+            <div class="code-block"><span class="output">Java Ltda.
+Java Ltda.</span></div>
+            <div class="warn-box">
+                <p>&#x26A0;&#xFE0F; <strong>Cuidado:</strong> o uso excessivo de <code>global</code> dificulta a leitura e o teste do c&oacute;digo. Prefira sempre passar valores como par&acirc;metros e receber resultados via <code>return</code>.</p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap7-03-strings-formatacao.html" class="nav-link">&#x2B05; Aula anterior</a>
+            <a href="cap8-02-funcoes-recursao.html" class="nav-link">Pr&oacute;xima aula &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 8.2 - Funções: Recursão e Validação</title>
+    <link rel="stylesheet" href="slide-mode.css">
+    <style>
+        :root { --primary: #059669; --secondary: #FFD43B; --bg-light: #f4f7fe; --text-dark: #2d3748; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; }
+        .top-bar { background: white; padding: 15px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 10; }
+        .back-btn { text-decoration: none; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .back-btn:hover { background: rgba(5,150,105,0.08); }
+        .page-badge { font-size: 0.8em; padding: 4px 12px; border-radius: 20px; background: rgba(5,150,105,0.12); color: #059669; font-weight: 600; }
+        .content-wrapper { max-width: 800px; margin: 40px auto; padding: 0 30px; }
+        .lesson-hero { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .lesson-hero h1 { font-size: 2em; margin-bottom: 10px; color: var(--primary); }
+        .lesson-hero .subtitle { font-size: 1.1em; color: #718096; }
+        .content-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .content-card h2 { font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .content-card h3 { color: #059669; margin: 20px 0 10px; font-size: 1.1em; }
+        .content-card p { margin-bottom: 15px; text-align: justify; }
+        .highlight-box { background: linear-gradient(135deg, rgba(5,150,105,0.05), rgba(255,212,59,0.1)); border-left: 4px solid var(--secondary); padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 20px 0; }
+        .highlight-box p { margin-bottom: 0; font-style: italic; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px 25px; border-radius: 12px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 15px 0; overflow-x: auto; position: relative; white-space: pre; }
+        .code-block .code-label { position: absolute; top: 8px; right: 12px; font-size: 0.75em; color: #64748b; font-family: 'Segoe UI', sans-serif; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .string { color: #86efac; }
+        .code-block .comment { color: #64748b; font-style: italic; }
+        .code-block .output { color: #fbbf24; }
+        .code-block .prompt { color: #64748b; }
+        .code-block .number { color: #fb923c; }
+        .exercise-box { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .exercise-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.1em; }
+        .exercise-box p { margin-bottom: 8px; }
+        .exercise-box code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .recursion-diagram { display: flex; flex-direction: column; gap: 4px; margin: 15px 0; padding: 20px; background: #f8fafc; border-radius: 12px; font-family: 'Consolas', monospace; font-size: 0.9em; }
+        .recursion-diagram .call { color: #059669; }
+        .recursion-diagram .ret { color: #7c3aed; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 40px; padding-bottom: 40px; }
+        .nav-link { text-decoration: none; color: var(--primary); font-weight: 600; padding: 12px 24px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        ul, ol { margin: 10px 0 15px 25px; } li { margin-bottom: 8px; }
+        @media (max-width: 768px) { .content-wrapper { padding: 0 15px; } .lesson-hero, .content-card { padding: 25px; } .lesson-hero h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">&#x2B05; Voltar ao Dashboard</a>
+        <span class="page-badge">Cap&iacute;tulo 8 &mdash; Fun&ccedil;&otilde;es</span>
+        <button class="slide-toggle" id="slideToggleBtn">&#x1F4FA; Modo Slide</button>
+    </div>
+    <div class="content-wrapper">
+        <div class="lesson-hero">
+            <h1>&#x267B;&#xFE0F; Recurs&atilde;o e Valida&ccedil;&atilde;o</h1>
+            <p class="subtitle">Se&ccedil;&otilde;es 8.2&ndash;8.3 &mdash; Fun&ccedil;&otilde;es recursivas e valida&ccedil;&atilde;o de entrada</p>
+        </div>
+
+        <!-- Card 1: Recursão -->
+        <div class="content-card">
+            <h2>&#x267B;&#xFE0F; 8.2 Fun&ccedil;&otilde;es Recursivas</h2>
+            <p>Uma fun&ccedil;&atilde;o &eacute; <strong>recursiva</strong> quando ela chama a si mesma. Para evitar um loop infinito, toda fun&ccedil;&atilde;o recursiva precisa de um <strong>caso base</strong> &mdash; uma condi&ccedil;&atilde;o que encerra a recurs&atilde;o sem fazer nova chamada.</p>
+            <p>O fatorial &eacute; o exemplo cl&aacute;ssico: <strong>fat(n) = n &times; fat(n-1)</strong>, e <strong>fat(1) = 1</strong> (caso base).</p>
+            <div class="code-block"><span class="code-label">Listagem 8.11 &mdash; Fatorial recursivo</span><span class="keyword">def</span> <span class="function">fatorial</span>(n):
+    <span class="keyword">if</span> n <= <span class="number">1</span>:
+        <span class="keyword">return</span> <span class="number">1</span>
+    <span class="keyword">return</span> n * <span class="function">fatorial</span>(n - <span class="number">1</span>)
+
+<span class="function">print</span>(<span class="function">fatorial</span>(<span class="number">5</span>))   <span class="comment"># 120</span></div>
+
+            <h3>Rastreando a execu&ccedil;&atilde;o</h3>
+            <p>Podemos adicionar um <code>print</code> para visualizar a pilha de chamadas:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.12 &mdash; Fatorial com rastreamento</span><span class="keyword">def</span> <span class="function">fatorial</span>(n):
+    <span class="function">print</span>(<span class="string">f"fatorial(</span>{n}<span class="string">)"</span>)
+    <span class="keyword">if</span> n <= <span class="number">1</span>:
+        <span class="keyword">return</span> <span class="number">1</span>
+    <span class="keyword">return</span> n * <span class="function">fatorial</span>(n - <span class="number">1</span>)
+
+<span class="function">fatorial</span>(<span class="number">4</span>)</div>
+            <div class="code-block"><span class="code-label">Listagem 8.13 &mdash; Sa&iacute;da do rastreamento</span><span class="output">fatorial(4)
+fatorial(3)
+fatorial(2)
+fatorial(1)</span></div>
+            <p>Cada chamada fica &ldquo;suspensa&rdquo; esperando o resultado da pr&oacute;xima, formando uma <em>pilha de chamadas</em>. Quando o caso base &eacute; atingido, os retornos se propagam:</p>
+            <div class="recursion-diagram">
+                <span class="call">fatorial(4)  &#x2192;  4 &times; fatorial(3)</span>
+                <span class="call" style="padding-left:20px">fatorial(3)  &#x2192;  3 &times; fatorial(2)</span>
+                <span class="call" style="padding-left:40px">fatorial(2)  &#x2192;  2 &times; fatorial(1)</span>
+                <span class="call" style="padding-left:60px">fatorial(1)  &#x2192;  1  (caso base)</span>
+                <span class="ret" style="padding-left:40px">&#x2190;  2 &times; 1 = 2</span>
+                <span class="ret" style="padding-left:20px">&#x2190;  3 &times; 2 = 6</span>
+                <span class="ret">&#x2190;  4 &times; 6 = 24</span>
+            </div>
+            <div class="highlight-box">
+                <p>&#x1F4A1; Toda fun&ccedil;&atilde;o recursiva precisa de: (1) um <strong>caso base</strong> que encerra a recurs&atilde;o e (2) uma <strong>chamada recursiva</strong> que aproxima o problema do caso base.</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Fibonacci -->
+        <div class="content-card">
+            <h2>&#x1F400; Sequ&ecirc;ncia de Fibonacci</h2>
+            <p>A sequ&ecirc;ncia de Fibonacci &eacute; definida como: <strong>F(0) = 0</strong>, <strong>F(1) = 1</strong> e <strong>F(n) = F(n-1) + F(n-2)</strong> para n &ge; 2. A sequ&ecirc;ncia &eacute;: 0, 1, 1, 2, 3, 5, 8, 13, 21, &hellip;</p>
+            <div class="code-block"><span class="code-label">Listagem 8.14 &mdash; Fibonacci recursivo</span><span class="keyword">def</span> <span class="function">fibonacci</span>(n):
+    <span class="keyword">if</span> n <= <span class="number">1</span>:
+        <span class="keyword">return</span> n
+    <span class="keyword">return</span> <span class="function">fibonacci</span>(n - <span class="number">1</span>) + <span class="function">fibonacci</span>(n - <span class="number">2</span>)
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>):
+    <span class="function">print</span>(<span class="function">fibonacci</span>(i), end=<span class="string">" "</span>)</div>
+            <div class="code-block"><span class="output">0 1 1 2 3 5 8 13 21 34 </span></div>
+            <p>Note que a recurs&atilde;o do Fibonacci faz <em>duas</em> chamadas recursivas, tornando o algoritmo exponencial. Para valores grandes de n, prefira a vers&atilde;o iterativa.</p>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.7</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o recursiva <code>mdc(a, b)</code> que calcule o M&aacute;ximo Divisor Comum usando o algoritmo de Euclides: <code>mdc(a, b) = mdc(b, a % b)</code>, caso base: <code>mdc(a, 0) = a</code>.</p>
+            </div>
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.8</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o <code>mmc(a, b)</code> que calcule o M&iacute;nimo M&uacute;ltiplo Comum usando a rela&ccedil;&atilde;o: <code>mmc(a, b) = a * b // mdc(a, b)</code>.</p>
+            </div>
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.9</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o recursiva <code>soma_digitos(n)</code> que retorne a soma dos d&iacute;gitos de um n&uacute;mero inteiro positivo. Por exemplo: <code>soma_digitos(1234) == 10</code>.</p>
+            </div>
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.10</h3>
+                <p>Escreva uma fun&ccedil;&atilde;o recursiva <code>potencia(base, exp)</code> que calcule <code>base</code> elevado a <code>exp</code> sem usar o operador <code>**</code>.</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Validação de entrada -->
+        <div class="content-card">
+            <h2>&#x2705; 8.3 Valida&ccedil;&atilde;o de Entrada</h2>
+            <p>Programas robustos precisam validar os dados fornecidos pelo usu&aacute;rio. Sem fun&ccedil;&otilde;es, o c&oacute;digo de valida&ccedil;&atilde;o fica repetido em v&aacute;rios lugares:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.15 &mdash; Valida&ccedil;&atilde;o sem fun&ccedil;&atilde;o (repeti&ccedil;&atilde;o de c&oacute;digo)</span><span class="comment"># Lendo a idade</span>
+<span class="keyword">while</span> <span class="keyword">True</span>:
+    idade = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Idade (0-120): "</span>))
+    <span class="keyword">if</span> <span class="number">0</span> <= idade <= <span class="number">120</span>:
+        <span class="keyword">break</span>
+    <span class="function">print</span>(<span class="string">"Digite um valor entre 0 e 120."</span>)
+
+<span class="comment"># Lendo a nota</span>
+<span class="keyword">while</span> <span class="keyword">True</span>:
+    nota = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"Nota (0-10): "</span>))
+    <span class="keyword">if</span> <span class="number">0</span> <= nota <= <span class="number">10</span>:
+        <span class="keyword">break</span>
+    <span class="function">print</span>(<span class="string">"Digite um valor entre 0 e 10."</span>)</div>
+
+            <p>Com uma fun&ccedil;&atilde;o de valida&ccedil;&atilde;o gen&eacute;rica, o c&oacute;digo fica muito mais limpo:</p>
+            <div class="code-block"><span class="code-label">Listagem 8.16 &mdash; Fun&ccedil;&atilde;o faixa_int</span><span class="keyword">def</span> <span class="function">faixa_int</span>(msg, minimo, maximo):
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        n = <span class="function">int</span>(<span class="function">input</span>(msg))
+        <span class="keyword">if</span> minimo <= n <= maximo:
+            <span class="keyword">return</span> n
+        <span class="function">print</span>(<span class="string">f"Digite um valor entre </span>{minimo}<span class="string"> e </span>{maximo}<span class="string">."</span>)
+
+<span class="comment"># Uso da fun&ccedil;&atilde;o</span>
+idade = <span class="function">faixa_int</span>(<span class="string">"Idade (0-120): "</span>, <span class="number">0</span>, <span class="number">120</span>)
+nota  = <span class="function">faixa_int</span>(<span class="string">"Nota (0-10): "</span>, <span class="number">0</span>, <span class="number">10</span>)</div>
+            <div class="highlight-box">
+                <p>&#x1F4A1; Funções de validação eliminam a duplicação de código e centralizam a lógica de verificação. Se a regra muda, basta alterar em um único lugar.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.11</h3>
+                <p>Crie uma fun&ccedil;&atilde;o <code>faixa_float(msg, minimo, maximo)</code> similar a <code>faixa_int</code>, por&eacute;m para n&uacute;meros reais. Use-a para ler peso (30.0 a 300.0) e altura (0.5 a 2.5).</p>
+            </div>
+            <div class="exercise-box">
+                <h3>&#x270F;&#xFE0F; Exerc&iacute;cio 8.12</h3>
+                <p>Crie uma fun&ccedil;&atilde;o <code>le_opcao(msg, opcoes)</code> que exiba uma mensagem e aceite apenas uma das strings contidas na lista <code>opcoes</code>. Por exemplo: <code>le_opcao("S ou N? ", ["S", "N"])</code>.</p>
+            </div>
+        </div>
+
+        <div class="nav-footer">
+            <a href="cap8-01-funcoes-intro.html" class="nav-link">&#x2B05; Aula anterior</a>
+            <a href="cap8-03-funcoes-avancadas.html" class="nav-link">Pr&oacute;xima aula &#x27A1;</a>
+        </div>
+    </div>
+    <script src="slide-mode.js"></script>
+</body>
+</html>
