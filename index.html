@@ -471,6 +471,8 @@
         body.dark-mode .tab-btn.active { background: rgba(48,105,152,0.18); }
         body.dark-mode .dash-card { background: #1e293b; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         body.dark-mode .dash-card h3 { color: #e2e8f0; }
+        body.dark-mode #motivationCard { background: linear-gradient(135deg, #1e293b, rgba(255,212,59,0.04)) !important; border-left-color: var(--secondary) !important; }
+        body.dark-mode #motivationText { color: #94a3b8 !important; }
         body.dark-mode .progress-circular { background: conic-gradient(var(--primary) var(--prog), #334155 0); }
         body.dark-mode .prog-text { background: #1e293b; color: #93c5fd; }
         body.dark-mode .chapter-check-list label:hover { background: #334155; }
@@ -616,6 +618,11 @@
                     <h3>&#x1F468;&#x200D;&#x1F3EB; Contato do Professor</h3>
                     <p><strong>C&eacute;sar Azevedo</strong></p>
                     <p style="margin-top:8px;">&#x1F4E7; cesar.augusto@escolar.ifrn.edu.br</p>
+                </div>
+
+                <div class="dash-card" id="motivationCard" style="border-left: 4px solid var(--secondary); background: linear-gradient(135deg, white, rgba(255,212,59,0.05));">
+                    <h3>&#x1F4A1; Dica do Dia</h3>
+                    <p id="motivationText" style="font-style: italic; color: #4a5568; line-height: 1.7; margin-top: 8px;"></p>
                 </div>
 
                 <div class="dash-card">
@@ -1303,6 +1310,46 @@
             const hash = location.hash.slice(1);
             if (hash && document.getElementById(hash)) activateTab(hash);
         });
+
+        // DICA MOTIVACIONAL
+        (function() {
+            const dicas = [
+                "Todo programador já foi iniciante. O segredo não é nunca errar, mas aprender com cada erro.",
+                "Código que funciona é melhor do que código perfeito que não existe. Comece simples.",
+                "Programar é como resolver quebra-cabeças: a satisfação de encaixar as peças não tem preço.",
+                "Não decore sintaxe — entenda o raciocínio. A sintaxe você consulta; o raciocínio você carrega.",
+                "Um loop que resolve um problema real vale mais do que cem exemplos de livro.",
+                "Quando um programa não funciona, respire fundo. O bug está lá, esperando para ser encontrado.",
+                "Aprenda a ler mensagens de erro: elas não são punições, são dicas valiosas do Python.",
+                "Dividir um problema grande em partes menores é a essência da programação.",
+                "O `print()` é seu melhor amigo para entender o que o programa está fazendo.",
+                "Consistência bate talento. Praticar 20 minutos todo dia supera uma maratona semanal.",
+                "Variáveis bem nomeadas poupam horas de confusão. Seja gentil com o seu eu do futuro.",
+                "Cada capítulo que você conclui é uma ferramenta nova no seu cinto de programador.",
+                "Não existe 'não tenho jeito para programação' — existe 'ainda não pratiquei o suficiente'.",
+                "Copiar e executar um código ensinado é aprender. Modificá-lo e ver o que muda é entender.",
+                "O melhor momento para começar a programar foi ontem. O segundo melhor momento é agora.",
+                "Erros de sintaxe são os mais fáceis de corrigir — o Python te diz exatamente onde olhar.",
+                "Programação é criatividade com lógica. Você está desenvolvendo os dois ao mesmo tempo.",
+                "Quando algo não funciona, tente explicar o código em voz alta. Muitas vezes você mesmo acha o problema.",
+                "Algoritmos são receitas. Se você consegue cozinhar um miojo, consegue escrever um algoritmo.",
+                "A paciência é uma habilidade de programação tão importante quanto saber usar `for` ou `while`.",
+                "Não pule os exercícios. É tentador só ler — mas programação se aprende programando.",
+                "Todo programa que você escreve, mesmo que pequeno, é uma conquista real. Celebre isso.",
+                "Python foi projetado para ser legível por humanos. Se você consegue ler, consegue aprender.",
+                "O Google e a documentação são ferramentas, não trapaças. Todo desenvolvedor profissional usa.",
+                "Entender `if`, `for` e funções já te coloca à frente de 90% das pessoas que nunca tentaram.",
+                "Bugs não significam que você é mau programador — significam que você está avançando.",
+                "A melhor forma de fixar um conceito é tentar ensiná-lo para outra pessoa ou escrever sobre ele.",
+                "Seu primeiro programa funcional — mesmo que seja 'Olá Mundo' — já mudou algo no mundo real.",
+                "Programar desenvolve raciocínio lógico, resolução de problemas e atenção a detalhes. São superpoderes.",
+                "A jornada de mil programas começa com um único `print('Olá, Mundo!')`."
+            ];
+            document.addEventListener('DOMContentLoaded', function() {
+                const el = document.getElementById('motivationText');
+                if (el) el.textContent = dicas[Math.floor(Math.random() * dicas.length)];
+            });
+        })();
 
         // MODO ESCURO
         (function() {
