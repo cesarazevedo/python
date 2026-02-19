@@ -1,5 +1,10 @@
 // === MODO SLIDE ===
 (function() {
+    // Aplica modo escuro antes do DOM renderizar (evita flash)
+    if (localStorage.getItem('darkMode') === '1') {
+        document.body.classList.add('dark-mode');
+    }
+
     let currentSlide = 0;
     let slides = [];
     let lessonTitle = '';
@@ -211,6 +216,30 @@
         });
     }
 
+    // === MODO ESCURO ===
+    function initDarkMode() {
+        const topBar = document.querySelector('.top-bar');
+        if (!topBar) return;
+
+        const btn = document.createElement('button');
+        btn.className = 'dark-toggle';
+        btn.id = 'darkToggleBtn';
+        btn.title = 'Alternar modo escuro';
+        btn.textContent = document.body.classList.contains('dark-mode') ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        const fontControls = topBar.querySelector('.font-controls');
+        const slideToggle = topBar.querySelector('.slide-toggle');
+        if (fontControls) topBar.insertBefore(btn, fontControls);
+        else if (slideToggle) topBar.insertBefore(btn, slideToggle);
+        else topBar.appendChild(btn);
+
+        btn.addEventListener('click', function() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            btn.textContent = isDark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('darkMode', isDark ? '1' : '0');
+        });
+    }
+
     // === SERVICE WORKER ===
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(function() {});
@@ -221,6 +250,7 @@
         initSlideMode();
         initCodeToolbars();
         initFontSize();
+        initDarkMode();
 
         const toggleBtn = document.getElementById('slideToggleBtn');
         if (toggleBtn) toggleBtn.addEventListener('click', enterSlideMode);
