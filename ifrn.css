@@ -1,0 +1,21 @@
+/* Tema IFRN – Campus João Câmara (sobrepõe as cores de cada página) */
+:root{--primary:#216a28;--secondary:#c90c10;--verde:#338731;--verde-esc:#216a28;--verm:#c90c10;--bg-light:#f4f6f3;--text-dark:#2b2b2b}
+body{font-family:"Open Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif}
+.top-bar,.top-header{border-bottom:4px solid var(--verde)}
+.ifrn-logo{display:inline-flex;align-items:center;background:#fff;border-radius:8px;padding:2px 6px;flex:none}
+.ifrn-logo img{height:44px;width:auto;display:block}
+.top-header .ifrn-logo img{height:52px}
+.ifrn-todas{font-size:.85em;font-weight:600;color:var(--verde-esc);text-decoration:none;padding:6px 12px;border:2px solid var(--verde);border-radius:999px;white-space:nowrap}
+.ifrn-todas:hover{background:var(--verde);color:#fff}
+.page-badge{background:rgba(51,135,49,.14)!important;color:var(--verde-esc)!important}
+.highlight-box{background:linear-gradient(135deg,rgba(51,135,49,.07),rgba(201,12,16,.05))!important}
+.lesson-hero{border-top:6px solid var(--verde)}
+.lesson-hero h1,.content-card h2{color:var(--verde-esc)}
+.ifrn-foot{background:#2b2b2b;color:#d6d9d4;text-align:center;font-size:14px;padding:20px;border-top:4px solid var(--verm);margin-top:30px}
+.ifrn-foot b{color:#fff}.ifrn-foot a{color:#9be29a}
+body.slide-active .ifrn-foot{display:none}
+@media (max-width:640px){.ifrn-logo img{height:34px}.top-header .ifrn-logo img{height:40px}.ifrn-todas{display:none}}
+.top-bar{flex-wrap:wrap;gap:10px 14px!important;padding:10px 16px!important}
+.top-bar .slide-toggle{margin-left:auto}
+@media (max-width:640px){.top-bar .back-btn{padding:6px 8px!important;font-size:.9em}}
+@media (max-width:640px){.content-card table{display:block;overflow-x:auto;max-width:100%}.content-card code,.compare-item{overflow-wrap:anywhere}.content-card{overflow-x:hidden}}

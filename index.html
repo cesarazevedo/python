@@ -7,7 +7,7 @@
     <style>
         /* --- RESET E BASE --- */
         :root {
-            --primary: #306998;
+            --primary: #216a28;
             --secondary: #FFD43B;
             --bg-light: #f4f7fe;
             --text-dark: #2d3748;
@@ -48,7 +48,7 @@
         }
 
         .brand-text {
-            background: linear-gradient(to right, var(--primary), #4B8BBE);
+            background: linear-gradient(to right, var(--primary), #338731);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -92,7 +92,7 @@
         .user-avatar {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary), #4B8BBE);
+            background: linear-gradient(135deg, var(--primary), #338731);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -231,7 +231,7 @@
         .tab-btn[data-target="cap10"].active { border-left-color: #be185d; color: #be185d; background: rgba(190,24,93,0.08); }
         .tab-btn[data-target="cap11"].active { border-left-color: #0369a1; color: #0369a1; background: rgba(3,105,161,0.08); }
         .tab-btn[data-target="cap12"].active { border-left-color: #ca8a04; color: #ca8a04; background: rgba(202,138,4,0.08); }
-        .tab-btn[data-target="sorteio"].active { border-left-color: #306998; color: #306998; background: rgba(48,105,152,0.08); }
+        .tab-btn[data-target="sorteio"].active { border-left-color: #216a28; color: #216a28; background: rgba(33,106,40,0.08); }
 
         .badge-cap7  { background: rgba(124,58,237,0.12); color: #7c3aed; }
         .badge-cap8  { background: rgba(5,150,105,0.12);  color: #059669; }
@@ -300,7 +300,7 @@
         .raffle-field input[type="number"]:focus {
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 3px rgba(48,105,152,0.1);
+            box-shadow: 0 0 0 3px rgba(33,106,40,0.1);
         }
         .raffle-field textarea {
             width: 100%;
@@ -320,12 +320,12 @@
         .raffle-field textarea:focus {
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 3px rgba(48,105,152,0.1);
+            box-shadow: 0 0 0 3px rgba(33,106,40,0.1);
         }
         .raffle-field.grow { flex: 1; }
         .raffle-btn {
             padding: 11px 28px;
-            background: linear-gradient(135deg, var(--primary), #4B8BBE);
+            background: linear-gradient(135deg, var(--primary), #338731);
             color: white;
             border: none;
             border-radius: 10px;
@@ -337,7 +337,7 @@
         }
         .raffle-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(48,105,152,0.3);
+            box-shadow: 0 6px 20px rgba(33,106,40,0.3);
         }
         .raffle-btn:active { transform: translateY(0); }
         .raffle-btn-secondary {
@@ -750,7 +750,7 @@
             line-height: 1;
             transition: all 0.2s;
         }
-        .dark-toggle-index:hover { background: #eef4fb; border-color: #306998; }
+        .dark-toggle-index:hover { background: #eef4fb; border-color: #216a28; }
 
         body.dark-mode { background-color: #0f172a; color: #e2e8f0; }
         body.dark-mode .top-header { background: #1e293b; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
@@ -760,7 +760,7 @@
         body.dark-mode .sidebar-sep { background: #334155; }
         body.dark-mode .tab-btn { color: #94a3b8; }
         body.dark-mode .tab-btn:hover { color: #e2e8f0; background: rgba(255,255,255,0.05); }
-        body.dark-mode .tab-btn.active { background: rgba(48,105,152,0.18); }
+        body.dark-mode .tab-btn.active { background: rgba(33,106,40,0.18); }
         body.dark-mode .dash-card { background: #1e293b; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         body.dark-mode .dash-card h3 { color: #e2e8f0; }
         body.dark-mode #motivationText { color: #94a3b8 !important; }
@@ -843,14 +843,16 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="ifrn.css">
 </head>
 <body>
     <!-- HEADER -->
     <div class="top-header">
         <div class="brand">
-            <span class="brand-icons">&#x1F40D;</span>
-            <span class="brand-text">Python Dashboard</span>
+            <a class="ifrn-logo" href="https://cesarazevedo.github.io/apostilas/" title="Todas as apostilas"><img src="logo-ifrn-jc.png" alt="Instituto Federal do Rio Grande do Norte, Campus João Câmara"></a>
+            <span class="brand-text">Introdução à Programação com Python</span>
         </div>
+        <a class="ifrn-todas" href="https://cesarazevedo.github.io/apostilas/">← Todas as apostilas</a>
         <div class="search-box">
             <span class="search-icon">&#x1F50D;</span>
             <input

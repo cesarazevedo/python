@@ -1,5 +1,5 @@
 // === SERVICE WORKER — python-course ===
-const CACHE = 'python-course-v1';
+const CACHE = 'python-course-v2';
 
 // Instala sem esperar
 self.addEventListener('install', () => self.skipWaiting());
